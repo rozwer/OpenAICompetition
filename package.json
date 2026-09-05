@@ -1,0 +1,40 @@
+{
+  "name": "grow-map",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "check:boundaries": "node scripts/check-boundaries.mjs",
+    "check": "pnpm check:boundaries && pnpm typecheck && pnpm test"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "dependencies": {
+    "@openai/codex": "^0.153.4",
+    "@tmcw/togeojson": "^7.0.0",
+    "lucide-react": "^0.468.0",
+    "maplibre-gl": "^5.0.0",
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "@types/geojson": "^7946.0.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "prettier": "^3.9.6",
+    "typescript": "^5.0.0",
+    "vitest": "^3.0.0"
+  }
+}

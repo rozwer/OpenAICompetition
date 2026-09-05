@@ -1,0 +1,27 @@
+{
+  "region": "yokohama",
+  "retrieved_at": "2026-09-05",
+  "bounds": [
+    139.647,
+    35.438,
+    139.653,
+    35.445
+  ],
+  "source": "https://www.openstreetmap.org/api/0.6/map?bbox=139.647,35.438,139.653,35.445",
+  "license": "ODbL-1.0",
+  "attribution": "© OpenStreetMap contributors",
+  "license_url": "https://www.openstreetmap.org/copyright",
+  "coordinate_system": "WGS84 longitude, latitude",
+  "height_rule": "Only numeric OSM height tags, in metres; no building:levels conversion; unknown remains null.",
+  "files": {
+    "yokohama.osm": "ce5366c23cb5138e3dd163ba50570c36e9c7b900bbf94e7ed5ddaa94d43df1c3",
+    "buildings.geojson": "c1c924e2893833b5b7c5d82000ee99125d2896c47500e40777ce31849849ef85",
+    "roads.geojson": "dd7ba64506e92ad940eee1dbdfc186f6d438016a18a9bf2c76e0bbf677a4f876",
+    "water.geojson": "efb924d10413af604be13fa48e7d14e480103d3ac989eb59fe4346428c4006bf"
+  },
+  "counts": {
+    "buildings": 886,
+    "roads": 436,
+    "water": 6
+  }
+}

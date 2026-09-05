@@ -17,6 +17,7 @@ coverage/
 playwright-report/
 test-results/
 *.log
+*.tsbuildinfo
 
 # Supabase CLI local state
 supabase/.temp/
