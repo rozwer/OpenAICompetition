@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef, useMemo } from "react";
 import dynamic from "next/dynamic";
 import {
   Map,
@@ -18,16 +18,33 @@ import { api } from "../client/api";
 import { trackLength } from "../domain/tracks";
 import { Recording } from "../features/recording/Recording";
 import { Conversation } from "../features/conversation/Conversation";
-import { Personal } from "../features/personal/Personal";
+import { PersonalInsights } from "../features/personal/PersonalInsights";
+import { PlaceRelationshipSheet } from "../features/personal/PlaceRelationshipSheet";
+import type { PersonalState } from "../contracts/personal-insights";
+import { personalApi } from "../client/personal";
+import { HistoryPage } from "../features/history/HistoryPage";
 import { Friends } from "../features/friends/Friends";
+import { Everyone } from "../features/friends/Everyone";
+import { friendLenses, myLens, lensPlaces } from "../fixtures/everyone";
 import { Transfer } from "../features/transfer/Transfer";
+import { ExtensionHost } from "../features/extensions/ExtensionHost";
+import type { ExtensionMarker } from "../contracts/extensions";
 import { Extensions } from "../features/extensions/Extensions";
 import { Home } from "../features/home/Home";
+import { PlacesPanel } from "../features/places/PlacesPanel";
+import type { SemanticPlace, PlaceQuery } from "../contracts/places";
 const MapCanvas = dynamic(
   () => import("../features/map/MapCanvas").then((m) => m.MapCanvas),
   { ssr: false },
 );
 export default function Page() {
+  const [personal, setPersonal] = useState<PersonalState | null>(null);
+  const [semanticPlaces, setSemanticPlaces] = useState<SemanticPlace[]>([]);
+  const [poiSelected, setPoiSelected] = useState<SemanticPlace | null>(null);
+  const [poiQuery, setPoiQuery] = useState<PlaceQuery>({lat:35.1688,lng:136.9089,radius:1000});
+  const [extensionStudio, setExtensionStudio] = useState(false);
+  const [extensionMarkers, setExtensionMarkers] = useState<ExtensionMarker[]>([]);
+  const [extensionFocus, setExtensionFocus] = useState<string | null>(null);
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null),
     [routePreview, setRoutePreview] = useState<Snapshot["route"]>(),
     [actor, setActor] = useState(""),
@@ -40,6 +57,15 @@ export default function Page() {
     [home, setHome] = useState(true),
     [mapMenu, setMapMenu] = useState(false),
     [mobileOpen, setMobileOpen] = useState(false);
+  const actorRef = useRef(actor); actorRef.current = actor;
+  const personalChanged = useCallback((value: PersonalState) => { if (actorRef.current === value.userId) setPersonal(value); }, []);
+  useEffect(() => {
+    if (!actor) return; let active = true;
+    personalApi({op:"state"}).then(value => { if (active) personalChanged(value); }).catch(() => {});
+    return () => { active = false; };
+  }, [actor, snapshot?.points.length, personalChanged]);
+  const actorPersonal = personal?.userId === actor ? personal : null;
+  const mapPlaces = useMemo(() => [...new globalThis.Map([...semanticPlaces,...(actorPersonal?.places || [])].map(p=>[p.id,p])).values()].slice(0,800), [semanticPlaces,actorPersonal]);
   const enterMap = useCallback(() => {
     setHome(false);
     setTab("map");
@@ -92,8 +118,8 @@ export default function Page() {
       const hash = window.location.hash;
       setImmersive(hash === "#explore");
       setMapMenu(hash === "#maps");
-      setHome(!["#explore", "#plan", "#apps", "#friends"].includes(hash));
-      if (hash === "#plan") {
+      setHome(!["#explore", "#plan", "#apps", "#friends", "#history"].includes(hash));
+      if (hash === "#history") { setTab("history"); setMobileOpen(false); } else if (hash === "#plan") {
         setTab("transfer");
         setMobileOpen(true);
       } else if (hash === "#apps" || hash === "#friends") {
@@ -128,13 +154,13 @@ export default function Page() {
       m.role === "user" && (m.status === "saved" || m.status === "running"),
   );
   useEffect(() => {
-    if (!actor) return;
+    if (!actor || tab === "history") return;
     const timer = setInterval(
       () => void refresh().catch((e) => setError(e.message)),
       pending ? 1800 : 6000,
     );
     return () => clearInterval(timer);
-  }, [actor, pending, refresh]);
+  }, [actor, pending, refresh, tab]);
   async function login(a: string) {
     setError("");
     setRoutePreview(undefined);
@@ -164,8 +190,9 @@ export default function Page() {
         : "map";
   return (
     <main
-      className={`app ${immersive ? "exploring" : ""} ${home && snapshot && !immersive ? "landing" : ""} ${snapshot && tab === "transfer" && mobileOpen && !home ? "planning" : ""}`}
+      className={`app ${tab === "history" && !home ? "history-active" : ""} ${immersive ? "exploring" : ""} ${home && snapshot && !immersive ? "landing" : ""} ${snapshot && tab === "transfer" && mobileOpen && !home ? "planning" : ""}`}
     >
+      {ctx && <ExtensionHost key={actor} ctx={ctx} studio={extensionStudio} onClose={() => { setExtensionStudio(false); setExtensionFocus(null); }} mapVisible={immersive || (!home && tab === "transfer")} onMarkers={setExtensionMarkers} focusId={extensionFocus} />}
       {home && snapshot && !immersive && (
         <Home
           snapshot={snapshot}
@@ -181,6 +208,7 @@ export default function Page() {
               navigatePrimary(section === "friends" ? "connect" : "apps");
               return;
             }
+            if (section === "history") { setHome(false); setImmersive(false); setTab("history"); setMobileOpen(false); window.history.pushState(null,"","#history"); return; }
             if (section === "transfer") {
               openPlanner();
               return;
@@ -195,6 +223,7 @@ export default function Page() {
           }}
         />
       )}
+      {snapshot && tab === "history" && !home && <HistoryPage key={actor} actor={actor} onBack={() => navigatePrimary("map")} onMap={enterMap} />}
       {snapshot && (
         <nav className="app-global-nav" aria-label="ホームナビゲーション">
           <button
@@ -254,7 +283,13 @@ export default function Page() {
         </header>
         <div className="main-grid">
           <section className="map-region">
-            <MapCanvas
+            {tab !== "history" && <MapCanvas
+              semanticPlaces={home || immersive || tab === "transfer" ? [] : mapPlaces}
+              personalRelations={actorPersonal?.relations || []}
+              onPoiSelect={setPoiSelected}
+              onViewChange={setPoiQuery}
+              extensionMarkers={immersive ? [] : extensionMarkers}
+              onExtensionSelect={setExtensionFocus}
               route={routePreview ?? snapshot?.route}
               points={snapshot?.points || []}
               places={places}
@@ -264,15 +299,12 @@ export default function Page() {
               immersive={immersive}
               planning={tab === "transfer" && mobileOpen && !home}
               onEnter={enterMap}
-            />
+            />}
             {immersive ? (
               <div className="explore-toolbar">
                 <button onClick={leaveMap}>
                   <ArrowLeft size={18} />
                   ホームに戻る
-                </button>
-                <button className="toolbar-ai" onClick={openPlanner}>
-                  <Sparkles size={17} /> AIにおまかせ
                 </button>
               </div>
             ) : (
@@ -283,11 +315,6 @@ export default function Page() {
             )}
             {immersive && (
               <>
-                <div className="immersive-map-title">
-                  <span>MY GROWING MAP</span>
-                  <strong>名古屋を歩こう</strong>
-                  <small>人物の周りをなぞって回転 · ピンチで拡大</small>
-                </div>
                 <div className="immersive-route-key">
                   <span>
                     <i />
@@ -388,9 +415,9 @@ export default function Page() {
                   }}
                 />
               ) : tab === "personal" ? (
-                <Personal key={actor} {...ctx} />
+                <PersonalInsights key={actor} state={actorPersonal} onChange={personalChanged} onMap={enterMap}/>
               ) : tab === "friends" ? (
-                <Friends key={actor} {...ctx} />
+                <Everyone key={actor} friends={friendLenses} mine={myLens} places={lensPlaces} invitations={<Friends {...ctx} />} />
               ) : tab === "transfer" ? (
                 <Transfer
                   key={actor}
@@ -404,8 +431,9 @@ export default function Page() {
                   onEnterMap={enterMap}
                   onBack={() => navigatePrimary("map")}
                 />
-              ) : (
+              ) : tab === "history" ? null : (
                 <Extensions
+                  onCreate={() => setExtensionStudio(true)}
                   onBack={() => navigatePrimary("home")}
                   onDiagnosis={() => {
                     setTab("personal");
@@ -464,3 +492,8 @@ export default function Page() {
     </main>
   );
 }
+
+
+
+
+

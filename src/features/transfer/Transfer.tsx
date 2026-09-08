@@ -116,12 +116,6 @@ export function Transfer({
       </header>
       <div className="explore-intro">
         <div className="eyebrow">探索モード</div>
-        <h1>どこへ行こう？</h1>
-        <p>
-          今日はどんな気分？
-          <br />
-          あなたにぴったりのまち歩きをAIが提案します。
-        </p>
       </div>
       <div className="explore-body">
         <div className="sheet-handle" aria-hidden="true" />

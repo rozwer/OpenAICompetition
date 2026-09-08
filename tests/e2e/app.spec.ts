@@ -16,7 +16,7 @@ test("home explore button directly enters and leaves the immersive world on mobi
   expect(full?.width).toBe(390);
   expect(full?.height).toBe(844);
   await expect(page.getByRole("img", { name: "自分のアバター" })).toBeVisible();
-  await expect(page.getByText("デモのスタート地点 · 半径20m")).toBeVisible();
+  await expect(page.getByText("デモのスタート地点 · 半径20m")).toBeHidden();
   await page.waitForTimeout(1300);
   const beforeRotation = await canvas.screenshot();
   await expect(
@@ -148,10 +148,10 @@ test("replay, persist, invite and approve in separate sessions", async ({
   await page.goto("/");
   await page.getByRole("button", { name: "利用者 A で始める" }).click();
   await page.getByRole("button", { name: "地図をひらく" }).click();
-  await expect(page.getByText("名古屋を歩こう", { exact: true })).toBeVisible();
+  await expect(page.getByText("名古屋を歩こう", { exact: true })).toHaveCount(0);
   await expect(
     page.getByRole("button", { name: "久屋大通公園", exact: true }),
-  ).toBeVisible();
+  ).toBeHidden();
   const canvas = await page.locator(".map-canvas").boundingBox();
   expect(canvas?.height).toBeGreaterThan(300);
   await page.getByRole("button", { name: "散歩を再生" }).click();
@@ -164,6 +164,7 @@ test("replay, persist, invite and approve in separate sessions", async ({
     })
     .toBeGreaterThan(0);
   await page.getByRole("button", { name: "つながる", exact: true }).click();
+  await page.getByText("実際の友人を追加する", {exact:true}).click();
   await page
     .getByRole("textbox", { name: "友人の招待コード" })
     .fill("NAGOYA-B");
@@ -173,6 +174,7 @@ test("replay, persist, invite and approve in separate sessions", async ({
   await other.goto("/");
   await other.getByRole("button", { name: "利用者 B で始める" }).click();
   await other.getByRole("button", { name: "つながる", exact: true }).click();
+  await other.getByText("実際の友人を追加する", {exact:true}).click();
   const approve = other.getByRole("button", { name: "承認", exact: true });
   if (await approve.count()) await approve.click();
   await expect(other.getByText("友人になりました")).toBeVisible();
@@ -212,77 +214,21 @@ test("mobile layout supports text entry without horizontal overflow", async ({
   ).toBe(true);
 });
 
-test("type diagnosis shows unknown axes without editing or fake replay evidence", async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 390, height: 844 });
+test("personal page treats absent visits as unknown and never auto-runs AI", async ({ page }) => {
+  let generated = 0;
+  page.on("request", request => { if(request.url().endsWith("/api/personal") && request.postDataJSON()?.op === "generate") generated++; });
+  await page.setViewportSize({width:390,height:844});
   await page.goto("/");
-  await page.getByRole("button", { name: "利用者 B で始める" }).click();
-  await page.getByRole("button", { name: "アプリを育てる" }).click();
-  await page.getByRole("button", { name: "タイプ診断", exact: true }).click();
-  await expect(page.getByRole("heading", { name: "タイプ診断" })).toBeVisible();
-  await expect(
-    page.getByRole("img", { name: /好みのレーダーチャート/ }),
-  ).toBeVisible();
-  await expect(page.getByText("会話と滞在記録から診断しています…")).toHaveCount(
-    0,
-  );
-  await expect(page.locator(".diagnosis-reasons details")).toHaveCount(6);
-  await expect(page.getByRole("textbox", { name: "記憶を訂正" })).toHaveCount(
-    0,
-  );
-  const result = await page.request.post("/api/v1/diagnosis", { data: {} });
-  expect(result.ok()).toBe(true);
-  expect(
-    (await result.json()).axes.every(
-      (a: { score: number | null }) => a.score === null,
-    ),
-  ).toBe(true);
-  await page.locator(".diagnosis-reasons summary").first().click();
-  await expect(
-    page.getByText("判断できる記録がまだありません。").first(),
-  ).toBeVisible();
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= innerWidth,
-    ),
-  ).toBe(true);
+  await page.getByRole("button",{name:"利用者 B で始める"}).click();
+  await page.getByRole("button",{name:"アプリを育てる"}).click();
+  await page.getByRole("button",{name:"自分と街との関係",exact:true}).click();
+  await expect(page.getByRole("heading",{name:"自分と街との関係"})).toBeVisible();
+  await expect(page.getByRole("button",{name:"最近の行動をAIで読み解く"})).toBeDisabled();
+  await expect(page.locator(".compass-axis")).toHaveCount(6);
+  await expect(page.locator(".compass-track i")).toHaveCount(0);
+  expect(generated).toBe(0);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
-
-test("diagnosis renders a complete radar and source details", async ({
-  page,
-}) => {
-  const ids = ["curiosity", "nature", "culture", "food", "social", "activity"];
-  await page.route("**/api/v1/diagnosis", (route) =>
-    route.fulfill({
-      json: {
-        axes: ids.map((id, i) => ({
-          id,
-          score: [80, 90, 60, 35, 65, 75][i],
-          reason: "画面検証用の推定理由です。",
-          evidenceIds: ["test"],
-        })),
-        updatedAt: "2026-09-05T12:00:00Z",
-        evidence: [
-          { id: "test", kind: "conversation", text: "画面検証用の会話です。" },
-        ],
-      },
-    }),
-  );
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
-  await page.getByRole("button", { name: "利用者 B で始める" }).click();
-  await page.getByRole("button", { name: "アプリを育てる" }).click();
-  await page.getByRole("button", { name: "タイプ診断", exact: true }).click();
-  await expect(
-    page.getByRole("img", { name: /6項目を推定済み/ }),
-  ).toBeVisible();
-  await expect(page.locator(".diagnosis-chart polygon")).toHaveCount(5);
-  await page.locator(".diagnosis-reasons summary").first().click();
-  await expect(page.getByText("画面検証用の会話です。").first()).toBeVisible();
-  await page.screenshot({ path: ".local/diagnosis-mobile.png" });
-});
-
 test("conversation opens route planning, preserves required stops and distinguishes missing-key proposals", async ({
   page,
 }) => {
@@ -319,7 +265,7 @@ test("conversation opens route planning, preserves required stops and distinguis
     .getByRole("button", { name: "この会話から散歩ルートを作る" })
     .click();
   await expect(
-    page.getByRole("heading", { name: "どこへ行こう？" }),
+    page.getByRole("heading", { name: "どんな一日を過ごしたいですか？" }),
   ).toBeVisible();
   await page
     .getByRole("button", { name: /出発地・目的地・経由地を指定する/ })
@@ -385,7 +331,7 @@ test("exploration card opens the live map and renders the proposed route in plac
   await page.getByRole("button", { name: /探索モード/ }).click();
   await expect(page.getByLabel("名古屋の3D地図")).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "どこへ行こう？" }),
+    page.getByRole("heading", { name: "どんな一日を過ごしたいですか？" }),
   ).toBeVisible();
   await page.getByLabel("希望するまち歩き").fill("緑とカフェを巡りたい");
   await page.getByRole("button", { name: "希望から提案する" }).click();
@@ -450,7 +396,7 @@ test("device GPS moves the walker to Nagoya University and shows its reading", a
   await page.getByRole("button", { name: "現在地を記録" }).click();
   await expect(page.getByText(/現在地 35\.15331, 136\.96778/)).toBeVisible();
   await expect(page.getByText(/精度 約12m/)).toBeVisible();
-  await expect(page.getByText("最後に取得したGPS位置 · 半径20m")).toBeVisible();
+  await expect(page.getByText("最後に取得したGPS位置 · 半径20m")).toBeHidden();
   const state = await page.request.get("/api/v1/state");
   const snapshot = await state.json();
   expect(
@@ -479,7 +425,7 @@ test("illustrated home and action navigation", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.screenshot({ path: ".local/home-desktop.png", fullPage: true });
   await page.getByRole("button", { name: "地図をひらく" }).click();
-  await expect(page.getByText("名古屋を歩こう", { exact: true })).toBeVisible();
+  await expect(page.getByText("名古屋を歩こう", { exact: true })).toHaveCount(0);
 });
 
 test("bottom map opens the illustrated destination menu", async ({ page }) => {
@@ -492,8 +438,8 @@ test("bottom map opens the illustrated destination menu", async ({ page }) => {
     .click();
   await expect(page.getByLabel("地図メニュー", { exact: true })).toBeVisible();
   await expect(
-    page.getByRole("button", { name: "これまでの軌跡（準備中）" }),
-  ).toBeDisabled();
+    page.getByRole("button", { name: "これまでの軌跡" }),
+  ).toBeEnabled();
   await expect(page).toHaveURL(/#maps$/);
   await expect(
     page.getByRole("button", { name: "地図を育てる", exact: true }),
@@ -506,7 +452,7 @@ test("bottom map opens the illustrated destination menu", async ({ page }) => {
   await expect(page.getByLabel("地図メニュー", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: /探索モード/ }).click();
   await expect(
-    page.getByRole("heading", { name: "どこへ行こう？" }),
+    page.getByRole("heading", { name: "どんな一日を過ごしたいですか？" }),
   ).toBeVisible();
   await expect(page.getByRole("button", { name: "のんびり" })).toHaveAttribute(
     "aria-pressed",
@@ -518,7 +464,7 @@ test("bottom map opens the illustrated destination menu", async ({ page }) => {
   });
   await page.goto("/#maps");
   await page.getByRole("button", { name: /みんなの地図/ }).click();
-  await expect(page.getByLabel("友人の招待コード")).toBeVisible();
+  await expect(page.getByRole("heading",{name:"みんなの地図",exact:true})).toBeVisible();
   await page.goto("/#maps");
   await page.getByRole("button", { name: "ホーム", exact: true }).click();
   await expect(
@@ -526,26 +472,43 @@ test("bottom map opens the illustrated destination menu", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("grow apps catalog filters ideas and preserves a draft without claiming generation", async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
-  await page.getByRole("button", { name: "利用者 A で始める" }).click();
-  await page.getByRole("button", { name: "アプリを育てる", exact: true }).click();
-  await expect(page.getByRole("heading", { name: "アプリを育てる。" })).toBeVisible();
-  await expect(page.locator(".app-global-nav button")).toHaveCount(4);
-  await page.screenshot({ path: ".local/grow-apps-mobile.png" });
-  await page.getByRole("textbox", { name: "機能を検索" }).fill("夕日");
-  await expect(page.locator(".grow-list-item")).toHaveCount(1);
-  await page.getByRole("button", { name: "自分で機能を作ってみる" }).click();
-  await page.getByRole("textbox", { name: "作りたい機能" }).fill("歩いた道で陣取りゲームを作りたい");
-  await page.getByRole("button", { name: "アイデアを下書き保存" }).click();
-  await expect(page.getByRole("status")).toContainText("このブラウザに保存しました");
-  await page.getByRole("button", { name: "閉じる", exact: true }).click();
-  await page.reload();
-  await page.getByRole("button", { name: "自分で機能を作ってみる" }).click();
-  await expect(page.getByRole("textbox", { name: "作りたい機能" })).toHaveValue("歩いた道で陣取りゲームを作りたい");
-  await expect(page.getByText("AIによる機能生成は準備中です。", { exact: false })).toBeVisible();
-  await page.getByRole("button", { name: "閉じる", exact: true }).click();
-  await page.getByRole("button", { name: "戻る", exact: true }).click();
-  await expect(page.getByRole("button", { name: "地図をひらく" })).toBeVisible();
+test("grow apps opens AI creation from the catalog", async ({ page }) => {
+ await page.setViewportSize({width:390,height:844});await page.goto("/");await page.getByRole("button",{name:"利用者 A で始める"}).click();await page.getByRole("button",{name:"アプリを育てる",exact:true}).click();
+ await page.getByRole("textbox",{name:"機能を検索"}).fill("夕日");await expect(page.locator(".grow-list-item")).toHaveCount(1);
+ await page.getByRole("button",{name:"自分で機能を作ってみる"}).click();await expect(page.getByRole("textbox",{name:"作りたい機能や修正内容"})).toBeVisible();
+ await page.screenshot({path:".local/extension-studio-mobile.png"});
+ await page.getByRole("button",{name:"拡張画面を閉じる"}).click();await expect(page.locator(".app-global-nav button")).toHaveCount(4);
 });
+
+test("real AI extension can be tried, installed, published and revised without sharing records", async ({page,browser})=>{
+ test.skip(process.env.EXTENSIONS_LIVE!=="1","Explicit real Codex verification");test.setTimeout(180000);
+ await page.setViewportSize({width:390,height:844});await page.goto("/");await page.getByRole("button",{name:"利用者 A で始める"}).click();await page.getByRole("button",{name:"アプリを育てる",exact:true}).click();await page.getByRole("button",{name:"自分で機能を作ってみる"}).click();
+ await page.getByRole("textbox",{name:"作りたい機能や修正内容"}).fill("『散歩メモ検証』という機能。場所ごとにmemoという文字列を保存し、場所名とメモを一覧・地図ピンに表示。入力欄のラベルはメモ、ボタンのラベルはメモを保存。地図マーカーの基本色はblue（青）、条件別色分けはなし。外部通信不要。");
+ await page.getByRole("button",{name:"AIで機能を作成",exact:true}).click();
+ await expect(page.locator(".ext-preview")).toBeVisible({timeout:100000});
+ await page.locator(".ext-preview").getByLabel("メモ",{exact:true}).fill("試用だけの記録");await page.locator(".ext-preview").getByRole("button",{name:"メモを保存",exact:true}).click();
+ await expect(page.getByRole("button",{name:"試した版を有効化"})).toBeEnabled({timeout:10000});
+ await page.getByRole("button",{name:"試した版を有効化"}).click();await page.getByLabel("利用する情報を確認しました").check();await page.getByRole("button",{name:"この版を有効化する"}).click();
+ const installed=(await (await page.request.get("/api/extensions")).json()).installed[0];expect(installed.state.records).toHaveLength(0);
+ const result=await page.request.post("/api/extensions",{data:{op:"run",id:installed.id,version:1,actionId:installed.revision.definition.actions[0].id,placeId:"hisaya",input:{memo:"本人だけの記録"},preview:false}});expect(result.ok()).toBe(true);
+ await page.getByRole("button",{name:"公開内容を確認"}).click();await page.getByLabel("公開内容を確認しました").check();await page.getByRole("button",{name:"公開する",exact:true}).click();
+ const ctx=await browser.newContext();const other=await ctx.newPage();await other.goto("/");await other.getByRole("button",{name:"利用者 B で始める"}).click();
+ await expect(other.getByRole("button",{name:"地図をひらく"})).toBeVisible();
+ const otherState=await (await other.request.get("/api/extensions")).json();expect(JSON.stringify(otherState)).not.toContain("本人だけの記録");expect(otherState.published.length).toBeGreaterThan(0);
+ expect((await other.request.post("/api/extensions",{data:{op:"install",id:installed.id,version:1,source:"public",approved:true}})).ok()).toBe(true);
+ await page.getByRole("textbox",{name:"作りたい機能や修正内容"}).fill("名前を『散歩メモ改良版』に変更。保存項目と操作はそのまま。");await page.getByRole("button",{name:"AIに修正を依頼"}).click();await expect(page.locator(".ext-preview h3")).toContainText("v2",{timeout:100000});
+ expect((await (await other.request.get("/api/extensions")).json()).installed[0].revision.version).toBe(1);
+ await page.getByRole("button",{name:"拡張画面を閉じる"}).click();await page.getByRole("button",{name:"ホーム",exact:true}).click();await page.getByRole("button",{name:"地図をひらく"}).click();
+ await expect(page.locator(".extension-map-marker")).toHaveCount(1);await expect(page.locator(".extension-map-marker")).toHaveAttribute("data-color","#326EC4");await page.screenshot({path:".local/extension-map-live.png"});
+ await page.getByRole("button",{name:"地図の拡張機能"}).click();await page.getByRole("button",{name:"無効にする",exact:true}).click();await page.getByRole("button",{name:"拡張画面を閉じる"}).click();await expect(page.locator(".extension-map-marker")).toHaveCount(0);
+ await ctx.close();
+});
+
+
+
+
+
+
+
+
+

@@ -14,19 +14,13 @@ const catalog = [
   { name: "街のグルメ手帖", category: "グルメ", description: "食べたいものと出会ったお店を、自分だけの地図に集めよう。", icon: Utensils, tone: "cafe" },
 ];
 
-export function Extensions({ onDiagnosis, onBack }: { onDiagnosis: () => void; onBack: () => void }) {
+export function Extensions({ onDiagnosis, onBack, onCreate }: { onDiagnosis: () => void; onBack: () => void; onCreate: () => void }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("すべて");
   const [panel, setPanel] = useState<string | null>(null);
-  const [idea, setIdea] = useState("");
-  const [saved, setSaved] = useState(false);
-  const [error, setError] = useState("");
   const filtered = catalog.filter(item => (category === "すべて" || item.category === category) && `${item.name}${item.description}`.includes(query.trim()));
   const selected = catalog.find(item => item.name === panel);
-  function openCreator() {
-    try { setIdea(localStorage.getItem("grow-map-extension-idea") ?? ""); } catch { /* Storage may be unavailable. */ }
-    setSaved(false); setError(""); setPanel("create");
-  }
+  function openCreator() { setPanel(null); onCreate(); }
   return <section className="grow-market" aria-label="アプリを育てる">
     <div className="grow-toolbar"><button onClick={onBack}><ArrowLeft size={19} />戻る</button><button onClick={() => setPanel("help")}><BookOpen size={18} />はじめての方へ</button></div>
     <header className="grow-hero">
@@ -40,9 +34,13 @@ export function Extensions({ onDiagnosis, onBack }: { onDiagnosis: () => void; o
     {!filtered.length && <p className="grow-empty">該当するアイデアがありません。別の言葉で探してみてください。</p>}
     <div className="grow-section-title"><h2>こんな機能を育てよう</h2><span>{filtered.length} 件</span></div>
     <div className="grow-list">{filtered.map(item => <button key={item.name} className="grow-list-item" onClick={() => setPanel(item.name)}><span className={`grow-list-icon ${item.tone}`}><item.icon /></span><span className="grow-list-copy"><strong>{item.name}</strong><small>{item.description}</small></span><ChevronRight size={18} /></button>)}</div>
-    <button className="grow-diagnosis" aria-label="タイプ診断" onClick={onDiagnosis}><Radar /><span><strong>自分を知る、タイプ診断</strong><small>滞在データとAIとの会話から、好みを見つける</small></span><ChevronRight /></button>
-    {panel && <div className="grow-modal-backdrop" onClick={() => setPanel(null)}><section className="grow-dialog" role="dialog" aria-modal="true" aria-label={panel === "create" ? "機能のアイデアを作る" : panel === "help" ? "はじめての方へ" : panel} onClick={event => event.stopPropagation()} onKeyDown={event => { if (event.key === "Escape") setPanel(null); }}><button autoFocus className="grow-close" aria-label="閉じる" onClick={() => setPanel(null)}><X /></button><Sparkles className="grow-dialog-icon" />
-      {panel === "create" ? <><h2>どんな機能を作ろう？</h2><p>便利にしたいことも、ちょっと面白いアイデアも。あなたの言葉で教えてください。</p><textarea aria-label="作りたい機能" placeholder="例：歩いた場所を自分の領地にする陣取りゲームを作りたい" value={idea} onChange={event => { setIdea(event.target.value); setSaved(false); }} /><p className="grow-note">今はアイデアの下書きを保存できます。AIによる機能生成は準備中です。下書きはこのブラウザに保存されます。</p><button className="grow-create" disabled={!idea.trim()} onClick={() => { try { localStorage.setItem("grow-map-extension-idea", idea); setSaved(true); setError(""); } catch { setError("保存できませんでした。ブラウザの保存設定をご確認ください。"); } }}>{saved ? <Check size={18} /> : <Plus size={18} />}{saved ? "下書きを保存しました" : "アイデアを下書き保存"}</button><span role="status">{error || (saved ? "このブラウザに保存しました" : "")}</span></> : panel === "help" ? <><h2>あなたのアイデアで、地図を育てる。</h2><p>欲しい機能を言葉にして、自分だけの地図を作る場所です。</p><ol><li>作りたい機能を考える</li><li>AIと一緒に作って、試す</li><li>使いながら、もっと育てる</li></ol><p className="grow-note">現在は画面と下書き保存をお試しいただけます。一覧はサンプルで、機能の生成・追加・共有は準備中です。</p><button className="grow-create" onClick={openCreator}>アイデアを書いてみる<ArrowRight size={18} /></button></> : <><h2>{selected?.name}</h2><p>{selected?.description}</p><p className="grow-note">これは機能のアイデアサンプルです。追加できる機能としての提供は準備中です。</p><button className="grow-create" onClick={() => { setIdea(`${selected?.name}のような機能を作りたい。`); setSaved(false); setPanel("create"); }}>このアイデアから考える<ArrowRight size={18} /></button></>}
+    <button className="grow-diagnosis" aria-label="自分と街との関係" onClick={onDiagnosis}><Radar /><span><strong>自分と街との関係</strong><small>訪問の記録から、最近の行動を見つめる</small></span><ChevronRight /></button>
+    {panel && <div className="grow-modal-backdrop" onClick={() => setPanel(null)}><section className="grow-dialog" role="dialog" aria-modal="true" aria-label={panel === "help" ? "はじめての方へ" : panel} onClick={event => event.stopPropagation()} onKeyDown={event => { if (event.key === "Escape") setPanel(null); }}><button autoFocus className="grow-close" aria-label="閉じる" onClick={() => setPanel(null)}><X /></button><Sparkles className="grow-dialog-icon" />
+      {panel === "help" ? <><h2>あなたのアイデアで、地図を育てる。</h2><p>欲しい機能を言葉にして、自分だけの地図を作る場所です。</p><ol><li>作りたい機能を考える</li><li>AIと一緒に作って、試す</li><li>使いながら、もっと育てる</li></ol><p className="grow-note">「自分で機能を作ってみる」から、AIで作成・お試し・公開ができます。この一覧はアイデアサンプルです。</p><button className="grow-create" onClick={openCreator}>アイデアを書いてみる<ArrowRight size={18} /></button></> : <><h2>{selected?.name}</h2><p>{selected?.description}</p><p className="grow-note">これは機能のアイデアサンプルです。追加できる機能としての提供は準備中です。</p><button className="grow-create" onClick={() => { setPanel(null); onCreate(); }}>このアイデアから考える<ArrowRight size={18} /></button></>}
     </section></div>}
   </section>;
 }
+
+
+
+

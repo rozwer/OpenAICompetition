@@ -125,9 +125,9 @@ export function Home({
                 みんなの地図
               </strong>
               <span>
-                友人とつながってみよう。
+                友達の目で、街を見てみよう。
                 <br />
-                <small>場所の共有は準備中です。</small>
+                <small>地図を訪ねて、ふたりの好きを比べる。</small>
               </span>
             </span>
             <span className="map-card-art" aria-hidden="true">
@@ -147,8 +147,8 @@ export function Home({
           </button>
           <button
             className="map-menu-card history-card"
-            disabled
-            aria-label="これまでの軌跡（準備中）"
+            onClick={() => onSection("history")}
+            aria-label="これまでの軌跡"
           >
             <span className="map-card-copy">
               <strong>
@@ -156,9 +156,9 @@ export function Home({
                 これまでの軌跡
               </strong>
               <span>
-                準備中です。
+                歩いた場所から、
                 <br />
-                記録は地図へ保存されています。
+                自分の地図の成長を振り返る。
               </span>
             </span>
             <span className="map-card-art" aria-hidden="true">
@@ -239,3 +239,4 @@ export function Home({
     </section>
   );
 }
+

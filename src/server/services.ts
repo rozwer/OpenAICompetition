@@ -1,3 +1,12 @@
+import { LocalCodexDeveloper } from "../infrastructure/local-codex-developer";
+import { PersonalStore } from "../infrastructure/personal-store";
+import { HistoryStore } from "../infrastructure/history-store";
+import { HistoryService } from "./history";
+import { PersonalInsightService } from "./personal-insights";
+import { loadBundledPlaces } from "../infrastructure/bundled-places";
+import { ExtensionDevelopmentKit } from "../domain/extension-development";
+import { ExtensionService } from "./extensions";
+import { ExtensionStore } from "../infrastructure/extension-store";
 import { randomUUID } from "node:crypto";
 import { SqliteRepository } from "../infrastructure/sqlite";
 import { CodexAI } from "../infrastructure/codex";
@@ -79,6 +88,9 @@ export class ConversationService {
   }
 }
 type Services = {
+  history: HistoryService;
+  personal: PersonalInsightService;
+  extensions: ExtensionService;
   repo: MapRepository;
   conversation: ConversationService;
   diagnosis: DiagnosisService;
@@ -91,7 +103,10 @@ export function services() {
   if (!globalServices.growMapServices) {
     const repo = new SqliteRepository();
     globalServices.growMapServices = {
+      history: new HistoryService(new HistoryStore(), new CodexAI(), loadBundledPlaces().places),
+      personal: new PersonalInsightService(new PersonalStore(), repo, new CodexAI(), loadBundledPlaces().places),
       repo,
+      extensions: new ExtensionService(new ExtensionStore(), repo, new LocalCodexDeveloper(new CodexAI(), new ExtensionDevelopmentKit()), places),
       conversation: new ConversationService(repo, new CodexAI()),
       diagnosis: new DiagnosisService(repo, new CodexAI(), places),
       routes: new RouteService(
@@ -104,3 +119,5 @@ export function services() {
   }
   return globalServices.growMapServices;
 }
+
+

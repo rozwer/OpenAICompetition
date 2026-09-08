@@ -1,4 +1,8 @@
 "use client";
+import type { ExtensionMarker } from "../../contracts/extensions";
+import type { SemanticPlace, PlaceQuery } from "../../contracts/places";
+import type { UserPlaceRelation } from "../../contracts/personal-insights";
+import { installPoiLayer, updatePoiLayer } from "./poi-layer";
 import { useEffect, useRef, useState } from "react";
 import maplibregl, {
   type GeoJSONSource,
@@ -13,6 +17,8 @@ import type { RouteProposal } from "../../contracts/routes";
 import { buildingDesign, buildingParts } from "./buildingModels";
 import { Layers3, LocateFixed } from "lucide-react";
 export function MapCanvas({
+  semanticPlaces = [], personalRelations = [], onPoiSelect, onViewChange,
+  extensionMarkers = [], onExtensionSelect,
   route,
   points,
   places,
@@ -23,6 +29,12 @@ export function MapCanvas({
   planning,
   onEnter,
 }: {
+  semanticPlaces?: SemanticPlace[];
+  personalRelations?: UserPlaceRelation[];
+  onPoiSelect?: (p: SemanticPlace) => void;
+  onViewChange?: (q: PlaceQuery) => void;
+  extensionMarkers?: ExtensionMarker[];
+  onExtensionSelect?: (id:string) => void;
   route?: RouteProposal;
   points: TrackPoint[];
   places: Place[];
@@ -40,6 +52,33 @@ export function MapCanvas({
     [error, setError] = useState(""),
     [buildingsVisible, setBuildingsVisible] = useState(true),
     [threeDimensional, setThreeDimensional] = useState(true);
+  const poiRef = useRef(semanticPlaces), poiSelectRef = useRef(onPoiSelect), viewRef = useRef(onViewChange);
+  poiRef.current = semanticPlaces; poiSelectRef.current = onPoiSelect; viewRef.current = onViewChange;
+  useEffect(() => {
+    const instance = map.current; if (!ready || !instance) return;
+    const cleanup = installPoiLayer(instance, id => { const p = poiRef.current.find(p => p.id === id); if (p) poiSelectRef.current?.(p); });
+    const moved = () => { const c = instance.getCenter(); viewRef.current?.({ lat: Number(c.lat.toFixed(4)), lng: Number(c.lng.toFixed(4)), radius: 1000 }); };
+    instance.on("moveend", moved); moved(); updatePoiLayer(instance, poiRef.current);
+    return () => { instance.off("moveend", moved); if (map.current) cleanup(); };
+  }, [ready]);
+  useEffect(() => { if (ready && map.current?.getSource("semantic-pois")) updatePoiLayer(map.current, semanticPlaces, personalRelations); }, [ready, semanticPlaces, personalRelations]);
+  useEffect(() => {
+    if (!ready || !map.current) return;
+    const markers = extensionMarkers.map(item => {
+      const button = document.createElement("button");
+      button.className = "extension-map-marker";
+      button.textContent = item.icon === "📍" ? "●" : item.icon;
+      button.style.backgroundColor = item.color || "#388565";
+      button.style.borderColor = "white";
+      button.style.color = "white";
+      button.dataset.color = item.color || "#388565";
+      button.setAttribute("aria-label", `${item.label} · ${item.colorLabel || "通常"}`);
+      button.title = `${item.label} · ${item.colorLabel || "通常"}`;
+      button.onclick = event => { event.stopPropagation(); onExtensionSelect?.(item.extensionId); };
+      return new maplibregl.Marker({element:button}).setLngLat([item.lng,item.lat]).addTo(map.current!);
+    });
+    return () => markers.forEach(marker => marker.remove());
+  }, [ready, extensionMarkers, onExtensionSelect]);
   const selectRef = useRef(onSelect);
   const walker = useRef<maplibregl.Marker | null>(null);
   const [following, setFollowing] = useState(true);
@@ -271,6 +310,7 @@ export function MapCanvas({
         });
         instance.on("click", "footprints", (e) => {
           if (!immersiveRef.current) return;
+          if (instance.getLayer("poi-symbols") && instance.queryRenderedFeatures(e.point, {layers: ["poi-symbols", "poi-clusters"]}).length) return;
           const f = e.features?.[0];
           if (!f) return;
           new maplibregl.Popup()
@@ -704,3 +744,6 @@ export function MapCanvas({
     </>
   );
 }
+
+
+
