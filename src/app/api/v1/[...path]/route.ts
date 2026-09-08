@@ -5,7 +5,7 @@ import { z } from "zod";
 import { services } from "@/server/services";
 import { actorFrom, sameOrigin, token } from "@/server/session";
 import { messageSchema, pointSchema } from "@/contracts";
-import { places } from "@/fixtures/yokohama";
+import { places } from "@/fixtures/nagoya";
 import { routeRequestSchema } from "@/contracts/routes";
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -46,9 +46,10 @@ export async function POST(req: NextRequest) {
         .parse(body);
       const host = req.headers.get("host")?.split(":")[0];
       if (
-        process.env.DEMO_ACCESS_CODE
+        process.env.DEMO_ALLOW_NO_CODE !== "true" &&
+        (process.env.DEMO_ACCESS_CODE
           ? code !== process.env.DEMO_ACCESS_CODE
-          : !["localhost", "127.0.0.1", "[::1]"].includes(host || "")
+          : !["localhost", "127.0.0.1", "[::1]"].includes(host || ""))
       )
         return NextResponse.json(
           { error: "デモ接続コードが必要です" },
@@ -87,10 +88,15 @@ export async function POST(req: NextRequest) {
         );
         break;
       case "diagnosis": {
-        return NextResponse.json(await services().diagnosis.diagnose(actor), { headers: { "Cache-Control": "no-store" } });
+        return NextResponse.json(await services().diagnosis.diagnose(actor), {
+          headers: { "Cache-Control": "no-store" },
+        });
       }
       case "route": {
-        return NextResponse.json(await services().routes.create(actor, routeRequestSchema.parse(body)), { headers: { "Cache-Control": "no-store" } });
+        return NextResponse.json(
+          await services().routes.create(actor, routeRequestSchema.parse(body)),
+          { headers: { "Cache-Control": "no-store" } },
+        );
       }
       case "messages": {
         const m = messageSchema.parse(body);
@@ -148,7 +154,7 @@ export async function POST(req: NextRequest) {
       }
       case "invite": {
         const { code } = z
-          .object({ code: z.enum(["YOKOHAMA-A", "YOKOHAMA-B"]) })
+          .object({ code: z.enum(["NAGOYA-A", "NAGOYA-B"]) })
           .parse(body);
         repo.requestFriend(actor, code.endsWith("A") ? "A" : "B");
         break;

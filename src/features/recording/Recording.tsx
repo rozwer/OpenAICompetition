@@ -8,11 +8,16 @@ import {
   type FeatureContext,
   type TrackPoint,
 } from "../../contracts";
-import { demoTrack } from "../../fixtures/yokohama";
-export function Recording({ snapshot, refresh }: FeatureContext) {
+import { demoTrack } from "../../fixtures/nagoya";
+export function Recording({
+  snapshot,
+  refresh,
+  compact = false,
+}: FeatureContext & { compact?: boolean }) {
   const [playing, setPlaying] = useState(false),
     [recording, setRecording] = useState(false),
     [error, setError] = useState(""),
+    [needsSecureConnection, setNeedsSecureConnection] = useState(false),
     [busy, setBusy] = useState(false);
   const watch = useRef<number | null>(null),
     file = useRef<HTMLInputElement>(null),
@@ -20,6 +25,9 @@ export function Recording({ snapshot, refresh }: FeatureContext) {
   const remaining = demoTrack().filter(
     (p) => !snapshot.points.some((x) => x.id === p.id),
   );
+  const latestDevicePoint = snapshot.points
+    .filter((p) => p.origin === "device")
+    .sort((a, b) => b.time.localeCompare(a.time))[0];
   const next = useRef(remaining);
   next.current = remaining;
   useEffect(() => {
@@ -103,6 +111,7 @@ export function Recording({ snapshot, refresh }: FeatureContext) {
   }
   function gps() {
     setError("");
+    setNeedsSecureConnection(false);
     if (recording) {
       if (watch.current !== null)
         navigator.geolocation.clearWatch(watch.current);
@@ -111,7 +120,8 @@ export function Recording({ snapshot, refresh }: FeatureContext) {
       return;
     }
     if (!navigator.geolocation || !window.isSecureContext) {
-      setError("位置記録にはHTTPSまたはlocalhost接続が必要です。");
+      setNeedsSecureConnection(true);
+      setError("iPhoneの位置情報を使うにはHTTPS接続が必要です。");
       return;
     }
     setRecording(true);
@@ -146,28 +156,30 @@ export function Recording({ snapshot, refresh }: FeatureContext) {
     );
   }
   return (
-    <div className="recording">
-      {remaining.length > 0 && <button
-        className="primary"
-        onClick={() => setPlaying(!playing)}
-      >
-        {playing ? <Pause size={16} /> : <Play size={16} />}{" "}
-        {playing ? "一時停止" : "散歩を再生"}
-      </button>}
+    <div className={`recording ${compact ? "compact" : ""}`}>
+      {remaining.length > 0 && (
+        <button className="primary" onClick={() => setPlaying(!playing)}>
+          {playing ? <Pause size={16} /> : <Play size={16} />}{" "}
+          {playing ? "一時停止" : "散歩を再生"}
+        </button>
+      )}
       <button
         className={recording ? "recording-active" : ""}
         aria-label={recording ? "位置記録を停止" : "現在地を記録"}
         onClick={gps}
       >
         <LocateFixed size={18} />
+        {compact && <span>{recording ? "停止" : "現在地"}</span>}
       </button>
-      <button
-        aria-label="履歴を取り込む"
-        disabled={busy}
-        onClick={() => file.current?.click()}
-      >
-        <Upload size={18} />
-      </button>
+      {!compact && (
+        <button
+          aria-label="履歴を取り込む"
+          disabled={busy}
+          onClick={() => file.current?.click()}
+        >
+          <Upload size={18} />
+        </button>
+      )}
       <input
         ref={file}
         type="file"
@@ -177,15 +189,37 @@ export function Recording({ snapshot, refresh }: FeatureContext) {
           e.target.files?.[0] && void importFile(e.target.files[0])
         }
       />
-      <span className="recording-caption">
-        {recording
-          ? "画面表示中のGPSを記録中"
-          : remaining.length ? "再生は架空の散歩 · 実GPSも取込み可" : "実GPSの記録・取込み可"}
-      </span>
+      {!compact && (
+        <span className="recording-caption">
+          {recording
+            ? "画面表示中のGPSを記録中"
+            : remaining.length
+              ? "再生は架空の散歩 · 実GPSも取込み可"
+              : "実GPSの記録・取込み可"}
+        </span>
+      )}
+      {latestDevicePoint && (
+        <span className="gps-reading" aria-live="polite">
+          現在地 {latestDevicePoint.lat.toFixed(5)},{" "}
+          {latestDevicePoint.lng.toFixed(5)}
+          {latestDevicePoint.accuracy !== null
+            ? ` · 精度 約${Math.round(latestDevicePoint.accuracy)}m`
+            : ""}
+        </span>
+      )}
       {error && (
         <p className="inline-note" role="status">
           {error}
         </p>
+      )}
+      {needsSecureConnection && (
+        <div className="gps-setup">
+          <a href="/grow-map-local.cer">1. 証明書をダウンロード</a>
+          <span>設定でインストール・信頼した後</span>
+          <a href={`https://${window.location.hostname}:3443/`}>
+            2. HTTPS版を開く
+          </a>
+        </div>
       )}
     </div>
   );

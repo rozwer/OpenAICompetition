@@ -4,17 +4,16 @@ import dynamic from "next/dynamic";
 import {
   Map,
   Users,
-  Route,
   Sparkles,
   Leaf,
   MessageCircle,
-  UserRound,
   ChevronRight,
   ArrowLeft,
   Expand,
+  House,
 } from "lucide-react";
 import type { FeatureContext, Place, Snapshot } from "../contracts";
-import { places } from "../fixtures/yokohama";
+import { places } from "../fixtures/nagoya";
 import { api } from "../client/api";
 import { trackLength } from "../domain/tracks";
 import { Recording } from "../features/recording/Recording";
@@ -23,18 +22,14 @@ import { Personal } from "../features/personal/Personal";
 import { Friends } from "../features/friends/Friends";
 import { Transfer } from "../features/transfer/Transfer";
 import { Extensions } from "../features/extensions/Extensions";
+import { Home } from "../features/home/Home";
 const MapCanvas = dynamic(
   () => import("../features/map/MapCanvas").then((m) => m.MapCanvas),
   { ssr: false },
 );
-const tabs = [
-  { id: "map", label: "地図", icon: Map },
-  { id: "friends", label: "友人", icon: Users },
-  { id: "transfer", label: "提案", icon: Route },
-  { id: "extensions", label: "機能", icon: Sparkles },
-];
 export default function Page() {
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null),
+    [routePreview, setRoutePreview] = useState<Snapshot["route"]>(),
     [actor, setActor] = useState(""),
     [tab, setTab] = useState("map"),
     [selected, setSelected] = useState<Place | null>(null),
@@ -42,24 +37,72 @@ export default function Page() {
     [error, setError] = useState(""),
     [code, setCode] = useState(""),
     [immersive, setImmersive] = useState(false),
+    [home, setHome] = useState(true),
+    [mapMenu, setMapMenu] = useState(false),
     [mobileOpen, setMobileOpen] = useState(false);
   const enterMap = useCallback(() => {
+    setHome(false);
+    setTab("map");
     setImmersive(true);
     setMobileOpen(false);
     if (window.location.hash !== "#explore")
       window.history.pushState({ growMapExplore: true }, "", "#explore");
   }, []);
+  const openPlanner = useCallback(() => {
+    setImmersive(false);
+    setHome(false);
+    setTab("transfer");
+    setMobileOpen(true);
+    window.history.pushState(null, "", "#plan");
+  }, []);
   const leaveMap = useCallback(() => {
+    setHome(true);
     setImmersive(false);
     setMobileOpen(false);
     if (window.history.state?.growMapExplore) window.history.back();
     else if (window.location.hash === "#explore")
       window.history.replaceState(null, "", window.location.pathname);
   }, []);
+  const navigatePrimary = useCallback((target: string) => {
+    setImmersive(false);
+    setMapMenu(target === "map");
+    setHome(target === "home" || target === "map");
+    setMobileOpen(target === "apps" || target === "connect");
+    setTab(
+      target === "apps"
+        ? "extensions"
+        : target === "connect"
+          ? "friends"
+          : "map",
+    );
+    window.history.pushState(
+      null,
+      "",
+      target === "map"
+        ? "#maps"
+        : target === "apps"
+          ? "#apps"
+          : target === "connect"
+            ? "#friends"
+            : window.location.pathname,
+    );
+  }, []);
   useEffect(() => {
     const sync = () => {
-      setImmersive(window.location.hash === "#explore");
-      setMobileOpen(false);
+      const hash = window.location.hash;
+      setImmersive(hash === "#explore");
+      setMapMenu(hash === "#maps");
+      setHome(!["#explore", "#plan", "#apps", "#friends"].includes(hash));
+      if (hash === "#plan") {
+        setTab("transfer");
+        setMobileOpen(true);
+      } else if (hash === "#apps" || hash === "#friends") {
+        setTab(hash === "#apps" ? "extensions" : "friends");
+        setMobileOpen(true);
+      } else {
+        setTab("map");
+        setMobileOpen(false);
+      }
     };
     const escape = (event: KeyboardEvent) => {
       if (event.key === "Escape") leaveMap();
@@ -94,6 +137,7 @@ export default function Page() {
   }, [actor, pending, refresh]);
   async function login(a: string) {
     setError("");
+    setRoutePreview(undefined);
     try {
       await api("session", { actor: a, code });
       await refresh();
@@ -109,38 +153,84 @@ export default function Page() {
   const ctx: FeatureContext | null = snapshot
     ? { snapshot, places, selected, refresh, select }
     : null;
+  const primarySection = home
+    ? mapMenu
+      ? "map"
+      : "home"
+    : tab === "extensions" || tab === "personal"
+      ? "apps"
+      : tab === "friends"
+        ? "connect"
+        : "map";
   return (
-    <main className={`app ${immersive ? "exploring" : ""}`}>
-      <aside className="rail">
-        <a className="logo" href="/" aria-label="育てる地図">
-          <Leaf size={26} />
-        </a>
-        <div className="rail-links">
-          {tabs.map((t) => (
-            <button
-              key={t.id}
-              className={tab === t.id ? "active" : ""}
-              onClick={() => {
-                setTab(t.id);
-                setMobileOpen(t.id !== "map");
-              }}
-            >
-              <t.icon size={21} />
-              <span>{t.label}</span>
-            </button>
-          ))}
-        </div>
-        <button
-          className={`profile-link ${tab === "personal" ? "active" : ""}`}
-          aria-label="タイプ診断"
-          onClick={() => {
-            setTab("personal");
-            setMobileOpen(true);
+    <main
+      className={`app ${immersive ? "exploring" : ""} ${home && snapshot && !immersive ? "landing" : ""} ${snapshot && tab === "transfer" && mobileOpen && !home ? "planning" : ""}`}
+    >
+      {home && snapshot && !immersive && (
+        <Home
+          snapshot={snapshot}
+          mapMenu={mapMenu}
+          onActor={(a) => void login(a)}
+          onExplore={enterMap}
+          onSection={(section) => {
+            if (section === "map" || section === "home") {
+              navigatePrimary(section);
+              return;
+            }
+            if (section === "friends" || section === "extensions") {
+              navigatePrimary(section === "friends" ? "connect" : "apps");
+              return;
+            }
+            if (section === "transfer") {
+              openPlanner();
+              return;
+            }
+            setHome(false);
+            setTab(
+              section === "conversation" || section === "history"
+                ? "map"
+                : section,
+            );
+            setMobileOpen(section !== "history");
           }}
-        >
-          <UserRound size={20} />
-        </button>
-      </aside>
+        />
+      )}
+      {snapshot && (
+        <nav className="app-global-nav" aria-label="ホームナビゲーション">
+          <button
+            className={primarySection === "map" ? "current" : ""}
+            aria-current={primarySection === "map" ? "page" : undefined}
+            onClick={() => navigatePrimary("map")}
+          >
+            <Map />
+            <span>地図を育てる</span>
+          </button>
+          <button
+            className={primarySection === "apps" ? "current" : ""}
+            aria-current={primarySection === "apps" ? "page" : undefined}
+            onClick={() => navigatePrimary("apps")}
+          >
+            <Sparkles />
+            <span>アプリを育てる</span>
+          </button>
+          <button
+            className={primarySection === "home" ? "current" : ""}
+            aria-current={primarySection === "home" ? "page" : undefined}
+            onClick={() => navigatePrimary("home")}
+          >
+            <House fill="currentColor" />
+            <span>ホーム</span>
+          </button>
+          <button
+            className={primarySection === "connect" ? "current" : ""}
+            aria-current={primarySection === "connect" ? "page" : undefined}
+            onClick={() => navigatePrimary("connect")}
+          >
+            <Users />
+            <span>つながる</span>
+          </button>
+        </nav>
+      )}
       <div className="workspace">
         <header>
           <div className="wordmark">
@@ -164,13 +254,15 @@ export default function Page() {
         </header>
         <div className="main-grid">
           <section className="map-region">
-            <MapCanvas route={snapshot?.route}
+            <MapCanvas
+              route={routePreview ?? snapshot?.route}
               points={snapshot?.points || []}
               places={places}
               selected={selected}
               onSelect={select}
               onCount={setCount}
               immersive={immersive}
+              planning={tab === "transfer" && mobileOpen && !home}
               onEnter={enterMap}
             />
             {immersive ? (
@@ -179,7 +271,9 @@ export default function Page() {
                   <ArrowLeft size={18} />
                   ホームに戻る
                 </button>
-                <span>YOKOHAMA / 街を探索中</span>
+                <button className="toolbar-ai" onClick={openPlanner}>
+                  <Sparkles size={17} /> AIにおまかせ
+                </button>
               </div>
             ) : (
               <button className="enter-map" onClick={enterMap}>
@@ -188,9 +282,46 @@ export default function Page() {
               </button>
             )}
             {immersive && (
-              <div className="explore-hint">
-                人物の周りをなぞって回転 · ピンチで拡大
-              </div>
+              <>
+                <div className="immersive-map-title">
+                  <span>MY GROWING MAP</span>
+                  <strong>名古屋を歩こう</strong>
+                  <small>人物の周りをなぞって回転 · ピンチで拡大</small>
+                </div>
+                <div className="immersive-route-key">
+                  <span>
+                    <i />
+                    AI提案ルート
+                  </span>
+                  <span>
+                    <i />
+                    これまでの軌跡
+                  </span>
+                </div>
+                <section className="immersive-action-sheet">
+                  <div className="immersive-sheet-handle" aria-hidden="true" />
+                  <span>
+                    <Sparkles size={16} /> AIが次の散歩を提案
+                  </span>
+                  <strong>次はどこへ行きますか？</strong>
+                  <button onClick={openPlanner}>
+                    行き先をAIと探す <ChevronRight size={19} />
+                  </button>
+                  <div className="immersive-quick-actions">
+                    {ctx && <Recording key={`${actor}-gps`} {...ctx} compact />}
+                    <button
+                      className="talk-place"
+                      aria-label="地図と話す"
+                      onClick={() => {
+                        setTab("map");
+                        setMobileOpen(true);
+                      }}
+                    >
+                      <MessageCircle size={17} /> この場所について話す
+                    </button>
+                  </div>
+                </section>
+              </>
             )}
             <div className="map-heading">
               <div className="eyebrow">MY GROWING MAP</div>
@@ -199,10 +330,10 @@ export default function Page() {
                 <br />
                 自分が見える。
               </h1>
-              <p>横浜 · 元町 / 山下公園</p>
+              <p>名古屋 · 栄 / 久屋大通</p>
             </div>
             <div className="map-city">
-              YOKOHAMA <span>↗</span>
+              NAGOYA <span>↗</span>
             </div>
             <div className="map-legend">
               <span>
@@ -232,7 +363,7 @@ export default function Page() {
                   <span>km の記録</span>
                 </div>
               </div>
-              {ctx && <Recording key={actor} {...ctx} />}
+              {ctx && !immersive && <Recording key={actor} {...ctx} />}
               <p className="map-footnote">
                 実際の建物輪郭 · 高さ・外観は演出モデル · 解放範囲20m
               </p>
@@ -247,23 +378,40 @@ export default function Page() {
             </button>
           </section>
           <aside className={`side-panel ${mobileOpen ? "mobile-open" : ""}`}>
-            <button
-              className="mobile-close"
-              onClick={() => setMobileOpen(false)}
-            >
-              地図に戻る
-            </button>
             {ctx ? (
               tab === "map" ? (
-                <Conversation key={actor} {...ctx} onPlanRoute={() => { setTab("transfer"); setMobileOpen(true); }} />
+                <Conversation
+                  key={actor}
+                  {...ctx}
+                  onPlanRoute={() => {
+                    openPlanner();
+                  }}
+                />
               ) : tab === "personal" ? (
                 <Personal key={actor} {...ctx} />
               ) : tab === "friends" ? (
                 <Friends key={actor} {...ctx} />
               ) : tab === "transfer" ? (
-                <Transfer key={actor} {...ctx} onShowMap={() => { if (immersive) leaveMap(); setTab("map"); setMobileOpen(false); }} />
+                <Transfer
+                  key={actor}
+                  {...ctx}
+                  onRouteGenerated={(route) => {
+                    setRoutePreview(route);
+                    setSnapshot((current) =>
+                      current ? { ...current, route } : current,
+                    );
+                  }}
+                  onEnterMap={enterMap}
+                  onBack={() => navigatePrimary("map")}
+                />
               ) : (
-                <Extensions />
+                <Extensions
+                  onBack={() => navigatePrimary("home")}
+                  onDiagnosis={() => {
+                    setTab("personal");
+                    setMobileOpen(true);
+                  }}
+                />
               )
             ) : (
               <section className="welcome">
@@ -310,11 +458,9 @@ export default function Page() {
         )}
         <footer>
           <span>歩く。気づく。自分の地図になる。</span>
-          <span>YOKOHAMA FIELD NOTES / 01</span>
+          <span>NAGOYA FIELD NOTES / 01</span>
         </footer>
       </div>
     </main>
   );
 }
-
-

@@ -18,16 +18,53 @@ it.skipIf(process.env.RUN_CODEX_LIVE !== "1")(
   110000,
 );
 
-it.skipIf(process.env.RUN_DIAGNOSIS_LIVE !== "1")("diagnoses six preference axes through real Codex",async()=>{
- const response=await new CodexAI().diagnose({evidence:[{id:"message:test",kind:"conversation",text:"知らない道を探すのが好き。公園や水辺が特に好きです。歴史や建築にも興味があります。食べ歩きはあまり興味がありません。友人と散歩するのが好きで、長距離を歩くのも楽しいです。"}]});
- expect(new Set(response.axes.map(a=>a.id)).size).toBe(6);
- expect(response.axes.every(a=>a.score!==null&&a.evidenceIds.includes("message:test"))).toBe(true);
- console.info("Diagnosis live:",JSON.stringify(response));
-},110000);
+it.skipIf(process.env.RUN_DIAGNOSIS_LIVE !== "1")(
+  "diagnoses six preference axes through real Codex",
+  async () => {
+    const response = await new CodexAI().diagnose({
+      evidence: [
+        {
+          id: "message:test",
+          kind: "conversation",
+          text: "知らない道を探すのが好き。公園や水辺が特に好きです。歴史や建築にも興味があります。食べ歩きはあまり興味がありません。友人と散歩するのが好きで、長距離を歩くのも楽しいです。",
+        },
+      ],
+    });
+    expect(new Set(response.axes.map((a) => a.id)).size).toBe(6);
+    expect(
+      response.axes.every(
+        (a) => a.score !== null && a.evidenceIds.includes("message:test"),
+      ),
+    ).toBe(true);
+    console.info("Diagnosis live:", JSON.stringify(response));
+  },
+  110000,
+);
 
-it.skipIf(process.env.RUN_ROUTE_LIVE !== "1")("selects registered route stops from conversation",async()=>{
- const {places}=await import('../src/fixtures/yokohama');
- const result=await new CodexAI().planRoute({start:places[1],end:places[0],required:[places[2]],candidates:[places[2]],memories:[],history:[{id:'route-live',role:'user',text:'静かな水辺を通って散歩したいです。新山下の水辺には必ず寄ってください。',placeId:null,status:'completed',createdAt:new Date().toISOString()}]});
- expect(result.stops.map(s=>s.placeId)).toEqual(['harbor']);expect(result.stops[0].reason.length).toBeGreaterThan(0);
- console.info('Route selection live:',JSON.stringify(result));
-},110000);
+it.skipIf(process.env.RUN_ROUTE_LIVE !== "1")(
+  "selects registered route stops from conversation",
+  async () => {
+    const { places } = await import("../src/fixtures/nagoya");
+    const result = await new CodexAI().planRoute({
+      start: places[1],
+      end: places[0],
+      required: [places[2]],
+      candidates: [places[2]],
+      memories: [],
+      history: [
+        {
+          id: "route-live",
+          role: "user",
+          text: "門前町と商店街を通って散歩したいです。大須観音には必ず寄ってください。",
+          placeId: null,
+          status: "completed",
+          createdAt: new Date().toISOString(),
+        },
+      ],
+    });
+    expect(result.stops.map((s) => s.placeId)).toEqual(["osu"]);
+    expect(result.stops[0].reason.length).toBeGreaterThan(0);
+    console.info("Route selection live:", JSON.stringify(result));
+  },
+  110000,
+);

@@ -12,7 +12,7 @@ export function Friends({ snapshot, refresh }: FeatureContext) {
       <p className="muted">同じ街にも、違う好きがある。</p>
       <div className="invite-card">
         <small>あなたの招待コード</small>
-        <strong>YOKOHAMA-{snapshot.actor}</strong>
+        <strong>NAGOYA-{snapshot.actor}</strong>
         <span>同じデモPCに接続した相手へ伝える</span>
       </div>
       <form

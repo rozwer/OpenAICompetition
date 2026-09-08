@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { SqliteRepository } from "../infrastructure/sqlite";
 import { CodexAI } from "../infrastructure/codex";
-import { places } from "../fixtures/yokohama";
+import { places } from "../fixtures/nagoya";
 import { DiagnosisService } from "./diagnosis";
 import { RouteService } from "./routes";
 import { OpenRouteService } from "../infrastructure/openrouteservice";
@@ -78,7 +78,12 @@ export class ConversationService {
     }
   }
 }
-type Services = { repo: MapRepository; conversation: ConversationService; diagnosis: DiagnosisService; routes: RouteService };
+type Services = {
+  repo: MapRepository;
+  conversation: ConversationService;
+  diagnosis: DiagnosisService;
+  routes: RouteService;
+};
 const globalServices = globalThis as typeof globalThis & {
   growMapServices?: Services;
 };
@@ -89,7 +94,12 @@ export function services() {
       repo,
       conversation: new ConversationService(repo, new CodexAI()),
       diagnosis: new DiagnosisService(repo, new CodexAI(), places),
-      routes: new RouteService(repo, new CodexAI(), new OpenRouteService(), places),
+      routes: new RouteService(
+        repo,
+        new CodexAI(),
+        new OpenRouteService(),
+        places,
+      ),
     };
   }
   return globalServices.growMapServices;

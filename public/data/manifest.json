@@ -1,27 +1,45 @@
 {
-  "region": "yokohama",
-  "retrieved_at": "2026-09-05",
-  "bounds": [
-    139.647,
-    35.438,
-    139.653,
-    35.445
+  "region": "nagoya-sakae-osu-and-higashiyama-campus",
+  "retrieved_at": "2026-09-07",
+  "areas": [
+    {
+      "name": "sakae-osu",
+      "bounds": [
+        136.898,
+        35.1585,
+        136.911,
+        35.173
+      ]
+    },
+    {
+      "name": "nagoya-university-higashiyama",
+      "bounds": [
+        136.9607,
+        35.148,
+        136.9743,
+        35.1587
+      ]
+    }
   ],
-  "source": "https://www.openstreetmap.org/api/0.6/map?bbox=139.647,35.438,139.653,35.445",
+  "sources": [
+    "https://www.openstreetmap.org/api/0.6/map?bbox=136.898,35.1585,136.911,35.173",
+    "https://www.openstreetmap.org/api/0.6/map?bbox=136.9607,35.148,136.9743,35.1587"
+  ],
   "license": "ODbL-1.0",
   "attribution": "© OpenStreetMap contributors",
   "license_url": "https://www.openstreetmap.org/copyright",
   "coordinate_system": "WGS84 longitude, latitude",
-  "height_rule": "Only numeric OSM height tags, in metres; no building:levels conversion; unknown remains null.",
+  "height_rule": "Numeric OSM height tags are preserved; unknown heights remain null in source and use display-only models.",
   "files": {
-    "yokohama.osm": "ce5366c23cb5138e3dd163ba50570c36e9c7b900bbf94e7ed5ddaa94d43df1c3",
-    "buildings.geojson": "c1c924e2893833b5b7c5d82000ee99125d2896c47500e40777ce31849849ef85",
-    "roads.geojson": "dd7ba64506e92ad940eee1dbdfc186f6d438016a18a9bf2c76e0bbf677a4f876",
-    "water.geojson": "efb924d10413af604be13fa48e7d14e480103d3ac989eb59fe4346428c4006bf"
+    "nagoya.osm": "ca9f9c5004a63054873ca3454c4eed2dda6b3f44b2f4f4318c440b60e8f7d6f6",
+    "nagoya-university.osm": "f3a49402e92adb051baf83d4cd60aecf905a06773aa125d79c0a607501204ee5",
+    "buildings.geojson": "158d99bad80a8f068f4a6374d9245a380f19936443b7615e544eeb03329be387",
+    "roads.geojson": "9e729d24b50fda25bcc774507b7615a9e1b43d5c31ba48e4e2ebd501d1a62ce6",
+    "water.geojson": "85b38cea69338059ebb0a437b206c0a1a16ea19b4dccd4c470703dcb0bd1d3bf"
   },
   "counts": {
-    "buildings": 886,
-    "roads": 436,
-    "water": 6
+    "buildings": 5084,
+    "roads": 2174,
+    "water": 13
   }
 }
