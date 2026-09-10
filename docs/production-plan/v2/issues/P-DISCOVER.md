@@ -1,3 +1,4 @@
+<!-- task-id: P-DISCOVER -->
 # P-DISCOVER：場所や記録から発見を選び、関心の変化を振り返れる
 
 [共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。

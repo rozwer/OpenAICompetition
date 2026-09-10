@@ -49,8 +49,8 @@
         ".githooks/",
         ".gitignore",
         "AGENTS.md",
-        "API_ENDPOINTS.csv",
-        "DB_COLUMNS.csv",
+        "docs/spec/API_ENDPOINTS.csv",
+        "docs/spec/DB_COLUMNS.csv",
         "FULL_REQUIREMENT_MATRIX.csv",
         "ISSUE_BACKLOG.csv",
         "POOL_TASKS.csv",
@@ -196,14 +196,15 @@
           ]
         }
       ],
-      "body_file": "issues/P-START.md",
+      "body_file": "docs/production-plan/v2/issues/P-START.md",
       "recurrence_ids": [
         "R28",
         "R29"
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-RUNTIME",
@@ -424,7 +425,7 @@
           ]
         }
       ],
-      "body_file": "issues/P-RUNTIME.md",
+      "body_file": "docs/production-plan/v2/issues/P-RUNTIME.md",
       "recurrence_ids": [
         "R01",
         "R04",
@@ -437,7 +438,8 @@
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-MAP",
@@ -615,14 +617,15 @@
           ]
         }
       ],
-      "body_file": "issues/P-MAP.md",
+      "body_file": "docs/production-plan/v2/issues/P-MAP.md",
       "recurrence_ids": [
         "R04",
         "R05"
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-RECORD",
@@ -841,7 +844,7 @@
           ]
         }
       ],
-      "body_file": "issues/P-RECORD.md",
+      "body_file": "docs/production-plan/v2/issues/P-RECORD.md",
       "recurrence_ids": [
         "R06",
         "R07",
@@ -852,7 +855,8 @@
         "getHistory"
       ],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-ROUTE",
@@ -1061,7 +1065,7 @@
           ]
         }
       ],
-      "body_file": "issues/P-ROUTE.md",
+      "body_file": "docs/production-plan/v2/issues/P-ROUTE.md",
       "recurrence_ids": [
         "R11",
         "R12",
@@ -1069,7 +1073,8 @@
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-REFLECT",
@@ -1259,7 +1264,7 @@
           ]
         }
       ],
-      "body_file": "issues/P-REFLECT.md",
+      "body_file": "docs/production-plan/v2/issues/P-REFLECT.md",
       "recurrence_ids": [
         "R05",
         "R07",
@@ -1269,7 +1274,8 @@
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-EXPLORE",
@@ -1304,8 +1310,8 @@
         "api:respondExplorationCandidate"
       ],
       "write_paths": [
-        "API_ENDPOINTS.csv",
-        "DB_COLUMNS.csv",
+        "docs/spec/API_ENDPOINTS.csv",
+        "docs/spec/DB_COLUMNS.csv",
         "contracts/domain.ts",
         "contracts/exploration.ts",
         "contracts/openapi.json",
@@ -1438,7 +1444,7 @@
           ]
         }
       ],
-      "body_file": "issues/P-EXPLORE.md",
+      "body_file": "docs/production-plan/v2/issues/P-EXPLORE.md",
       "recurrence_ids": [
         "R13",
         "R14"
@@ -1451,7 +1457,8 @@
         "planRoute"
       ],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-DISCOVER",
@@ -1596,13 +1603,14 @@
           ]
         }
       ],
-      "body_file": "issues/P-DISCOVER.md",
+      "body_file": "docs/production-plan/v2/issues/P-DISCOVER.md",
       "recurrence_ids": [
         "R18"
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-SHARE",
@@ -1832,13 +1840,14 @@
           ]
         }
       ],
-      "body_file": "issues/P-SHARE.md",
+      "body_file": "docs/production-plan/v2/issues/P-SHARE.md",
       "recurrence_ids": [
         "R15"
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-TOGETHER",
@@ -1943,13 +1952,14 @@
           ]
         }
       ],
-      "body_file": "issues/P-TOGETHER.md",
+      "body_file": "docs/production-plan/v2/issues/P-TOGETHER.md",
       "recurrence_ids": [
         "R12"
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-TRANSFER",
@@ -2115,13 +2125,14 @@
           ]
         }
       ],
-      "body_file": "issues/P-TRANSFER.md",
+      "body_file": "docs/production-plan/v2/issues/P-TRANSFER.md",
       "recurrence_ids": [
         "R16"
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-AI",
@@ -2463,7 +2474,7 @@
           ]
         }
       ],
-      "body_file": "issues/P-AI.md",
+      "body_file": "docs/production-plan/v2/issues/P-AI.md",
       "recurrence_ids": [
         "R01",
         "R02",
@@ -2481,7 +2492,8 @@
         "getHealth"
       ],
       "requires_live_ai": true,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-EXTENSIONS",
@@ -2777,14 +2789,15 @@
           ]
         }
       ],
-      "body_file": "issues/P-EXTENSIONS.md",
+      "body_file": "docs/production-plan/v2/issues/P-EXTENSIONS.md",
       "recurrence_ids": [
         "R17",
         "R27"
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": true,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-REPAIR",
@@ -2913,13 +2926,14 @@
           ]
         }
       ],
-      "body_file": "issues/P-REPAIR.md",
+      "body_file": "docs/production-plan/v2/issues/P-REPAIR.md",
       "recurrence_ids": [
         "R18"
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-DIARY",
@@ -3027,13 +3041,14 @@
           ]
         }
       ],
-      "body_file": "issues/P-DIARY.md",
+      "body_file": "docs/production-plan/v2/issues/P-DIARY.md",
       "recurrence_ids": [
         "R19"
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-COMPANION",
@@ -3267,7 +3282,7 @@
           ]
         }
       ],
-      "body_file": "issues/P-COMPANION.md",
+      "body_file": "docs/production-plan/v2/issues/P-COMPANION.md",
       "recurrence_ids": [
         "R19",
         "R22",
@@ -3281,7 +3296,8 @@
       "requires_live_ai": false,
       "required_providers": [
         "image-generation"
-      ]
+      ],
+      "priority": "P0"
     },
     {
       "id": "P-HEALTH-CORE",
@@ -3446,14 +3462,15 @@
           ]
         }
       ],
-      "body_file": "issues/P-HEALTH-CORE.md",
+      "body_file": "docs/production-plan/v2/issues/P-HEALTH-CORE.md",
       "recurrence_ids": [
         "R24",
         "R25"
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-HEALTH",
@@ -3604,7 +3621,7 @@
           ]
         }
       ],
-      "body_file": "issues/P-HEALTH.md",
+      "body_file": "docs/production-plan/v2/issues/P-HEALTH.md",
       "recurrence_ids": [
         "R24"
       ],
@@ -3612,7 +3629,8 @@
       "requires_live_ai": true,
       "required_providers": [
         "private-data-session"
-      ]
+      ],
+      "priority": "P0"
     },
     {
       "id": "P-NATIVE",
@@ -3701,7 +3719,7 @@
           ]
         }
       ],
-      "body_file": "issues/P-NATIVE.md",
+      "body_file": "docs/production-plan/v2/issues/P-NATIVE.md",
       "recurrence_ids": [
         "R25"
       ],
@@ -3710,7 +3728,8 @@
       "required_providers": [
         "healthkit",
         "private-data-session"
-      ]
+      ],
+      "priority": "P0"
     },
     {
       "id": "P-WORKSPACE",
@@ -3738,7 +3757,7 @@
         "api:resetDemo"
       ],
       "write_paths": [
-        "DB_COLUMNS.csv",
+        "docs/spec/DB_COLUMNS.csv",
         "contracts/companion-health.ts",
         "contracts/domain.ts",
         "contracts/entries.ts",
@@ -3894,7 +3913,7 @@
           ]
         }
       ],
-      "body_file": "issues/P-WORKSPACE.md",
+      "body_file": "docs/production-plan/v2/issues/P-WORKSPACE.md",
       "recurrence_ids": [
         "R04",
         "R20",
@@ -3904,7 +3923,8 @@
         "getBootstrap"
       ],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-RELEASE",
@@ -4010,11 +4030,12 @@
           ]
         }
       ],
-      "body_file": "issues/P-RELEASE.md",
+      "body_file": "docs/production-plan/v2/issues/P-RELEASE.md",
       "recurrence_ids": [],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P0"
     },
     {
       "id": "P-DEPLOY",
@@ -4122,11 +4143,12 @@
           ]
         }
       ],
-      "body_file": "issues/P-DEPLOY.md",
+      "body_file": "docs/production-plan/v2/issues/P-DEPLOY.md",
       "recurrence_ids": [],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P2"
     },
     {
       "id": "P-MOBILE",
@@ -4215,13 +4237,14 @@
           ]
         }
       ],
-      "body_file": "issues/P-MOBILE.md",
+      "body_file": "docs/production-plan/v2/issues/P-MOBILE.md",
       "recurrence_ids": [
         "R26"
       ],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P2"
     },
     {
       "id": "P-SOURCES",
@@ -4283,11 +4306,12 @@
           ]
         }
       ],
-      "body_file": "issues/P-SOURCES.md",
+      "body_file": "docs/production-plan/v2/issues/P-SOURCES.md",
       "recurrence_ids": [],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P2"
     },
     {
       "id": "P-LEARNING",
@@ -4404,11 +4428,12 @@
           ]
         }
       ],
-      "body_file": "issues/P-LEARNING.md",
+      "body_file": "docs/production-plan/v2/issues/P-LEARNING.md",
       "recurrence_ids": [],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P2"
     },
     {
       "id": "P-PLUGIN-STUDIO",
@@ -4489,11 +4514,12 @@
           ]
         }
       ],
-      "body_file": "issues/P-PLUGIN-STUDIO.md",
+      "body_file": "docs/production-plan/v2/issues/P-PLUGIN-STUDIO.md",
       "recurrence_ids": [],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P2"
     },
     {
       "id": "P-APP-STUDIO",
@@ -4552,11 +4578,12 @@
           ]
         }
       ],
-      "body_file": "issues/P-APP-STUDIO.md",
+      "body_file": "docs/production-plan/v2/issues/P-APP-STUDIO.md",
       "recurrence_ids": [],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P2"
     },
     {
       "id": "P-THEMES",
@@ -4626,11 +4653,12 @@
           ]
         }
       ],
-      "body_file": "issues/P-THEMES.md",
+      "body_file": "docs/production-plan/v2/issues/P-THEMES.md",
       "recurrence_ids": [],
       "consumes_operation_ids": [],
       "requires_live_ai": false,
-      "required_providers": []
+      "required_providers": [],
+      "priority": "P2"
     }
   ],
   "shared_path_locks": [

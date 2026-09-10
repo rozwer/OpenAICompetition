@@ -1,3 +1,4 @@
+<!-- task-id: P-NATIVE -->
 # P-NATIVE：iPhoneで本人のHealthKit情報を読み、同じアプリの統計へ反映できる
 
 [共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。

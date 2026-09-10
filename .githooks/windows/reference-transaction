@@ -1,0 +1,14 @@
+#!/bin/sh
+[ "$1" = prepared ] || exit 0
+root=$(git rev-parse --show-toplevel) || exit 1
+# A regular file avoids inherited Windows pipe writers keeping stdin open.
+hook_input=$(mktemp) || exit 1
+trap 'rm -f "$hook_input"' EXIT HUP INT TERM
+cat > "$hook_input" || exit 1
+needs_check=false
+while read -r old_oid new_oid ref; do
+  case "$ref" in refs/heads/*) needs_check=true ;; esac
+done < "$hook_input"
+$needs_check || exit 0
+mise exec -- python -X utf8 "$root/tools/rehearsal_guard.py" refs "$@" < "$hook_input"
+exit $?

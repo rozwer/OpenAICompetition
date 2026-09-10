@@ -1,0 +1,8 @@
+#!/bin/sh
+root=$(git rev-parse --show-toplevel) || exit 1
+# A regular file avoids inherited Windows pipe writers keeping stdin open.
+hook_input=$(mktemp) || exit 1
+trap 'rm -f "$hook_input"' EXIT HUP INT TERM
+cat > "$hook_input" || exit 1
+mise exec -- python -X utf8 "$root/tools/rehearsal_guard.py" pre-push "$@" < "$hook_input"
+exit $?

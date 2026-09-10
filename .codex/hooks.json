@@ -1,0 +1,52 @@
+{
+  "description": "Generated from hooks.macos.json and hooks.windows.json by tools/install_hooks.py. Edit the OS sources.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mise exec -- node \"$(git rev-parse --show-toplevel)/scripts/codex-mise-hook.mjs\" || exit 2",
+            "timeout": 10,
+            "commandWindows": "powershell.exe -NoProfile -NonInteractive -Command \"& { $ErrorActionPreference = 'Stop'; try { $r = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 2 }; & mise exec -- node ($r + '/scripts/codex-mise-hook.mjs'); if ($LASTEXITCODE -ne 0) { exit 2 } } catch { [Console]::Error.WriteLine($_.Exception.Message); exit 2 } }\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^Bash$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mise exec -- node \"$(git rev-parse --show-toplevel)/scripts/codex-mise-hook.mjs\" || exit 2",
+            "timeout": 10,
+            "commandWindows": "powershell.exe -NoProfile -NonInteractive -Command \"& { $ErrorActionPreference = 'Stop'; try { $r = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 2 }; & mise exec -- node ($r + '/scripts/codex-mise-hook.mjs'); if ($LASTEXITCODE -ne 0) { exit 2 } } catch { [Console]::Error.WriteLine($_.Exception.Message); exit 2 } }\""
+          }
+        ]
+      },
+      {
+        "matcher": "^(Bash|exec_command|apply_patch|Edit|Write)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mise exec -- node \"$(git rev-parse --show-toplevel)/scripts/codex-task-hook.mjs\" || exit 2",
+            "timeout": 60,
+            "commandWindows": "powershell.exe -NoProfile -NonInteractive -Command \"& { $ErrorActionPreference = 'Stop'; try { $r = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 2 }; & mise exec -- node ($r + '/scripts/codex-task-hook.mjs'); if ($LASTEXITCODE -ne 0) { exit 2 } } catch { [Console]::Error.WriteLine($_.Exception.Message); exit 2 } }\""
+          }
+        ]
+      },
+      {
+        "matcher": "^(spawn_agent|Agent)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mise exec -- node \"$(git rev-parse --show-toplevel)/scripts/codex-subagent-model-hook.mjs\" || exit 2",
+            "timeout": 10,
+            "commandWindows": "powershell.exe -NoProfile -NonInteractive -Command \"& { $ErrorActionPreference = 'Stop'; try { $r = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 2 }; & mise exec -- node ($r + '/scripts/codex-subagent-model-hook.mjs'); if ($LASTEXITCODE -ne 0) { exit 2 } } catch { [Console]::Error.WriteLine($_.Exception.Message); exit 2 } }\""
+          }
+        ]
+      }
+    ]
+  }
+}

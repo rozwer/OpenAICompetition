@@ -1,0 +1,7 @@
+#!/bin/sh
+root=$(git rev-parse --show-toplevel) || exit 1
+case "$(uname -s)" in
+  MINGW*|MSYS*|CYGWIN*) platform=windows ;;
+  *) platform=macos ;;
+esac
+exec "$root/.githooks/$platform/reference-transaction" "$@"

@@ -1,3 +1,4 @@
+<!-- task-id: P-START -->
 # P-START：準備を終え、同じ環境・契約・UI版から着手できる
 
 [共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。
@@ -20,8 +21,8 @@
 - `.githooks/`
 - `.gitignore`
 - `AGENTS.md`
-- `API_ENDPOINTS.csv`
-- `DB_COLUMNS.csv`
+- `docs/spec/API_ENDPOINTS.csv`
+- `docs/spec/DB_COLUMNS.csv`
 - `FULL_REQUIREMENT_MATRIX.csv`
 - `ISSUE_BACKLOG.csv`
 - `POOL_TASKS.csv`

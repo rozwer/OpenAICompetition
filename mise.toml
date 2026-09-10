@@ -1,0 +1,97 @@
+[tools]
+python = "3.14.3"
+node = "22.22.1"
+bun = "1.3.14"
+gh = "2.97.0"
+lefthook = "2.1.12"
+
+[vars]
+codex_package_manager = "bun"
+codex_runtime = "node"
+
+[tasks."hooks:install"]
+run = "python3 -X utf8 tools/install_hooks.py"
+run_windows = "python -X utf8 tools/install_hooks.py"
+[tasks."hooks:bootstrap"]
+description = "clone共有configでconfig.worktreeを一度だけ有効にする"
+run = "python3 -X utf8 tools/install_hooks.py --bootstrap"
+run_windows = "python -X utf8 tools/install_hooks.py --bootstrap"
+[tasks."hooks:test"]
+run = "python3 -X utf8 -m unittest discover -s tools -p \"test_rehearsal*.py\""
+run_windows = "python -X utf8 -m unittest discover -s tools -p \"test_rehearsal*.py\""
+[tasks."codex-hooks:test"]
+run = "node --test scripts/codex-mise-hook.test.mjs"
+[tasks."task:ready"]
+run = "python3 -X utf8 tools/taskctl.py ready"
+run_windows = "python -X utf8 tools/taskctl.py ready"
+[tasks.check]
+run = "python3 -X utf8 tools/check_workflow.py"
+run_windows = "python -X utf8 tools/check_workflow.py"
+
+[tasks.verify]
+description = "環境・Git/Codex hooks・タスク運用を検証する"
+run = "python3 -X utf8 tools/check_workflow.py"
+run_windows = "python -X utf8 tools/check_workflow.py"
+
+[tasks."subagent-hooks:test"]
+run = "node --test scripts/codex-subagent-model-hook.test.mjs"
+
+[tasks."task:claim"]
+run = "python3 -X utf8 tools/taskctl.py claim"
+run_windows = "python -X utf8 tools/taskctl.py claim"
+
+[tasks."task:verify"]
+run = "python3 -X utf8 tools/task_worktree.py verify"
+run_windows = "python -X utf8 tools/task_worktree.py verify"
+
+[tasks."task:refresh"]
+run = "python3 -X utf8 tools/task_worktree.py refresh"
+run_windows = "python -X utf8 tools/task_worktree.py refresh"
+
+[tasks."task:submit"]
+run = "python3 -X utf8 tools/task_worktree.py submit"
+run_windows = "python -X utf8 tools/task_worktree.py submit"
+
+[tasks."task:land"]
+run = "python3 -X utf8 tools/task_worktree.py land"
+run_windows = "python -X utf8 tools/task_worktree.py land"
+
+[tasks."task:finish"]
+run = "python3 -X utf8 tools/task_worktree.py finish"
+run_windows = "python -X utf8 tools/task_worktree.py finish"
+
+[tasks."task:worktree"]
+run = "python3 -X utf8 tools/task_worktree.py create"
+run_windows = "python -X utf8 tools/task_worktree.py create"
+
+[tasks."task:exec"]
+run = "python3 -X utf8 tools/task_worktree.py exec"
+run_windows = "python -X utf8 tools/task_worktree.py exec"
+
+[tasks."branches:plan"]
+run = "python3 -X utf8 tools/prune_branches.py"
+run_windows = "python -X utf8 tools/prune_branches.py"
+
+[tasks."task:phase"]
+run = "python3 -X utf8 tools/task_worktree.py phase"
+run_windows = "python -X utf8 tools/task_worktree.py phase"
+
+[tasks."preparation:finish"]
+run = "python3 -X utf8 tools/protect_main.py"
+run_windows = "python -X utf8 tools/protect_main.py"
+
+[tasks."specs:check"]
+run = "python3 -X utf8 tools/check_specs.py"
+run_windows = "python -X utf8 tools/check_specs.py"
+
+[tasks."specs:generate"]
+run = "python3 -X utf8 tools/check_specs.py --write"
+run_windows = "python -X utf8 tools/check_specs.py --write"
+
+[tasks."task:init"]
+run = "python3 -X utf8 tools/taskctl.py init"
+run_windows = "python -X utf8 tools/taskctl.py init"
+
+[tasks."task:sync"]
+run = "python3 -X utf8 tools/sync_graph.py"
+run_windows = "python -X utf8 tools/sync_graph.py"

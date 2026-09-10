@@ -1,3 +1,4 @@
+<!-- task-id: P-COMPANION -->
 # P-COMPANION：相棒を取り込み・生成して採否と選択を決め、一緒に地図を歩ける
 
 [共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。

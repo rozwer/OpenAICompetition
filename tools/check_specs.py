@@ -42,7 +42,7 @@ index = ['# 当日に実装する28単位', '', '全件を未着手として開�
 generated = {}
 for t in tasks:
     index.append(f"| [{t['id']}](issues/{t['id']}.md) | {t['outcome']} | {', '.join(t['hard_dependencies']) or 'なし'} |")
-    text = [f"# {t['id']}：{t['title']}", '', '[共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。', '', '## 操作と結果', '', t['journey'], '', '## 依存と担当範囲', '', '着手依存：' + ', '.join(t['hard_dependencies']), '接続時の依存：' + ', '.join(t['connect_after']), '必要provider：' + ', '.join(t['required_providers']), '実AI受入：' + str(t['requires_live_ai']), '', '編集予定パス（当日作成する）：', '', bullets('`'+p+'`' for p in t['write_paths']), '', '## 読む契約', '']
+    text = [f"<!-- task-id: {t['id']} -->", f"# {t['id']}：{t['title']}", '', '[共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。', '', '## 操作と結果', '', t['journey'], '', '## 依存と担当範囲', '', '着手依存：' + ', '.join(t['hard_dependencies']), '接続時の依存：' + ', '.join(t['connect_after']), '必要provider：' + ', '.join(t['required_providers']), '実AI受入：' + str(t['requires_live_ai']), '', '編集予定パス（当日作成する）：', '', bullets('`'+p+'`' for p in t['write_paths']), '', '## 読む契約', '']
     text += ['- `'+x['path']+'`'+('：'+', '.join(x['symbols']) if x['symbols'] else '') for x in t['read_set']]
     text += ['', '実装するoperation：' + ', '.join(t['operation_ids']), '利用するoperation：' + ', '.join(t['consumes_operation_ids']), '対応要件：' + ', '.join(t['requirement_ids']), '', '## 固有の受入条件', '', bullets(t['specific_acceptance']), '', '## 同じ担当が実装・接続する内容', '']
     for c in t['internal_checklist']:
@@ -52,7 +52,7 @@ for t in tasks:
     for rule_id in t['recurrence_ids']:
         r = rules[rule_id]
         text += ['- '+rule_id+'：'+r['rule'], '  - 拒否例：'+r['negative_acceptance']]
-    generated[PLAN / t['body_file']] = '\n'.join(text)+'\n'
+    generated[ROOT / t['body_file']] = '\n'.join(text)+'\n'
 generated[PLAN / 'ISSUE_INDEX.md'] = '\n'.join(index)+'\n'
 for p, text in generated.items():
     if '--write' in sys.argv:

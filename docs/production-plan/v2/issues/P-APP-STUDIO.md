@@ -1,3 +1,4 @@
+<!-- task-id: P-APP-STUDIO -->
 # P-APP-STUDIO：本人のAIへ改造依頼を渡し、previewからデータを保って戻せる
 
 [共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。

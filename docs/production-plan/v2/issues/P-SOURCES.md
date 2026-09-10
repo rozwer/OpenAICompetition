@@ -1,3 +1,4 @@
+<!-- task-id: P-SOURCES -->
 # P-SOURCES：OpenUASと追加形式の情報を取り込み、意味の変化を修復できる
 
 [共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。

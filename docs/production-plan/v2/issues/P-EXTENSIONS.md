@@ -1,3 +1,4 @@
+<!-- task-id: P-EXTENSIONS -->
 # P-EXTENSIONS：機能を生成・試用・修正して導入し、三つのテーマを実際に使える
 
 [共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。

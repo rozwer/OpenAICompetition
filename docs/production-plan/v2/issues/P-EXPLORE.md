@@ -1,3 +1,4 @@
+<!-- task-id: P-EXPLORE -->
 # P-EXPLORE：候補から歩く・訪問確認・記録へ進み、次の探索へ戻れる
 
 [共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。
@@ -15,8 +16,8 @@
 
 編集予定パス（当日作成する）：
 
-- `API_ENDPOINTS.csv`
-- `DB_COLUMNS.csv`
+- `docs/spec/API_ENDPOINTS.csv`
+- `docs/spec/DB_COLUMNS.csv`
 - `contracts/domain.ts`
 - `contracts/exploration.ts`
 - `contracts/openapi.json`

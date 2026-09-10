@@ -1,3 +1,4 @@
+<!-- task-id: P-HEALTH-CORE -->
 # P-HEALTH-CORE：本人確認・健康の許可と集計をXML・HealthKit・AIから共通に使える
 
 [共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。

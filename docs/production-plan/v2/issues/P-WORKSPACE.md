@@ -1,3 +1,4 @@
+<!-- task-id: P-WORKSPACE -->
 # P-WORKSPACE：デモと本人設定を保存・再開・resetし、本人データを出力できる
 
 [共通受入](../common-acceptance.md)を適用する。完了は当日の操作・保存・再表示で判定する。
@@ -15,7 +16,7 @@
 
 編集予定パス（当日作成する）：
 
-- `DB_COLUMNS.csv`
+- `docs/spec/DB_COLUMNS.csv`
 - `contracts/companion-health.ts`
 - `contracts/domain.ts`
 - `contracts/entries.ts`
