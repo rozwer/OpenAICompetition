@@ -1,9 +1,0 @@
-{
-  "requirements": 145,
-  "unique_ids": true,
-  "stage1_handoff_present": true,
-  "documents_images_only": true,
-  "token_pattern_scan": "no matches",
-  "code_configuration_database_files": 0,
-  "screenshot_count": 10
-}

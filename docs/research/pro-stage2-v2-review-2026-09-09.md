@@ -2,7 +2,7 @@
 
 2026-09-09。結論は、**全体方針は採用候補にできるが、このまま106タスクを配布する前に、並列実装の接続契約を補う必要がある**。機能を減らす、担当を固定する、時間割を戻す、という修正は不要。主な不足は、別々に完成した実装をつなぐための入力と登録形式である。
 
-原本は [Stage2 v2](../archive/gpt-pro-stage2-v2-2026-09-09/sodateru-map-stage2-v2-20260909/SPEC_INDEX.md)、配布ZIPは [受領ZIP](../../deliverables/sodateru-map-stage2-v2-20260909.zip)。原本を変更せず保存した。本書はレビューであり、現行アプリへの仕様採用・実装・Issue登録は行っていない。
+原本は Stage2 v2、配布ZIPは 受領ZIP。原本を変更せず保存した。本書はレビューであり、現行アプリへの仕様採用・実装・Issue登録は行っていない。
 
 2026-09-09追記：ユーザーの修正指示に基づき、R1〜R6を[改訂版v2.1](../../deliverables/sodateru-map-stage2-v2.1-20260909/REVISION_NOTES.md)へ反映した。以下は修正前v2に対する指摘として残す。修正後の型・参考処理・依存関係の結果は[改訂版の検証レポート](../../deliverables/sodateru-map-stage2-v2.1-20260909/VALIDATION_REPORT.md)を参照。アプリ本体は未適用。
 
@@ -20,7 +20,7 @@
 
 ### R1 / P1：機能を自動収集するための登録形式が未確定
 
-[FND-001](../archive/gpt-pro-stage2-v2-2026-09-09/sodateru-map-stage2-v2-20260909/issues/FND-001.md)は `src/features/*/entry.tsx` と `server/features/*/entry.ts` を収集する。しかし [ports.ts](../archive/gpt-pro-stage2-v2-2026-09-09/sodateru-map-stage2-v2-20260909/contracts/ports.ts) のUIManifest/ServerManifestはメタデータだけで、export名、コンポーネントのprops、handler登録関数、注入する依存、capabilityの提供宣言がない。地図部品と `src/integrations/`・`server/integrations/` の読み込み経路もこの収集規則には含まれていない。
+FND-001は `src/features/*/entry.tsx` と `server/features/*/entry.ts` を収集する。しかし ports.ts のUIManifest/ServerManifestはメタデータだけで、export名、コンポーネントのprops、handler登録関数、注入する依存、capabilityの提供宣言がない。地図部品と `src/integrations/`・`server/integrations/` の読み込み経路もこの収集規則には含まれていない。
 
 FND-001と各機能が同時着手すると、全員が仕様に従っていても異なるentry形式を作れる。統合側が大量の追加ロックを取り、完成済み機能を直す事態になる。
 
@@ -28,7 +28,7 @@ FND-001と各機能が同時着手すると、全員が仕様に従っていて�
 
 ### R2 / P1：経路の制約判定に必要な道中の情報が渡らない
 
-[ports.ts](../archive/gpt-pro-stage2-v2-2026-09-09/sodateru-map-stage2-v2-20260909/contracts/ports.ts) のGraphEdgeにはstairs・covered・vehicleClassesがある。一方、ConstraintPort.evaluateに渡るのはRouteInput、RouteLeg[]、Place[]、Pass[]だけ。[RouteLeg](../archive/gpt-pro-stage2-v2-2026-09-09/sodateru-map-stage2-v2-20260909/contracts/domain.ts)には使用edgeのID、階段・屋根・車種制限、その確認根拠がない。定期券を判定する路線・乗降区間もない。
+ports.ts のGraphEdgeにはstairs・covered・vehicleClassesがある。一方、ConstraintPort.evaluateに渡るのはRouteInput、RouteLeg[]、Place[]、Pass[]だけ。RouteLegには使用edgeのID、階段・屋根・車種制限、その確認根拠がない。定期券を判定する路線・乗降区間もない。
 
 例えば、目的地に屋根があっても、途中が屋根なしなら「全行程で屋根が必要」を満たさない。現契約では、その違いを制約判定器が受け取れない。事前filterで解決しようとしても、情報不明と確認済み適合を示す根拠の受渡しが必要になる。
 
@@ -44,19 +44,19 @@ Correctionの自由文に回答を入れる独自実装では、本人の回答�
 
 ### R4 / P1：統合Issueにもfakeで完了できる指示が残っている
 
-[TASK_EXECUTION.md](../archive/gpt-pro-stage2-v2-2026-09-09/sodateru-map-stage2-v2-20260909/TASK_EXECUTION.md) は、module完了と実接続完了を分けている。一方、[INT-008](../archive/gpt-pro-stage2-v2-2026-09-09/sodateru-map-stage2-v2-20260909/issues/INT-008.md)等の「失敗・引継ぎ」には、依存未完成ならPortをfakeに置き換えて「本Issueの範囲を完了させる」と書かれている。各Issueだけを読む運用では、統合もfakeで完了できると解釈される。
+TASK_EXECUTION.md は、module完了と実接続完了を分けている。一方、INT-008等の「失敗・引継ぎ」には、依存未完成ならPortをfakeに置き換えて「本Issueの範囲を完了させる」と書かれている。各Issueだけを読む運用では、統合もfakeで完了できると解釈される。
 
 **修正**：module向けテンプレートとintegration/gate向けテンプレートを分ける。INT/GATEでは対象の実保存・実接続がなければ完了にせず、進捗と阻害要因を残す。サンプル地理データの使用可否と、APIやAI接続をfakeに置き換えることも分けて記載する。
 
 ### R5 / P2：部品は細分化したが、統合は大きな束のまま
 
-[INT-005](../archive/gpt-pro-stage2-v2-2026-09-09/sodateru-map-stage2-v2-20260909/issues/INT-005.md)は、友人比較・レシピ・都市間移植・感想返信の全体をまとめて待つ。INT-008も三つの拡張テーマをすべて待つ。そのため「比較だけ使える」「生成した一つの拡張を導入できる」という完成部分が、他の機能待ちになりやすい。これは部品単体の並列化だけでは解消しない。
+INT-005は、友人比較・レシピ・都市間移植・感想返信の全体をまとめて待つ。INT-008も三つの拡張テーマをすべて待つ。そのため「比較だけ使える」「生成した一つの拡張を導入できる」という完成部分が、他の機能待ちになりやすい。これは部品単体の並列化だけでは解消しない。
 
 **修正**：比較の実接続、移植の実接続、返信の実接続を分け、最後の一連の体験確認は別に残す。拡張は生成→導入の共通接続と、各テーマの接続を分ける。さらにINT-002が要求する説明差分をどのUIで表示するかを明記する。現graphにはSELF-001/RTE-004が必須依存に入っておらず、REC-003側で差分画面まで提供するのか不明。
 
 ### R6 / P2：「型付きAPI」のPortが操作名と入出力を結び付けていない
 
-[ApiPort](../archive/gpt-pro-stage2-v2-2026-09-09/sodateru-map-stage2-v2-20260909/contracts/ports.ts)はoperationId:stringに対し、呼出側がTRequest/TResponseを任意に指定できる。存在しない操作名・無関係なリクエスト・number型のレスポンスを組み合わせた呼出しが、実際にstrict TypeScriptでコンパイル成功した。291のDTOがあっても、これでは別の操作のDTOを取り違えたコードを型で止められない。
+ApiPortはoperationId:stringに対し、呼出側がTRequest/TResponseを任意に指定できる。存在しない操作名・無関係なリクエスト・number型のレスポンスを組み合わせた呼出しが、実際にstrict TypeScriptでコンパイル成功した。291のDTOがあっても、これでは別の操作のDTOを取り違えたコードを型で止められない。
 
 **修正**：OpenAPIからOperationMapを生成し、`invoke<K extends keyof OperationMap>`で操作名とpath/query/body/responseを対応させる。GETのpath/queryとmutation bodyの包み方もこの型で固定する。検査ケースは「正しい呼出しは通り、操作名・body・responseの取り違えは落ちる」とする。
 
@@ -69,3 +69,5 @@ MapLibreへの変更、人物の灰白モデル、初期2D、タブ名の短縮�
 ## 推奨する次の改訂
 
 機能数を削る前にR1〜R4を直し、R5〜R6で手戻りを減らす。改訂物には、(1) 完全なentry型と最小接続例、(2) 制約判定まで情報が通る経路例、(3) 質問→回答→再抽出→再入場の例、(4) 実接続ごとに分けた依存グラフを追加する。これらが揃えば、未割当タスクを手が空いた人が取得する方針を維持したまま、実装へ渡しやすくなる。
+
+旧版の参照資料はGitの保存コミット `5abdf93` にある。過去の検証経緯を調べる場合のみ `git show 5abdf93:<当時のリポジトリ相対パス>` で確認する。実装判断には現行要件を使う。
