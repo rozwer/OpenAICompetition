@@ -96,7 +96,7 @@ HealthDisclosureはprovider、項目、許可版、payload hash、送信状態�
 | createHealthAiContext / getHealthAiContext | POST /ai-contexts、GET /ai-contexts/{contextId} | providerに許可した最小集計と出典版 |
 | purgeHealthData | POST /purge | 本人の保存済み健康データと派生内容を削除 |
 
-health_connections、health_consents、health_samples、health_import_batches、health_summaries、health_ai_contexts、health_disclosuresを使う。DTOと実列の対応はDB_COLUMNS.csv。値を汎用タグや任意JSONのcommandへ逃がさない。
+health_connections、health_consents、health_samples、health_import_batches、health_summaries、health_ai_contexts、health_disclosuresを使う。DTOと実列の対応は[DB_COLUMNS.csv](DB_COLUMNS.csv)。値を汎用タグや任意JSONのcommandへ逃がさない。
 
 purgeはsamples・集計・文脈に加え、健康由来のAI結果/経路説明/キャッシュ/冪等応答を消去または内容を除去する。ユーザーが書いた通常の日記原文は勝手に消さず、健康由来の自動挿入部分を区別して除去する。保持する監査は値を含まない最小メタデータだけ。HealthKit本体の記録は削除しない。接続停止と削除を別操作にする。
 

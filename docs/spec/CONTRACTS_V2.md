@@ -1,6 +1,6 @@
 # 共有契約 v2.1.0
 
-HTTP正本は [contracts/openapi.yaml](../../contracts/openapi.yaml)、同値JSONは [contracts/openapi.json](../../contracts/openapi.json)。JSON Schemaは [contracts/schemas.json](../../contracts/schemas.json)、生成済みTypeScriptは [contracts/domain.ts](../../contracts/domain.ts)。DB正本は [db/schema.sql](../../db/schema.sql)、DTOとの列対応は [DB_COLUMNS.csv](../../DB_COLUMNS.csv)。
+HTTP正本は [contracts/openapi.yaml](../../contracts/openapi.yaml)、同値JSONは [contracts/openapi.json](../../contracts/openapi.json)。JSON Schemaは [contracts/schemas.json](../../contracts/schemas.json)、生成済みTypeScriptは [contracts/domain.ts](../../contracts/domain.ts)。DB正本は [db/schema.sql](../../db/schema.sql)、DTOとの列対応は [DB_COLUMNS.csv](DB_COLUMNS.csv)。
 
 純関数・UI・APIの間は [contracts/ports.ts](../../contracts/ports.ts)。DbPort、ApiPort、MeaningPort、HypothesisPort、GraphPort、ConstraintPort、TransferPort、SharingPort、AiPort、DslPortを固定する。自由な`any`で埋めず、戻り値のunknownやno-routeを扱う。
 

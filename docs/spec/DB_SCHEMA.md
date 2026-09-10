@@ -1,7 +1,7 @@
 # SQLite DB仕様 v2
 
 ## 1. 正本と実行環境
-SQLiteを唯一の正本とし、JSONはexport/seed/HTTP輸送に使う。`db/schema.sql`を空DBへ1回適用する。40業務テーブル＋4制御テーブル＝44（SQLite内部sequence表は除く）。`DB_COLUMNS.csv`は業務テーブルの506列についてHTTP field、SQL型、null可否、nested schema、FKを示す。テーブルを全部UI化する前提ではなく、1回のDDLで空の領域を確保する。
+SQLiteを唯一の正本とし、JSONはexport/seed/HTTP輸送に使う。`db/schema.sql`を空DBへ1回適用する。40業務テーブル＋4制御テーブル＝44（SQLite内部sequence表は除く）。`docs/spec/DB_COLUMNS.csv`は業務テーブルの506列についてHTTP field、SQL型、null可否、nested schema、FKを示す。テーブルを全部UI化する前提ではなく、1回のDDLで空の領域を確保する。
 
 Node 22.22.1組込み `node:sqlite` のDatabaseSyncを選ぶ。この版ではExperimentalであり、本番推奨の主張ではない。[V2-S1] 既存の外部ORMやnative addonを立上げずに短いtransactionとFKを利用するためのコンペ向け判断。Bunはinstall/script起動に使い、APIプロセスはNodeで動かす。複数Nodeが同じファイルを無秩序に書く構成は採らない。
 
