@@ -11,7 +11,7 @@ import argparse,copy,hashlib,json,os,subprocess,sys,uuid,time,random
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
-from task_manifest import graph_path
+from task_manifest import graph_path, load_graph
 import owner_policy as op
 REF='refs/tags/codex-task-board'
 LEGACY_REF='refs/heads/coord/task-board'
@@ -335,7 +335,7 @@ def main()->int:
                 old,board=read_board(args.remote)
                 if args.command=='init':
                     if board:raise BoardError('Board already initialized; refusing overwrite')
-                    graph=json.loads(Path(args.manifest).read_text(encoding='utf-8'))
+                    graph=load_graph(Path.cwd(),args.manifest)
                     for t in graph['tasks']:
                         for p in t['write_paths']:normalized(p)
                     board={'schemaVersion':2,'revision':0,'graph':graph,'tasks':{

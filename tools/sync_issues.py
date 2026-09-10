@@ -2,7 +2,7 @@
 import argparse,json,re,subprocess,sys
 from pathlib import Path
 from owner_policy import task_id,title_owner,issue_title
-from task_manifest import graph_path
+from task_manifest import graph_path, load_graph
 ROOT=Path(__file__).resolve().parents[1]
 def gh(*args):
  p=subprocess.run(['gh',*args],capture_output=True,text=True)
@@ -26,7 +26,7 @@ def plan(tasks,existing):
 def main():
  p=argparse.ArgumentParser();p.add_argument('--repo',required=True);p.add_argument('--apply',action='store_true');p.add_argument('--only',nargs='+');a=p.parse_args()
  if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+',a.repo):p.error('Use owner/repo')
- tasks=json.loads(graph_path(ROOT).read_text(encoding='utf-8'))['tasks']
+ tasks=load_graph(ROOT)['tasks']
  if a.only:
   unknown=set(a.only)-{t['id'] for t in tasks}
   if unknown:p.error('Unknown Task IDs: '+', '.join(sorted(unknown)))

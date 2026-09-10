@@ -84,9 +84,6 @@ run_windows = "python -X utf8 tools/protect_main.py"
 run = "python3 -X utf8 tools/check_specs.py"
 run_windows = "python -X utf8 tools/check_specs.py"
 
-[tasks."specs:generate"]
-run = "python3 -X utf8 tools/check_specs.py --write"
-run_windows = "python -X utf8 tools/check_specs.py --write"
 
 [tasks."task:init"]
 run = "python3 -X utf8 tools/taskctl.py init"

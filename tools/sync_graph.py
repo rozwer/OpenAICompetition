@@ -4,7 +4,7 @@ from pathlib import Path
 import taskctl as tc
 from document_paths import moves,relocate
 
-from task_manifest import graph_path
+from task_manifest import graph_path, load_graph
 def validate(graph):
     tasks=graph['tasks']; ids=[t['id'] for t in tasks]
     if len(ids)!=len(set(ids)): raise tc.BoardError('Duplicate task ID')
@@ -90,13 +90,13 @@ def migrate(board,graph,document_moves=None):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--remote',default='origin');p.add_argument('--manifest',default=str(graph_path(Path.cwd())));p.add_argument('--apply',action='store_true');a=p.parse_args()
-    graph=json.loads(Path(a.manifest).read_text());validate(graph)
+    graph=load_graph(Path.cwd(),a.manifest);validate(graph)
     if a.apply:
         # Only a graph already shared on main can become the execution definition.
         source_branch='develop' if tc.git('ls-remote',a.remote,'refs/heads/develop') else 'main'
         tc.git('fetch',a.remote,source_branch)
         manifest_rel=Path(a.manifest).resolve().relative_to(Path(tc.git('rev-parse','--show-toplevel'))).as_posix()
-        published=json.loads(tc.git('show',f'{a.remote}/{source_branch}:{manifest_rel}'))
+        published=load_graph(Path.cwd(),a.manifest,json.loads(tc.git('show',f'{a.remote}/{source_branch}:{manifest_rel}')))
         if graph!=published:raise tc.BoardError('Merge graph into the remote integration branch before applying board changes')
         if moves():
             published_moves=json.loads(tc.git('show',f'{a.remote}/{source_branch}:docs/team/document-paths.json'))

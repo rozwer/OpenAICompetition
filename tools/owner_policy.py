@@ -2,14 +2,15 @@
 from pathlib import Path
 import json,os,re,subprocess,shutil
 
-from task_manifest import graph_path
+from task_manifest import graph_path, load_graph
 OWNERS=('rozwer','mattsun','koshiro','kaiya')
 
 def task_id(issue):
-    found=set(re.findall(r'<!--\s*task-id:\s*([A-Z][A-Z0-9-]*)\s*-->',issue.get('body','')))
-    header=re.search(r'^# \[([A-Z][A-Z0-9-]*)\]',issue.get('body',''),re.M)
-    title=re.match(r'^\[([A-Z][A-Z0-9-]*)\]',issue.get('title',''))
-    for match in (header,title):
+    found=set(re.findall(r'<!--\s*task-id:\s*([A-Z0-9][A-Z0-9-]*)\s*-->',issue.get('body','')))
+    header=re.search(r'^# \[([A-Z0-9][A-Z0-9-]*)\]',issue.get('body',''),re.M)
+    title=re.match(r'^\[([A-Z0-9][A-Z0-9-]*)\]',issue.get('title',''))
+    authored=re.search(r'^# Issue ([A-Z0-9][A-Z0-9-]*)[：:]',issue.get('body',''),re.M)
+    for match in (header,title,authored):
         if match:found.add(match[1])
     if len(found)>1:raise ValueError('Conflicting Task IDs on Issue #'+str(issue.get('number')))
     return next(iter(found),None)
@@ -57,7 +58,7 @@ def resolve_branch(board,branch,check_github=True):
     policy=policy_for(board)
     if not policy:
         # Pre-migration boards only; never a second route on the current board.
-        if not re.fullmatch(r'task/[A-Z][A-Z0-9-]*',branch):raise ValueError('Use a task/TASK-ID branch until policy migration')
+        if not re.fullmatch(r'task/[A-Z0-9][A-Z0-9-]*',branch):raise ValueError('Use a task/TASK-ID branch until policy migration')
         return branch[5:]
     match=re.fullmatch(r'(rozwer|mattsun|koshiro|kaiya)/([1-9][0-9]*)-([a-z0-9]+(?:-[a-z0-9]+)*)',branch)
     if not match:raise ValueError('Use owner/Issue-number-description, for example rozwer/1-app-foundation')
@@ -75,7 +76,7 @@ def policy_for(board):
     try:root=subprocess.check_output(['git','rev-parse','--show-toplevel'],stderr=subprocess.DEVNULL,text=True,encoding='utf-8').strip()
     except subprocess.CalledProcessError:return None
     path=graph_path(root)
-    return json.loads(path.read_text(encoding='utf-8')).get('task_policy') if path.is_file() else None
+    return load_graph(root,path).get('task_policy') if path.is_file() else None
 
 def pending_preparation(board):
     return [t['id'] for t in board['graph']['tasks'] if t.get('kind')=='preparation' and board['tasks'][t['id']]['status']!='done']

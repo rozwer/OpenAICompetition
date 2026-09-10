@@ -23,7 +23,7 @@ React・Vite・Hono・MapLibre・Three・Codex SDK等の採用済み依存もpac
 
 ## 計画と台帳
 
-本番計画は`docs/production-plan/v2/TASK_GRAPH.json`だけを読む。ルートへ写しを作らない。担当文書は`mise run specs:generate`で更新する。
+計画は文書入口の正本を直接読む。個別Issue形式の`docs/implementation-issues/index.json`がある場合はこれを優先し、ルートへ写しを作らない。担当文書は正本と同じ変更で更新し、`mise run specs:check`で確認する。
 
 実装用のリポジトリをoriginへ共有した後、台帳の初期化を一度だけ行う。
 
@@ -39,7 +39,7 @@ GitHub Issue番号を登録したtask_policyがある場合はIssueの担当とC
 ## 取得から終了
 
 ```sh
-mise run task:worktree P-RUNTIME ../runtime-worktree
+mise run task:worktree 001 ../runtime-worktree
 mise run task:verify
 mise run task:submit --help
 mise run task:finish --help

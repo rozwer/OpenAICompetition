@@ -33,5 +33,5 @@ mise run check
 ## 仕様・計画の更新
 
 `mise run specs:check`で要件対応・依存・契約参照・画面素材・DB定義を確認する。
-計画JSONを変更した場合は`mise run specs:generate`で担当文書を再生成してから確認する。
+計画と担当文書を同じ変更で更新し、`mise run specs:check`で対応を確認する。
 アプリの起動・検査コマンドは001で導入する環境に合わせて定義する。
