@@ -1,18 +1,45 @@
 # 育てる地図：データとAPIの実装契約
 
+## 2026-09-10 境界検査への反映
+
+[今回の事前条件](../production-plan/v2/REVIEW_PREVENTION.md)をAPI実装と検証へ適用する。
+IDの型注釈や注入fakeだけでは適合とせず、通常生成・fallback・復元後のrequestを採用HTTP decoderで検証する。
+JSON bodyの原文を非破壊で検査し、parameter変換と分離する。既知errorは契約statusへ写す。
+AI入力は本人原文・許可・版の解決責任を明示し、provider実行後にも鮮度を確認して保存する。
+保存開始時snapshotと最新draftが異なる場合は未送信の追記を保持する。詳細な合否は[受入条件](acceptance-criteria.md)を参照する。
+
+**2026-09-10 リハーサル反映**：[本番実装計画](../production-plan/v2/README.md)に、他担当の完了済みTaskを含む再編・依存関係・再発防止条件を反映しました。[共通受入](../production-plan/v2/common-acceptance.md)と[依存変更・反例](../production-plan/v2/RECURRENCE.md)を次回実装に適用します。既存アプリの実装状態を更新したという意味ではありません。
+
+**2026-09-08レビュー反映**：[ID付き要件・受入条件](../requirements/reviewed-requirements.md)を優先する。本書の既存設計は保持するが、状況別プロファイル・体験レシピ・OpenUAS候補取得等の型/API・処理への反映は次の詳細設計で行う。[反映方針](../requirements/review-integration.md)と[旧受入条件の対応](../requirements/acceptance-mapping.md)を参照。
+
 版：1.0 / 更新日：2026年9月5日\
 状態：[詳細仕様書](implementation.md)に対応する設計案。マイグレーションとAPIの実装は未着手。
 
 データの正本、型、権限、更新単位をこの文書に定める。
-記録から本人の説明、解釈、比較、提案へ至る参照を追い、訂正や共有取消を反映できる形にする。
+記録から説明・解釈・比較・提案への参照を追い、訂正と共有取消を反映する。
+
+本書は既存機能の契約であり、[最新のタブ要件](../requirements/README.md)に追加した機能のAPIは未反映。未記載の機能を実装済み・設計済みとは扱わない。
+
+| 読む目的 | 節 |
+|---|---|
+| データ・型・更新・権限 | 1〜3 |
+| APIの共通規則とエラー | 4 |
+| セッション・地図・記録・対話 | 5 |
+| 比較・提案・共有 | 6 |
+| プラグイン・情報源・修復 | 7・8 |
+| ジョブ・再開・デモ・ログ | 9〜11 |
 
 ## 1. すべての私有データに所有者・空間・版を持たせる
 
 `space`はデータを分離する実行領域である。
 通しデモでは一つのspaceを使い続け、場面が進んでも作り直さない。
 途中の保存状態から独立して再開する場合だけ新しいspaceを作り、既存の会話や他のデモ実行を上書きしない。
-ユーザーはSupabase AuthのUUIDで識別する。
+ユーザーはアプリが発行するUUIDで識別し、認証サービスのIDとは分離する。
+認証サービスを接続する際は、検証済みの`(issuer, subject)`とアプリのuser_idを一意に対応付ける。
+メールアドレスや表示名の一致だけで既存利用者へ紐付けない。
 地域IDと入力元の外部IDを除き、アプリ内のIDはUUIDとする。
+
+### 時刻・座標・命名
 
 時刻はUTCのISO 8601、DBは`timestamptz`、表示はAsia/Tokyoを既定とする。
 位置はWGS84、GeoJSONの座標順は`[経度, 緯度]`、距離はメートル、時間差は秒とする。
@@ -23,7 +50,7 @@ APIはsnake_case、TypeScript内部は変換境界を設けてcamelCaseを使っ
 
 | 表 | 必須の列と制約 |
 |---|---|
-| `profiles` | `id=auth.users.id, display_name, created_at` |
+| `profiles` | `id(UUID), display_name, created_at`。認証サービスへの外部キーは持たない |
 | `spaces` | `id, mode(demo/personal), created_by, scenario_key?, created_at` |
 | `space_members` | `space_id, user_id, role(participant/operator)`。組合せを一意にする |
 | `owner_states` | `space_id, user_id, data_revision, access_revision`。ジョブ公開時の照合に使う |
@@ -68,7 +95,10 @@ JSONの`payload`は後述する種類別Schemaで検証する。
 同じresourceの新版作成は行ロックと期待版の確認後に行う。
 版と依存参照は、同じspaceか参照可能な公開データに限定する。
 
-DBの行ごとに閲覧・更新を制限するRLSは、認証済みの所有者とspace所属を基本とする。
+APIとワーカーは、サーバーが確定したuser_idとspace所属から閲覧と更新を判定する。
+PostgresのRLSを使う場合もこの主体を使い、Supabase固有の認証IDをドメインの所有者IDとして扱わない。
+DB接続層は検証済みの主体をトランザクション内だけに設定し、接続プールの次の要求へ持ち越さない。
+RLSを用いる私有データの接続ロールは、テーブル所有者やBYPASSRLS権限を持つロールと分ける。
 相手の私有表をそのままSELECT可能にせず、共有項目を投影した`shared_projections`を返す。
 publicな施設情報と個人の訪問・理由を別の表に保つ。
 ワーカーの処理でも利用者の権限を再確認し、管理キーを共有情報の読取り判定の代わりに使わない。
@@ -215,9 +245,11 @@ visitの確定は専用API、本人の追加説明は新しいmessageで行う�
 
 ## 4. APIの共通形式と失敗の意味を固定する
 
-ベースパスは`/api/v1`。通常のAPIは認証済みセッションを要求する。
+ベースパスは`/api/v1`。通常のAPIは有効な利用者セッションを要求する。デモでは5.1節の人物選択から発行する。
 spaceはセッションの選択状態から決め、要求されたspaceに所属していることを確認する。
 クライアントから任意の所有者を指定して作成・更新するAPIは設けない。
+### 応答とエラー
+
 成功は`{data, meta}`、失敗は`{error, meta}`とする。
 
 ```json
@@ -243,8 +275,10 @@ spaceはセッションの選択状態から決め、要求されたspaceに所�
 | 429 | `quota_exceeded / too_many_jobs` | 上限と再試行可能時刻を示す |
 | 502/503 | `provider_unavailable / integration_not_configured` | 入力を維持して再試行、または接続設定を行う |
 
-認証の開始・終了を除くPOST・PATCHには`Idempotency-Key`を要求する。DELETEも同じ結果を繰り返し返せるようにする。
-キーはspace、認証者、method、pathと組み合わせ、24時間保持する。
+### 重複・競合・取得件数
+
+セッションの開始・終了を除くPOST・PATCHには`Idempotency-Key`を要求する。DELETEも同じ結果を繰り返し返せるようにする。
+キーはspace、利用者ID、method、pathと組み合わせ、24時間保持する。
 space作成前のデモ管理APIではspaceの代わりに固定値`demo-admin`と発表者IDを使う。
 同じキー・同じ本文は前の応答または同じジョブを返し、本文が違えば409にする。
 編集系は`expected_revision`を必須にする。
@@ -261,8 +295,8 @@ resourceを返すAPIは`id, kind, revision, payload`を共通の外形とする�
 | method / path | 入力 | 成功時のdataと副作用 |
 |---|---|---|
 | GET `/session` | なし | user、space、操作権、設定済み接続の状態 |
-| POST `/demo/operator-session` | `email, password` | 発表者用の管理セッション。初回ログインだけ未認証を許すが、デモモード・loopback・同一Originは必須 |
-| POST `/demo/sessions` | `actor(a/b/new), space_id` | 認証セッションを発行。loopback、デモモード、発表者の操作権が必要 |
+| POST `/demo/operator-session` | なし | ローカル発表者用の管理セッション。初回発行はセッション不要。デモモード、loopback接続、許可したHostと同一Originを必須とする |
+| POST `/demo/sessions` | `actor(a/b/new), space_id` | 利用者セッションを発行。loopback、デモモード、発表者の操作権が必要 |
 | POST `/session/logout` | なし | セッション終了 |
 | GET `/regions` | なし | 地域一覧とデータの準備状態 |
 | GET `/places/search` | `region_id, q`、任意`cursor, limit` | 施設の候補。私有の記憶は混ぜない |
@@ -294,17 +328,36 @@ statementを渡した場合は対象に結び付いたmessageを同時作成し�
 自由文は1メッセージ4000文字、用途・理由の表示用の要約は各300文字を既定上限とする。
 原文は表示要約の上限で切り捨てない。
 
-### 5.1 初回起動時の認証
+### 5.1 デモの利用者選択と後から接続する認証
 
-`demo:seed`で発表者用のSupabase Authアカウントを作る。
-資格情報はGit管理外の`.local/demo-accounts.json`へ所有者だけが読める権限で保存し、生成したパスワードをログへ出さない。
-発表者はS01からこの資格情報で一度ログインし、デモ実行領域を作成してA・Bを選ぶ。
-デモ利用者の資格情報もサーバー側で保持し、人物選択時にSupabase Authへサインインして利用者セッションを発行する。
-管理用と利用者用は別のHttpOnly・SameSite=Strict cookieにし、人物切替で管理セッションを失わない。
-開発時のHTTP接続に限りSecureを外し、公開構成の認証へこの仕組みを持ち込まない。
-通常のデータAPIは利用者のJWTだけを使う。管理セッションは人物切替・再生・場面準備を許可するもので、個人データのRLSを迂回しない。
-S09のコード・確認要求はジョブの所有者が閲覧し、発表者はその利用者セッションから操作する。
-ログアウトは利用者用と管理用をともに破棄する。別プロファイルでは発表者のログインから行う。
+初期段階では会員登録、メール確認、パスワード、OAuthの画面と処理を実装しない。
+`demo:seed`で発表者と架空のA、Bのprofilesを作り、S01からログイン入力なしで人物を選べるようにする。
+発表者の管理セッションは`POST /demo/operator-session`で取得し、実行領域を作成後、`POST /demo/sessions`で人物を選択する。
+`actor=new`は履歴のないデモ用profileを発行する。
+これはローカルデモの役割選択であり、操作者がその人物本人であることの証明ではない。
+人物選択には`DEMO_MODE=true`、loopbackの接続元、許可したHostと同一Originを要求し、外部公開時は発行口を無効化する。
+転送ヘッダーだけを根拠にloopbackと判断しない。
+
+セッションの解決はサーバーの一つの入口`resolvePrincipal(request)`に集約する。
+戻り値は`{user_id, space_id, session_kind: demo|authenticated}`または未認証とし、所属と現在の操作権はサーバー側で確認する。
+デモ実装はサーバーが発行した推測困難なセッションIDを検証し、サーバー側に保存した人物とspaceを返す。
+管理用と利用者用は別のHttpOnly、SameSite=Strict cookieにし、人物切替で管理セッションを失わない。
+セッションには有効期限を設け、終了時にサーバー側でも失効させる。
+HTTPのローカル開発に限りSecureを外す。
+通常APIに渡された`owner_id`や任意のユーザーヘッダーを主体として信用しない。
+
+ドメイン処理は共通の利用者情報だけを受け取り、cookie、JWT、認証SDKに依存しない。
+管理セッションは人物切替、再生、場面準備だけを許し、通常の私有データを読む権限には使わない。
+ワーカーはジョブ作成時のactor_idを保存し、実行と結果公開の際に現在の所属と共有権限を再確認する。
+S09はジョブの所有者の利用者セッションで操作する。
+セッション終了は管理用と利用者用の両方へ適用し、同時にAとBを操作する場合はブラウザプロファイルを分ける。
+
+余力があれば、既存の認証サービスを利用する実装をこの入口へ接続する。
+認証済みの外部IDをprofilesへ対応付け、同じドメイン処理と所有権の検証を使う。
+独自のパスワード認証基盤は作らない。
+本物の利用者認証が未実装の間は、公開URLでの一般利用と実ユーザーの私有データの受入れを対象外とする。
+OpenAI APIとCodexの認証、費用上限、生成コードの実行権限は別の接続設定であり、初期段階から必要とする。
+開発者を表す`CODEX_OWNER`も、アプリのuser_idやログイン資格情報としては使わない。
 
 ### 5.2 位置記録の要求例
 
@@ -406,8 +459,9 @@ type FeatureManifest = {
   output_schema: object;
   source_ids: string[];
   requested_fields: string[];
-  capabilities: Array<'places.search' | 'routes.walk' | 'knowledge.query' | 'personal.read'>;
-  update_policy: { mode: 'on_demand' | 'scheduled'; interval_seconds: number | null };
+  capabilities: Array<'places.search' | 'routes.walk' | 'knowledge.query' | 'personal.read' | 'network.fetch'>;
+  network_requests: Array<{ origin: string; path_prefix: string; methods: Array<'GET' | 'POST'> }>;
+  update_policy: { mode: 'on_demand' | 'while_open'; interval_seconds: number | null };
   validation_suite_id: string;
 };
 
@@ -425,16 +479,27 @@ JSON Schemaとして受け付ける種類とサイズを制限し、参照先を
 任意のHTMLを地図のポップアップへ挿入せず、文字列はエスケープする。
 出力のGeoJSONは座標、件数、サイズ、対象地域を検査する。
 
+### 端末での実行と権限
+
 `evaluate`は入力と共通操作を受け、`FeatureOutput`を返す。
-コンテナ内の関数は、共通操作の要求をJSONLでstdoutへ出す。
-ワーカーは許可を確認し、結果をstdinへ返す。この入出力方式を既定とする。
-要求にはrun_id、連番、操作名、引数を持たせる。ワーカーはinstallに許可された操作・項目だけを実行する。
-コンテナから任意のホストやURLへ接続する経路を設けない。
+端末側の実行環境は、共通操作を型付きメッセージとして本体へ要求する。JSONLによるコンテナとの入出力は使わない。
+本体はrun_id、連番、送信元、nonce、操作名、引数を検証し、installの許可に照らして結果を返す。
+公開APIの通信は端末で行う。接続先のorigin、path、HTTP methodをmanifestに宣言し、リダイレクト先にも許可を適用する。
+Webで取得できない情報源と、運営の秘密キーを要する接続だけは、あらかじめ実装した運営側APIを経由する。
+秘密キーをmanifestや生成コードへ保存しない。
+端末実行のpreviewジョブは端末の実行担当へ渡し、結果をAPIへ報告する。Node.jsワーカーで生成コードを実行しない。
+報告時にセッション、job_id、install、版、artifact_hash、結果Schemaを検査する。
+端末の切断は成功とせず、期限超過で失敗扱いにし、再実行は新しいattemptとして管理する。
+端末からの実行結果は本体による権限判定を変更できず、ショップ配布の検証合格証明にも流用しない。
 タイムアウト、無効な要求、出力上限超過で実行を停止し、現在の機能登録を維持する。
+
+### 専用表示
 
 専用表示は、ビルド時に依存をまとめたJSを隔離フレーム内で実行する。
 実行時の任意パッケージ取得は行わない。
-フレームから親へ渡せる操作は、許可済みの対象選択と描画出力に限る。
+フレームから親へ渡せる操作は、許可済みの対象選択、描画出力、manifestに宣言した共通操作に限る。
+`while_open`は端末で表示中だけ取得を繰り返す。停止中の更新を保証せず、再開時に再取得する。
+応答サイズ、タイムアウト、頻度を本体で制限し、実装仕様書10.2節の実行制限を適用する。
 生成機能のSchema、共通操作、検証例は契約の版を付け、アプリ更新時に互換性を検証する。
 
 | method / path | 入力 | 成功時のdataと副作用 |
@@ -494,6 +559,8 @@ queued → running → succeeded
                  → stale
 ```
 
+### 実行と重複防止
+
 ジョブkindは`dialogue / comparison / transfer_extract / transfer_search / feature_build / feature_run / source_refresh / source_repair / recompute`とする。
 生成物の状態とジョブの実行状態は別に保存する。
 ワーカーはPostgresの行ロックと`SKIP LOCKED`で取得し、30秒のleaseを10秒ごとに更新する。
@@ -503,6 +570,8 @@ lease切れのジョブを再取得しても、外部の生成ターンを二重
 呼出し受理後に落ちて外部IDを保存できなかった場合、再開照会で受理状態を確認できるまで新しい生成を起動しない。
 確認不能なら`provider_state_unknown`で入力待ちにし、二重の費用・生成が起き得る再実行を自動で行わない。
 古いプロセスの確認要求へ返信せず、executionとprocess_session_idを照合する。期限切れは409で現状の再読取りを求める。
+
+### 失敗の記録
 
 失敗には`failure_stage, code, retryable, duration_ms, limit_ms`を持たせる。
 `execution_timeout / validation_timeout / output_limit_exceeded / capability_denied`を分け、実効上限をexecutionの`limits`に記録する。
@@ -517,10 +586,14 @@ lease切れのジョブを再取得しても、外部の生成ターンを二重
 | POST `/jobs/:id/inputs` | `request_id, response` | 対応する確認要求へ返答する |
 | GET `/events` | spaceのSSE、任意`Last-Event-ID` | 権限・データの無効化イベント |
 
+### イベントと再接続
+
 イベントの外形は`sequence, type, occurred_at, job_id, payload`とする。
 typeは`job.accepted / job.started / message.delta / job.progress / job.input_required / artifact.ready / validation.completed / job.completed / job.failed / job.cancelled / data.invalidated`を使う。
 SSEのidには永続化した連番を使う。クライアントは同じ連番を二度反映しない。
 保持期間外からの再開は410を返し、ジョブのスナップショットから再接続する。初期保持期間は7日とする。
+
+### 実処理・再現入力・保存結果の区別
 
 `job.completed`のpayloadには`result_ref, execution_mode, source_revisions, access_revisions`を含める。
 `execution_mode`は`live / replay_input / saved_result`とする。
@@ -545,7 +618,8 @@ SSEのidには永続化した連番を使う。クライアントは同じ連番
 複製した保存済み結果には元の実行IDと`saved_result`を残し、今回の生成成功として数えない。
 同じspace内で再生を繰り返しても元記録IDで重複を排除し、最初から見せ直す場合は新しいrunを作る。
 再生時刻を戻すために、本人の会話や全DBを削除しない。
-デモ用エンドポイントは`DEMO_MODE=true`かつloopbackからの認証済み管理操作に限定する。
+デモ用エンドポイントは`DEMO_MODE=true`かつloopbackからの有効な管理セッションを持つ操作に限定する。
+初回の管理セッション発行だけは5.1節の条件を適用する。
 外部公開構成ではエンドポイント自体を無効化する。
 
 ## 11. ログと成果物を実装の検証へ使う

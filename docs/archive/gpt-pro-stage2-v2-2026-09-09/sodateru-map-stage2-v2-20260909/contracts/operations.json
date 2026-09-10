@@ -1,0 +1,1274 @@
+[
+  {
+    "method": "get",
+    "path": "/api/v1/health",
+    "operation_id": "getHealth",
+    "summary": "実接続と利用可能モジュールを返す",
+    "request_schema": "",
+    "response_schema": "GetHealthResponse",
+    "success_status": 200,
+    "group": "core",
+    "tables": [],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/bootstrap",
+    "operation_id": "getBootstrap",
+    "summary": "本人の設定・文脈・capabilitiesだけ取得",
+    "request_schema": "",
+    "response_schema": "GetBootstrapResponse",
+    "success_status": 200,
+    "group": "core",
+    "tables": [
+      "actors",
+      "settings",
+      "app_contexts"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/settings",
+    "operation_id": "getSettings",
+    "summary": "設定取得",
+    "request_schema": "",
+    "response_schema": "GetSettingsResponse",
+    "success_status": 200,
+    "group": "core",
+    "tables": [
+      "settings"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "patch",
+    "path": "/api/v1/settings",
+    "operation_id": "updateSettings",
+    "summary": "設定変更・停止によるAI適用保留",
+    "request_schema": "UpdateSettingsRequest",
+    "response_schema": "UpdateSettingsResponse",
+    "success_status": 200,
+    "group": "core",
+    "tables": [
+      "settings",
+      "ai_jobs"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "put",
+    "path": "/api/v1/context",
+    "operation_id": "putContext",
+    "summary": "画面間文脈の保存",
+    "request_schema": "PutContextRequest",
+    "response_schema": "PutContextResponse",
+    "success_status": 200,
+    "group": "core",
+    "tables": [
+      "app_contexts"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/places",
+    "operation_id": "listPlaces",
+    "summary": "検索条件による場所一覧",
+    "request_schema": "",
+    "response_schema": "ListPlacesResponse",
+    "success_status": 200,
+    "group": "places",
+    "tables": [
+      "places"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/places/{placeId}",
+    "operation_id": "getPlace",
+    "summary": "場所情報・個人意味は別取得",
+    "request_schema": "",
+    "response_schema": "GetPlaceResponse",
+    "success_status": 200,
+    "group": "places",
+    "tables": [
+      "places"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/buildings",
+    "operation_id": "listBuildings",
+    "summary": "地図用実形状取得",
+    "request_schema": "",
+    "response_schema": "ListBuildingsResponse",
+    "success_status": 200,
+    "group": "places",
+    "tables": [
+      "buildings"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/places/{placeId}/meaning",
+    "operation_id": "getMeaning",
+    "summary": "本人または共有許可レンズの意味",
+    "request_schema": "",
+    "response_schema": "GetMeaningResponse",
+    "success_status": 200,
+    "group": "records",
+    "tables": [
+      "experiences",
+      "visits"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/experiences",
+    "operation_id": "createExperience",
+    "summary": "原文・任意訪問・体験を一括保存",
+    "request_schema": "CreateExperienceRequest",
+    "response_schema": "CreateExperienceResponse",
+    "success_status": 201,
+    "group": "records",
+    "tables": [
+      "evidence",
+      "visits",
+      "experiences"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/experiences",
+    "operation_id": "listExperiences",
+    "summary": "本人の体験一覧",
+    "request_schema": "",
+    "response_schema": "ListExperiencesResponse",
+    "success_status": 200,
+    "group": "records",
+    "tables": [
+      "experiences"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/experiences/{experienceId}",
+    "operation_id": "getExperience",
+    "summary": "本人の体験詳細",
+    "request_schema": "",
+    "response_schema": "GetExperienceResponse",
+    "success_status": 200,
+    "group": "records",
+    "tables": [
+      "experiences"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/evidence/{evidenceId}",
+    "operation_id": "getEvidence",
+    "summary": "許可された原文と出典",
+    "request_schema": "",
+    "response_schema": "GetEvidenceResponse",
+    "success_status": 200,
+    "group": "records",
+    "tables": [
+      "evidence"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/experiences/{experienceId}/corrections",
+    "operation_id": "correctExperience",
+    "summary": "この体験の理由・用途・状況を訂正",
+    "request_schema": "CorrectExperienceRequest",
+    "response_schema": "CorrectExperienceResponse",
+    "success_status": 200,
+    "group": "records",
+    "tables": [
+      "experiences",
+      "corrections",
+      "evidence",
+      "ai_jobs"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "delete",
+    "path": "/api/v1/experiences/{experienceId}",
+    "operation_id": "deleteExperience",
+    "summary": "本人の原文を含めた削除と派生失効",
+    "request_schema": "DeleteExperienceRequest",
+    "response_schema": "DeleteExperienceResponse",
+    "success_status": 200,
+    "group": "records",
+    "tables": [
+      "experiences",
+      "evidence",
+      "visits",
+      "corrections"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/correction-previews",
+    "operation_id": "previewCorrections",
+    "summary": "条件限定または全体訂正の対象を固定",
+    "request_schema": "PreviewCorrectionsRequest",
+    "response_schema": "PreviewCorrectionsResponse",
+    "success_status": 201,
+    "group": "records",
+    "tables": [
+      "correction_previews"
+    ],
+    "priority": "P3"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/correction-previews/{previewId}/apply",
+    "operation_id": "applyCorrections",
+    "summary": "固定対象と版を照合して複数訂正",
+    "request_schema": "ApplyCorrectionsRequest",
+    "response_schema": "ApplyCorrectionsResponse",
+    "success_status": 200,
+    "group": "records",
+    "tables": [
+      "correction_previews",
+      "corrections",
+      "experiences"
+    ],
+    "priority": "P3"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/observations/import",
+    "operation_id": "importObservations",
+    "summary": "JSONまたはGPX入力・重複排除",
+    "request_schema": "ImportObservationsRequest",
+    "response_schema": "ImportObservationsResponse",
+    "success_status": 201,
+    "group": "records",
+    "tables": [
+      "observations",
+      "visits"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/visits",
+    "operation_id": "listVisits",
+    "summary": "候補・確定訪問一覧",
+    "request_schema": "",
+    "response_schema": "ListVisitsResponse",
+    "success_status": 200,
+    "group": "records",
+    "tables": [
+      "visits"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "patch",
+    "path": "/api/v1/visits/{visitId}",
+    "operation_id": "updateVisit",
+    "summary": "訪問候補の確認・訂正・却下・削除",
+    "request_schema": "UpdateVisitRequest",
+    "response_schema": "UpdateVisitResponse",
+    "success_status": 200,
+    "group": "records",
+    "tables": [
+      "visits"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/history",
+    "operation_id": "getHistory",
+    "summary": "日時範囲の履歴・リプレイ",
+    "request_schema": "",
+    "response_schema": "GetHistoryResponse",
+    "success_status": 200,
+    "group": "self",
+    "tables": [
+      "visits",
+      "experiences",
+      "observations"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/hypotheses",
+    "operation_id": "listHypotheses",
+    "summary": "状況別仮説・支持・反例",
+    "request_schema": "",
+    "response_schema": "ListHypothesesResponse",
+    "success_status": 200,
+    "group": "self",
+    "tables": [
+      "profile_hypotheses"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "put",
+    "path": "/api/v1/preferences",
+    "operation_id": "putPreference",
+    "summary": "現在の希望を履歴と別に保存",
+    "request_schema": "PutPreferenceRequest",
+    "response_schema": "PutPreferenceResponse",
+    "success_status": 200,
+    "group": "self",
+    "tables": [
+      "preferences"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "patch",
+    "path": "/api/v1/hypotheses/{hypothesisId}",
+    "operation_id": "reviewHypothesis",
+    "summary": "仮説の確認・反証",
+    "request_schema": "ReviewHypothesisRequest",
+    "response_schema": "ReviewHypothesisResponse",
+    "success_status": 200,
+    "group": "self",
+    "tables": [
+      "profile_hypotheses"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/diaries",
+    "operation_id": "createDiary",
+    "summary": "日記を本人の編集稿として保存",
+    "request_schema": "CreateDiaryRequest",
+    "response_schema": "CreateDiaryResponse",
+    "success_status": 201,
+    "group": "self",
+    "tables": [
+      "diaries"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/diaries",
+    "operation_id": "listDiaries",
+    "summary": "日記一覧",
+    "request_schema": "",
+    "response_schema": "ListDiariesResponse",
+    "success_status": 200,
+    "group": "self",
+    "tables": [
+      "diaries"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "patch",
+    "path": "/api/v1/diaries/{diaryId}",
+    "operation_id": "updateDiary",
+    "summary": "日記の編集と承認",
+    "request_schema": "UpdateDiaryRequest",
+    "response_schema": "UpdateDiaryResponse",
+    "success_status": 200,
+    "group": "self",
+    "tables": [
+      "diaries"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/assets",
+    "operation_id": "uploadAsset",
+    "summary": "画像アップロード",
+    "request_schema": "multipart",
+    "response_schema": "UploadAssetResponse",
+    "success_status": 201,
+    "group": "self",
+    "tables": [
+      "assets"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/assets/{assetId}",
+    "operation_id": "getAsset",
+    "summary": "画像メタデータ取得",
+    "request_schema": "",
+    "response_schema": "GetAssetResponse",
+    "success_status": 200,
+    "group": "self",
+    "tables": [
+      "assets"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/assets/{assetId}/content",
+    "operation_id": "getAssetContent",
+    "summary": "許可済み画像バイト取得",
+    "request_schema": "",
+    "response_schema": "binary",
+    "success_status": 200,
+    "group": "self",
+    "tables": [
+      "assets"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/export",
+    "operation_id": "exportOwnData",
+    "summary": "本人のJSON出力",
+    "request_schema": "",
+    "response_schema": "ExportOwnDataResponse",
+    "success_status": 200,
+    "group": "self",
+    "tables": [
+      "actors",
+      "settings",
+      "app_contexts",
+      "sources",
+      "buildings",
+      "places",
+      "evidence",
+      "observations",
+      "visits",
+      "experiences",
+      "corrections",
+      "correction_previews",
+      "interpretations",
+      "profile_hypotheses",
+      "preferences",
+      "candidate_sets",
+      "route_plans",
+      "passes",
+      "quests",
+      "share_grants",
+      "comparisons",
+      "recipes",
+      "transfer_plans",
+      "joint_plans",
+      "feedback",
+      "discovery_cards",
+      "discovery_events",
+      "interests",
+      "diaries",
+      "assets",
+      "extensions",
+      "extension_versions",
+      "extension_installs",
+      "extension_runs",
+      "source_snapshots",
+      "repair_proposals",
+      "ai_jobs",
+      "development_requests"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/candidate-sets",
+    "operation_id": "createCandidateSet",
+    "summary": "再比較可能な候補集合を保存",
+    "request_schema": "CreateCandidateSetRequest",
+    "response_schema": "CreateCandidateSetResponse",
+    "success_status": 201,
+    "group": "routes",
+    "tables": [
+      "candidate_sets"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/candidate-sets/{candidateSetId}",
+    "operation_id": "getCandidateSet",
+    "summary": "固定候補集合取得",
+    "request_schema": "",
+    "response_schema": "GetCandidateSetResponse",
+    "success_status": 200,
+    "group": "routes",
+    "tables": [
+      "candidate_sets"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/routes",
+    "operation_id": "planRoute",
+    "summary": "制約を検証して経路を保存",
+    "request_schema": "PlanRouteRequest",
+    "response_schema": "PlanRouteResponse",
+    "success_status": 201,
+    "group": "routes",
+    "tables": [
+      "route_plans"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/routes/{routeId}",
+    "operation_id": "getRoute",
+    "summary": "経路再表示",
+    "request_schema": "",
+    "response_schema": "GetRouteResponse",
+    "success_status": 200,
+    "group": "routes",
+    "tables": [
+      "route_plans"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "patch",
+    "path": "/api/v1/routes/{routeId}",
+    "operation_id": "setRouteState",
+    "summary": "経路採用・後回し・却下",
+    "request_schema": "SetRouteStateRequest",
+    "response_schema": "SetRouteStateResponse",
+    "success_status": 200,
+    "group": "routes",
+    "tables": [
+      "route_plans"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/quests",
+    "operation_id": "createQuest",
+    "summary": "任意の計画開始",
+    "request_schema": "CreateQuestRequest",
+    "response_schema": "CreateQuestResponse",
+    "success_status": 201,
+    "group": "routes",
+    "tables": [
+      "quests"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "patch",
+    "path": "/api/v1/quests/{questId}",
+    "operation_id": "updateQuest",
+    "summary": "実践・見送りを分離",
+    "request_schema": "UpdateQuestRequest",
+    "response_schema": "UpdateQuestResponse",
+    "success_status": 200,
+    "group": "routes",
+    "tables": [
+      "quests"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/passes",
+    "operation_id": "listPasses",
+    "summary": "定期券一覧",
+    "request_schema": "",
+    "response_schema": "ListPassesResponse",
+    "success_status": 200,
+    "group": "routes",
+    "tables": [
+      "passes"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/passes",
+    "operation_id": "createPass",
+    "summary": "定期券区間保存",
+    "request_schema": "CreatePassRequest",
+    "response_schema": "CreatePassResponse",
+    "success_status": 201,
+    "group": "routes",
+    "tables": [
+      "passes"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "patch",
+    "path": "/api/v1/passes/{passId}",
+    "operation_id": "updatePass",
+    "summary": "定期券変更",
+    "request_schema": "UpdatePassRequest",
+    "response_schema": "UpdatePassResponse",
+    "success_status": 200,
+    "group": "routes",
+    "tables": [
+      "passes"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "delete",
+    "path": "/api/v1/passes/{passId}",
+    "operation_id": "deletePass",
+    "summary": "定期券削除",
+    "request_schema": "DeletePassRequest",
+    "response_schema": "DeletePassResponse",
+    "success_status": 200,
+    "group": "routes",
+    "tables": [
+      "passes"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/shared-experiences",
+    "operation_id": "listSharedExperiences",
+    "summary": "共有許可済み体験だけ検索",
+    "request_schema": "",
+    "response_schema": "ListSharedExperiencesResponse",
+    "success_status": 200,
+    "group": "social",
+    "tables": [
+      "share_grants",
+      "experiences"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/share-grants",
+    "operation_id": "createShareGrant",
+    "summary": "項目単位の共有",
+    "request_schema": "CreateShareGrantRequest",
+    "response_schema": "CreateShareGrantResponse",
+    "success_status": 201,
+    "group": "social",
+    "tables": [
+      "share_grants"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/share-grants/{grantId}/revoke",
+    "operation_id": "revokeShareGrant",
+    "summary": "共有取消と派生失効",
+    "request_schema": "RevokeShareGrantRequest",
+    "response_schema": "RevokeShareGrantResponse",
+    "success_status": 200,
+    "group": "social",
+    "tables": [
+      "share_grants",
+      "comparisons",
+      "ai_jobs"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/comparisons",
+    "operation_id": "createComparison",
+    "summary": "許可済み投影のルール比較",
+    "request_schema": "CreateComparisonRequest",
+    "response_schema": "CreateComparisonResponse",
+    "success_status": 201,
+    "group": "social",
+    "tables": [
+      "comparisons"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/comparisons/{comparisonId}",
+    "operation_id": "getComparison",
+    "summary": "取消を反映した比較取得",
+    "request_schema": "",
+    "response_schema": "GetComparisonResponse",
+    "success_status": 200,
+    "group": "social",
+    "tables": [
+      "comparisons"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "patch",
+    "path": "/api/v1/comparisons/{comparisonId}",
+    "operation_id": "rejectMapping",
+    "summary": "類似対応の否定",
+    "request_schema": "RejectMappingRequest",
+    "response_schema": "RejectMappingResponse",
+    "success_status": 200,
+    "group": "social",
+    "tables": [
+      "comparisons"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/recipes",
+    "operation_id": "createRecipe",
+    "summary": "役割と順序を編集して保存",
+    "request_schema": "CreateRecipeRequest",
+    "response_schema": "CreateRecipeResponse",
+    "success_status": 201,
+    "group": "transfer",
+    "tables": [
+      "recipes"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/recipes/{recipeId}",
+    "operation_id": "getRecipe",
+    "summary": "体験レシピ取得",
+    "request_schema": "",
+    "response_schema": "GetRecipeResponse",
+    "success_status": 200,
+    "group": "transfer",
+    "tables": [
+      "recipes"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "patch",
+    "path": "/api/v1/recipes/{recipeId}",
+    "operation_id": "updateRecipe",
+    "summary": "役割・固定条件の変更",
+    "request_schema": "UpdateRecipeRequest",
+    "response_schema": "UpdateRecipeResponse",
+    "success_status": 200,
+    "group": "transfer",
+    "tables": [
+      "recipes"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/transfers",
+    "operation_id": "planTransfer",
+    "summary": "別都市の候補へ役割を割当",
+    "request_schema": "PlanTransferRequest",
+    "response_schema": "PlanTransferResponse",
+    "success_status": 201,
+    "group": "transfer",
+    "tables": [
+      "transfer_plans",
+      "route_plans"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/transfers/{transferId}",
+    "operation_id": "getTransfer",
+    "summary": "残す・変える・移せない・不明を取得",
+    "request_schema": "",
+    "response_schema": "GetTransferResponse",
+    "success_status": 200,
+    "group": "transfer",
+    "tables": [
+      "transfer_plans"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/joint-plans",
+    "operation_id": "createJointPlan",
+    "summary": "共同希望の積集合と両者評価",
+    "request_schema": "CreateJointPlanRequest",
+    "response_schema": "CreateJointPlanResponse",
+    "success_status": 201,
+    "group": "social",
+    "tables": [
+      "joint_plans"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/joint-plans/{jointPlanId}",
+    "operation_id": "getJointPlan",
+    "summary": "共同案再表示",
+    "request_schema": "",
+    "response_schema": "GetJointPlanResponse",
+    "success_status": 200,
+    "group": "social",
+    "tables": [
+      "joint_plans"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/feedback",
+    "operation_id": "createFeedback",
+    "summary": "自分の実践と作者への返信",
+    "request_schema": "CreateFeedbackRequest",
+    "response_schema": "CreateFeedbackResponse",
+    "success_status": 201,
+    "group": "social",
+    "tables": [
+      "feedback"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/feedback",
+    "operation_id": "listFeedback",
+    "summary": "本人の感想と許可された返信",
+    "request_schema": "",
+    "response_schema": "ListFeedbackResponse",
+    "success_status": 200,
+    "group": "social",
+    "tables": [
+      "feedback"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/discoveries",
+    "operation_id": "openDiscovery",
+    "summary": "本人主導で根拠あるカードを開く",
+    "request_schema": "OpenDiscoveryRequest",
+    "response_schema": "OpenDiscoveryResponse",
+    "success_status": 201,
+    "group": "discovery",
+    "tables": [
+      "discovery_cards",
+      "discovery_events"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/discoveries/{cardId}",
+    "operation_id": "getDiscovery",
+    "summary": "発見再表示",
+    "request_schema": "",
+    "response_schema": "GetDiscoveryResponse",
+    "success_status": 200,
+    "group": "discovery",
+    "tables": [
+      "discovery_cards"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/discoveries/{cardId}/events",
+    "operation_id": "recordDiscoveryEvent",
+    "summary": "既知・興味・閉じる・禁止を別保存",
+    "request_schema": "RecordDiscoveryEventRequest",
+    "response_schema": "RecordDiscoveryEventResponse",
+    "success_status": 201,
+    "group": "discovery",
+    "tables": [
+      "discovery_events",
+      "interests"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/interests",
+    "operation_id": "listInterests",
+    "summary": "新しい関心一覧",
+    "request_schema": "",
+    "response_schema": "ListInterestsResponse",
+    "success_status": 200,
+    "group": "discovery",
+    "tables": [
+      "interests"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/extensions",
+    "operation_id": "listExtensions",
+    "summary": "ストア一覧",
+    "request_schema": "",
+    "response_schema": "ListExtensionsResponse",
+    "success_status": 200,
+    "group": "extensions",
+    "tables": [
+      "extensions"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/extensions",
+    "operation_id": "createExtension",
+    "summary": "機能メタデータ登録",
+    "request_schema": "CreateExtensionRequest",
+    "response_schema": "CreateExtensionResponse",
+    "success_status": 201,
+    "group": "extensions",
+    "tables": [
+      "extensions"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/extensions/{extensionId}/versions",
+    "operation_id": "createExtensionVersion",
+    "summary": "型付きDSLの版を作成",
+    "request_schema": "CreateExtensionVersionRequest",
+    "response_schema": "CreateExtensionVersionResponse",
+    "success_status": 201,
+    "group": "extensions",
+    "tables": [
+      "extension_versions"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/extensions/{extensionId}/versions",
+    "operation_id": "listExtensionVersions",
+    "summary": "旧版と生成版の一覧",
+    "request_schema": "",
+    "response_schema": "ListExtensionVersionsResponse",
+    "success_status": 200,
+    "group": "extensions",
+    "tables": [
+      "extension_versions"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/extension-versions/{versionId}/preview",
+    "operation_id": "previewExtension",
+    "summary": "実計算を試用して結果保存",
+    "request_schema": "PreviewExtensionRequest",
+    "response_schema": "PreviewExtensionResponse",
+    "success_status": 201,
+    "group": "extensions",
+    "tables": [
+      "extension_runs"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/extension-installs",
+    "operation_id": "installExtension",
+    "summary": "検証済み版を導入",
+    "request_schema": "InstallExtensionRequest",
+    "response_schema": "InstallExtensionResponse",
+    "success_status": 201,
+    "group": "extensions",
+    "tables": [
+      "extension_installs"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/extension-installs",
+    "operation_id": "listInstalls",
+    "summary": "導入済み機能一覧",
+    "request_schema": "",
+    "response_schema": "ListInstallsResponse",
+    "success_status": 200,
+    "group": "extensions",
+    "tables": [
+      "extension_installs"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "patch",
+    "path": "/api/v1/extension-installs/{installId}",
+    "operation_id": "updateInstall",
+    "summary": "有効化・無効化・版切替",
+    "request_schema": "UpdateInstallRequest",
+    "response_schema": "UpdateInstallResponse",
+    "success_status": 200,
+    "group": "extensions",
+    "tables": [
+      "extension_installs"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/extension-installs/{installId}/rollback",
+    "operation_id": "rollbackInstall",
+    "summary": "直前版へ戻す・状態保持",
+    "request_schema": "RollbackInstallRequest",
+    "response_schema": "RollbackInstallResponse",
+    "success_status": 200,
+    "group": "extensions",
+    "tables": [
+      "extension_installs"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/extension-installs/{installId}/run",
+    "operation_id": "runExtension",
+    "summary": "導入版の機能を実行",
+    "request_schema": "RunExtensionRequest",
+    "response_schema": "RunExtensionResponse",
+    "success_status": 201,
+    "group": "extensions",
+    "tables": [
+      "extension_runs"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/sources",
+    "operation_id": "createSource",
+    "summary": "出典とadapter情報保存",
+    "request_schema": "CreateSourceRequest",
+    "response_schema": "CreateSourceResponse",
+    "success_status": 201,
+    "group": "sources",
+    "tables": [
+      "sources"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/sources/{sourceId}/snapshots",
+    "operation_id": "createSnapshot",
+    "summary": "取得結果と形式を保存",
+    "request_schema": "CreateSnapshotRequest",
+    "response_schema": "CreateSnapshotResponse",
+    "success_status": 201,
+    "group": "sources",
+    "tables": [
+      "source_snapshots"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/repairs",
+    "operation_id": "createRepair",
+    "summary": "列対応案を保存",
+    "request_schema": "CreateRepairRequest",
+    "response_schema": "CreateRepairResponse",
+    "success_status": 201,
+    "group": "sources",
+    "tables": [
+      "repair_proposals"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/repairs/{repairId}",
+    "operation_id": "getRepair",
+    "summary": "修復差分の取得",
+    "request_schema": "",
+    "response_schema": "GetRepairResponse",
+    "success_status": 200,
+    "group": "sources",
+    "tables": [
+      "repair_proposals"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/repairs/{repairId}/approve",
+    "operation_id": "approveRepair",
+    "summary": "意味と単位を承認して再取込",
+    "request_schema": "ApproveRepairRequest",
+    "response_schema": "ApproveRepairResponse",
+    "success_status": 200,
+    "group": "sources",
+    "tables": [
+      "repair_proposals",
+      "places",
+      "source_snapshots"
+    ],
+    "priority": "P1"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/ai/jobs",
+    "operation_id": "createAiJob",
+    "summary": "明示モードで構造化AIジョブを開始",
+    "request_schema": "CreateAiJobRequest",
+    "response_schema": "CreateAiJobResponse",
+    "success_status": 202,
+    "group": "ai",
+    "tables": [
+      "ai_jobs"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/ai/jobs/{jobId}",
+    "operation_id": "getAiJob",
+    "summary": "ジョブ状態・現在許可された結果",
+    "request_schema": "",
+    "response_schema": "GetAiJobResponse",
+    "success_status": 200,
+    "group": "ai",
+    "tables": [
+      "ai_jobs"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/ai/jobs/{jobId}/cancel",
+    "operation_id": "cancelAiJob",
+    "summary": "結果適用を停止",
+    "request_schema": "CancelAiJobRequest",
+    "response_schema": "CancelAiJobResponse",
+    "success_status": 200,
+    "group": "ai",
+    "tables": [
+      "ai_jobs"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/ai/jobs/{jobId}/apply",
+    "operation_id": "applyAiJob",
+    "summary": "入力版・共有・設定再確認して提案保存",
+    "request_schema": "ApplyAiJobRequest",
+    "response_schema": "ApplyAiJobResponse",
+    "success_status": 200,
+    "group": "ai",
+    "tables": [
+      "ai_jobs",
+      "interpretations",
+      "comparisons",
+      "recipes",
+      "discovery_cards",
+      "extension_versions",
+      "diaries",
+      "repair_proposals"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/interpretations/{interpretationId}/review",
+    "operation_id": "reviewInterpretation",
+    "summary": "本人が抽出結果を確認または却下",
+    "request_schema": "ReviewInterpretationRequest",
+    "response_schema": "ReviewInterpretationResponse",
+    "success_status": 200,
+    "group": "ai",
+    "tables": [
+      "interpretations",
+      "experiences"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/development-requests",
+    "operation_id": "createDevelopmentRequest",
+    "summary": "DSL外の改造要求を契約化",
+    "request_schema": "CreateDevelopmentRequestRequest",
+    "response_schema": "CreateDevelopmentRequestResponse",
+    "success_status": 201,
+    "group": "extensions",
+    "tables": [
+      "development_requests"
+    ],
+    "priority": "P2"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/development-requests/{requestId}",
+    "operation_id": "getDevelopmentRequest",
+    "summary": "本人AIへ渡す開発契約取得",
+    "request_schema": "",
+    "response_schema": "GetDevelopmentRequestResponse",
+    "success_status": 200,
+    "group": "extensions",
+    "tables": [
+      "development_requests"
+    ],
+    "priority": "P2"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/demo/namespaces",
+    "operation_id": "cloneDemo",
+    "summary": "新規demo領域へseedを複製",
+    "request_schema": "CloneDemoRequest",
+    "response_schema": "CloneDemoResponse",
+    "success_status": 201,
+    "group": "demo",
+    "tables": [
+      "namespaces"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "post",
+    "path": "/api/v1/demo/reset",
+    "operation_id": "resetDemo",
+    "summary": "選択demo領域だけ初期化",
+    "request_schema": "ResetDemoRequest",
+    "response_schema": "ResetDemoResponse",
+    "success_status": 201,
+    "group": "demo",
+    "tables": [
+      "namespaces"
+    ],
+    "priority": "P0"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/changes",
+    "operation_id": "getChanges",
+    "summary": "差分IDによる画面再取得",
+    "request_schema": "",
+    "response_schema": "GetChangesResponse",
+    "success_status": 200,
+    "group": "core",
+    "tables": [
+      "change_events"
+    ],
+    "priority": "P0"
+  }
+]

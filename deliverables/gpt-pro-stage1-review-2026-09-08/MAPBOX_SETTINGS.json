@@ -1,0 +1,294 @@
+{
+  "extraction": "Static evaluation of the constructor, regions, LOD function and lights from the bundled source; not runtime observation.",
+  "source": "project/prototypes/mapbox-character/src/main.js",
+  "initialRegion": "nagoya",
+  "constants": {
+    "CHARACTER_WIDTH": 64,
+    "CHARACTER_HEIGHT": 112,
+    "CHARACTER_FPS": 12,
+    "MAP_RENDER_SCALE": 0.8,
+    "MAX_BUILDING_ICONS": 3
+  },
+  "regions": {
+    "tokyo": {
+      "label": "東京駅・丸の内",
+      "center": [
+        139.7649,
+        35.6812
+      ],
+      "bearing": -18,
+      "zoom": 17.5,
+      "coverage": "高：駅舎と周辺高層棟の形状を確認"
+    },
+    "shinjuku": {
+      "label": "東京・新宿",
+      "center": [
+        139.6952,
+        35.6911
+      ],
+      "bearing": -24,
+      "zoom": 17.3,
+      "coverage": "高：東京都庁舎と新宿駅周辺の象徴的建築を確認"
+    },
+    "yokohama": {
+      "label": "横浜・山下公園",
+      "center": [
+        139.6497,
+        35.4459
+      ],
+      "bearing": 28,
+      "zoom": 17.4,
+      "coverage": "中：マリンタワーと氷川丸を識別。周辺街区は汎用形状が中心"
+    },
+    "minatomirai": {
+      "label": "横浜・みなとみらい",
+      "center": [
+        139.6349,
+        35.4552
+      ],
+      "bearing": 26,
+      "zoom": 17.2,
+      "coverage": "高：ランドマークタワー、観覧車、周辺施設を確認"
+    },
+    "nagoya": {
+      "label": "名古屋・栄",
+      "center": [
+        136.9085,
+        35.1707
+      ],
+      "bearing": -24,
+      "zoom": 17.5,
+      "coverage": "高：中部電力 MIRAI TOWERとオアシス21を識別"
+    },
+    "hakone": {
+      "label": "箱根・芦ノ湖",
+      "center": [
+        139.0247,
+        35.204
+      ],
+      "bearing": 18,
+      "zoom": 17.1,
+      "coverage": "低：湖岸と建物形状は見えるが、象徴的な3Dランドマークは不足"
+    },
+    "osaka": {
+      "label": "大阪・道頓堀",
+      "center": [
+        135.50129,
+        34.669074
+      ],
+      "bearing": -22,
+      "zoom": 17.6,
+      "coverage": "低〜中：街区形状は見えるが、道頓堀らしい象徴物は補完候補"
+    }
+  },
+  "mapConstructor": {
+    "container": "map",
+    "style": "mapbox://styles/mapbox/standard",
+    "config": {
+      "basemap": {
+        "theme": "default",
+        "lightPreset": "day",
+        "colorBuildingHighlight": "#a9d4c2",
+        "colorBuildingSelect": "#6fa98e",
+        "show3dObjects": true,
+        "show3dBuildings": true,
+        "show3dLandmarks": true,
+        "show3dFacades": false,
+        "show3dTrees": false,
+        "showLandmarkIcons": true,
+        "showPointOfInterestLabels": false,
+        "showPlaceLabels": false,
+        "showRoadLabels": false,
+        "showTransitLabels": false,
+        "showPedestrianRoads": false
+      }
+    },
+    "center": [
+      136.9085,
+      35.1707
+    ],
+    "zoom": 17.5,
+    "pitch": 64,
+    "bearing": -24,
+    "antialias": false,
+    "fadeDuration": 0,
+    "refreshExpiredTiles": false,
+    "maxTileCacheSize": 12,
+    "minZoom": 14.5,
+    "maxZoom": 20,
+    "maxPitch": 68,
+    "maxBounds": [
+      [
+        136.8945,
+        35.1607
+      ],
+      [
+        136.9225,
+        35.180699999999995
+      ]
+    ],
+    "renderWorldCopies": false,
+    "projection": "mercator",
+    "respectPrefersReducedMotion": true
+  },
+  "lights": [
+    {
+      "id": "prototype-ambient",
+      "type": "ambient",
+      "properties": {
+        "color": "#ffffff",
+        "intensity": 0.72
+      }
+    },
+    {
+      "id": "prototype-directional",
+      "type": "directional",
+      "properties": {
+        "color": "#ffffff",
+        "intensity": 0.38,
+        "direction": [
+          200,
+          45
+        ],
+        "cast-shadows": false,
+        "shadow-intensity": 0
+      }
+    }
+  ],
+  "lodSamples": [
+    {
+      "zoom": 14.5,
+      "id": "overview",
+      "label": "フットプリント俯瞰",
+      "objects": true,
+      "buildings": true,
+      "landmarks": false,
+      "facades": false,
+      "trees": false,
+      "character": false,
+      "icons": false,
+      "pitch": 0
+    },
+    {
+      "zoom": 15.199,
+      "id": "overview",
+      "label": "フットプリント俯瞰",
+      "objects": true,
+      "buildings": true,
+      "landmarks": false,
+      "facades": false,
+      "trees": false,
+      "character": false,
+      "icons": false,
+      "pitch": 0
+    },
+    {
+      "zoom": 15.2,
+      "id": "light",
+      "label": "広域3D",
+      "objects": true,
+      "buildings": true,
+      "landmarks": true,
+      "facades": false,
+      "trees": false,
+      "character": false,
+      "icons": false,
+      "pitch": 48
+    },
+    {
+      "zoom": 16.199,
+      "id": "light",
+      "label": "広域3D",
+      "objects": true,
+      "buildings": true,
+      "landmarks": true,
+      "facades": false,
+      "trees": false,
+      "character": false,
+      "icons": false,
+      "pitch": 48
+    },
+    {
+      "zoom": 16.2,
+      "id": "light",
+      "label": "広域3D",
+      "objects": true,
+      "buildings": true,
+      "landmarks": true,
+      "facades": false,
+      "trees": false,
+      "character": false,
+      "icons": true,
+      "pitch": 48
+    },
+    {
+      "zoom": 16.799,
+      "id": "light",
+      "label": "広域3D",
+      "objects": true,
+      "buildings": true,
+      "landmarks": true,
+      "facades": false,
+      "trees": false,
+      "character": false,
+      "icons": true,
+      "pitch": 48
+    },
+    {
+      "zoom": 16.8,
+      "id": "light",
+      "label": "広域3D",
+      "objects": true,
+      "buildings": true,
+      "landmarks": true,
+      "facades": false,
+      "trees": false,
+      "character": true,
+      "icons": true,
+      "pitch": 48
+    },
+    {
+      "zoom": 16.999,
+      "id": "light",
+      "label": "広域3D",
+      "objects": true,
+      "buildings": true,
+      "landmarks": true,
+      "facades": false,
+      "trees": false,
+      "character": true,
+      "icons": true,
+      "pitch": 48
+    },
+    {
+      "zoom": 17,
+      "id": "detail",
+      "label": "詳細3D",
+      "objects": true,
+      "buildings": true,
+      "landmarks": true,
+      "facades": false,
+      "trees": false,
+      "character": true,
+      "icons": true,
+      "pitch": 64
+    },
+    {
+      "zoom": 20,
+      "id": "detail",
+      "label": "詳細3D",
+      "objects": true,
+      "buildings": true,
+      "landmarks": true,
+      "facades": false,
+      "trees": false,
+      "character": true,
+      "icons": true,
+      "pitch": 64
+    }
+  ],
+  "notes": [
+    "LOD sample fields describe returned values. applyLod only applies building/landmark visibility and marker flags; pitch is applied on zoomend.",
+    "Access token omitted; constructor has no embedded credential."
+  ]
+}

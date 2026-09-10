@@ -1,0 +1,40 @@
+# [GATE-001] 通し体験の確認・動作版タグ
+
+| 項目 | 契約 |
+|---|---|
+| 優先度 / 種別 | P0 / gate |
+| 担当 | 未割当。claim成功者がこのtaskだけを担当する |
+| 着手の必須依存 | INT-001, INT-002, INT-003, DEMO-001, PREF-001, INT-016 |
+| 接続時に必要な実装 | 上記の必須依存と受入操作に従う |
+| 共有契約 | v2.1.0 / entries.ts / OperationMap / domain.ts / ports.ts |
+| 編集ロック | `evidence/release/` |
+| 規模 | S。時間・期限ではない |
+| 元Issue追跡 | DAY-A08, DAY-A09, DAY-B08, DAY-B09, DAY-C08, DAY-C09, DAY-D08, DAY-D09 |
+| 対応要件 | DATA-004, DATA-012, EVAL-004, EVAL-005, EVAL-008, EXT-007, NAV-008, NEW-009, NEW-012, OPS-002, OPS-007, OPS-008, OPS-009 |
+| 状態 | 未着手。アプリ実装済みではない |
+
+## 完成させるもの
+
+記録/訂正/AI/復帰のP0を確認してtag。P1は完成した枝だけ選択し、全P1待ちを禁止。
+
+## APIと保存境界
+
+HTTPを新設しない。提供済みのOperationMapとPortを使う。
+
+[登録形式](../ENTRY_CONTRACT.md)、[HTTP](../API_CONTRACT.md)、[OpenAPI](../contracts/openapi.yaml)、[DTO](../contracts/domain.ts)、[操作別の型](../contracts/operations.ts)、[SQL](../db/schema.sql)を使用する。機能は独自のentryやpath/body形式を作らない。
+
+## 実装と受入
+
+1. taskctlで依存と全編集pathを確認しclaimする。返されたbase_commitから専用worktreeを作る。
+2. descriptorと注入Portを実装する。feature間の具象importはしない。契約変更は別の明示的な差分として調整する。
+3. 対象の実API・実DB・配線を使う。ライブAIを受入に含む場合は実応答を使う。fixture/Port fakeだけでは本Issueを完了にしない。
+4. 次の操作を実行し、使用したデータmode・接続mode・保存結果を証拠へ残す。
+5. submit→通常mergeまたはfast-forward→main到達確認→land。未完了ならbranchと引継ぎを残してreleaseする。
+
+**受入操作**：未接続UIはcapabilitiesから外す。本人データを残してdemoを再開始。
+
+サンプル地理データで本物の保存APIを確認することと、保存APIをfakeにすることは異なる。未知の高さ・架空経路を実測・実案内として示さない。
+
+## 失敗・引継ぎ
+
+対象の実接続が不足する場合は未完了として阻害要因と動く範囲を残す。fakeでINT/GATEを完了にしない。必要なmoduleは本Issue内で再実装せず、該当taskへ戻す。 追加編集pathは先に全取得する。ロックの待ちが解消できなければ未完了として引き継ぎ、別のREADY/POOLを取得する。

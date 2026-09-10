@@ -1,0 +1,37 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "cloneDemo",
+  "method": "POST",
+  "path": "/api/v1/demo/namespaces",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    }
+  },
+  "requestSchema": "CloneDemoRequest",
+  "responseSchema": "CloneDemoResponse",
+  "successStatus": 201,
+  "request": {
+    "opId": "id_example",
+    "payload": {
+      "seedVersion": "seedVersion"
+    }
+  },
+  "response": {
+    "data": {
+      "id": "id_example",
+      "kind": "user",
+      "canonicalRevision": 0,
+      "seedVersion": null
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

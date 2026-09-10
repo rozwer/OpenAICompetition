@@ -1,0 +1,24 @@
+# 経路から制約へ渡す情報
+
+RouteLegにedgeCoverage、edgeFacts、transit、passAssessmentsを追加した。経路計算側は採用したedgeを確定し、そのedgeのfactsと出典をRouteLegへ投影する。ConstraintPortはこの投影を受け取るため、目的地のPlaceFactsだけで道中の条件を判断しない。
+
+## 階段・屋根・車種
+
+- edgeCoverage=completeは、そのlegの全区間がedgeFactsに対応している場合だけ。通常の非零距離legで空配列ならcompleteを拒否する。
+- 各edgeはstairs、coveredをKnownBool、車種別通行条件をVehicleAccessFact[]で持つ。GraphEdgeのnullはunknown、vehicleClasses=nullもunknown。空の既知配列は許可車種なしでありunknownと区別する。
+- 有効期限切れの事実は判定時点でunknownとして扱う。未知をfalseへ変換してfilterしない。
+- avoidStairsでは一つでも既知stairs=trueならfail。既知違反がなく、欠落・unknownがあればunknown。全区間を確認でき、すべてfalseならpass。
+- requireCoveredでは一つでも既知covered=falseならfail。欠落・unknownだけならunknown。全区間がknown trueならpass。
+- vehicleClassは対応するVehicleAccessFactを使い、該当classの情報欠落はunknown。歩行者条件から大型二輪の通行可否を推測しない。
+
+既知違反を含む候補は経路選択から除外する。未知を含む候補を診断用に残す場合はfeasibility=unknownとし、条件を満たす経路として採用させない。no-routeとunknownは別。各結果はsourceIdsを引き継ぐ。
+
+## 交通と定期券
+
+transit legにはoperatorCode、lineCode、乗降stationCode、viaStationCodes、出発・到着時刻とprovenanceを持つ。徒歩のlegではtransit=null。交通の情報が未取得ならtransit=nullとし、定期の適用はunknownにする。
+
+PassAssessmentはpassId、適用可否KnownBool、控除後の追加運賃KnownMoney、根拠を持つ。経路provider/運賃adapterが実区間と有効期間を照合して作り、純粋なConstraintPortへ渡す。駅名の一致だけで無料としない。情報未取得を0円にしない。複数定期券を組み合わせる運賃を取得できない場合は、単一券の評価を単純加算せずunknownを返す。
+
+RouteLeg.costは採用した適用条件を反映した追加費用。既知の運賃は出典を持ち、passAssessmentsと一致させる。追加運賃を得られない場合はRouteLeg.costもunknown。実交通providerの接続は元の後続方針を維持する。
+
+`examples/route-constraint-cases.json` は目的地の屋根状態を同じに保ち、道中の屋根だけを変える反例、および定期区間の既知/不明例。`tools/test_route_constraints.ts` は追加した受渡しの参考計算だけを確認する。全経路機能・実災害案内・実交通の成功を意味しない。

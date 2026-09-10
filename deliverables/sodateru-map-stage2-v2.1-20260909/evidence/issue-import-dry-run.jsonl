@@ -1,0 +1,2 @@
+{"id": "MAP-002", "assignee": null, "dry_run": true, "command": ["gh", "issue", "create", "--repo", "example/sample", "--title", "[MAP-002] 用途によって変わる建物本体の造形", "--body-file", "issues/MAP-002.md"]}
+{"id": "POOL-001", "assignee": null, "dry_run": true, "command": ["gh", "issue", "create", "--repo", "example/sample", "--title", "[POOL-001] 建物の質感・影・形の読みやすさ", "--body-file", "issues/POOL-001.md"]}

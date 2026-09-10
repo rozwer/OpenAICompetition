@@ -1,0 +1,39 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "importObservations",
+  "method": "POST",
+  "path": "/api/v1/observations/import",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    }
+  },
+  "requestSchema": "ImportObservationsRequest",
+  "responseSchema": "ImportObservationsResponse",
+  "successStatus": 201,
+  "request": {
+    "opId": "id_example",
+    "payload": {
+      "format": "json",
+      "sourceId": "id_example",
+      "content": "content"
+    }
+  },
+  "response": {
+    "data": {
+      "insertedCount": 0,
+      "duplicateCount": 0,
+      "candidateVisitIds": [],
+      "warnings": []
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

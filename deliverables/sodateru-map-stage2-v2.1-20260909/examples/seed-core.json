@@ -1,0 +1,190 @@
+{
+  "namespace": {
+    "id": "ns_demo",
+    "kind": "demo",
+    "canonicalRevision": 0,
+    "seedVersion": "core-v2"
+  },
+  "entities": {
+    "Actor": [
+      {
+        "namespaceId": "ns_demo",
+        "id": "actor_self",
+        "revision": 1,
+        "createdAt": "2026-09-09T00:00:00Z",
+        "updatedAt": "2026-09-09T00:00:00Z",
+        "sourceMode": "sample",
+        "displayName": "自分（サンプル）",
+        "isDemo": true
+      }
+    ],
+    "Settings": [
+      {
+        "namespaceId": "ns_demo",
+        "id": "settings_self",
+        "revision": 1,
+        "createdAt": "2026-09-09T00:00:00Z",
+        "updatedAt": "2026-09-09T00:00:00Z",
+        "sourceMode": "sample",
+        "actorId": "actor_self",
+        "discoveryEnabled": true,
+        "proactiveSuggestions": false,
+        "exploreUnfamiliar": false,
+        "blockedConceptIds": [],
+        "preferredEntry": "map",
+        "locationEnabled": false,
+        "aiEnabled": true
+      }
+    ],
+    "AppContextEntity": [
+      {
+        "namespaceId": "ns_demo",
+        "id": "context_self",
+        "revision": 1,
+        "createdAt": "2026-09-09T00:00:00Z",
+        "updatedAt": "2026-09-09T00:00:00Z",
+        "sourceMode": "sample",
+        "actorId": "actor_self",
+        "context": {
+          "tab": "map",
+          "selectedPlaceId": null,
+          "selectedExperienceId": null,
+          "date": null,
+          "peerId": null,
+          "activeRouteId": null,
+          "lens": "mine",
+          "dimension": "2d",
+          "livePosition": null,
+          "replayPosition": null,
+          "camera2d": {
+            "center": {
+              "longitude": 136.9,
+              "latitude": 35.1
+            },
+            "zoom": 16,
+            "bearing": 0,
+            "pitch": 0
+          },
+          "camera3d": {
+            "center": {
+              "longitude": 136.9,
+              "latitude": 35.1
+            },
+            "zoom": 16,
+            "bearing": 0,
+            "pitch": 50
+          },
+          "draftIds": []
+        }
+      }
+    ],
+    "Preference": [
+      {
+        "namespaceId": "ns_demo",
+        "id": "preference_self",
+        "revision": 1,
+        "createdAt": "2026-09-09T00:00:00Z",
+        "updatedAt": "2026-09-09T00:00:00Z",
+        "sourceMode": "sample",
+        "actorId": "actor_self",
+        "currentIntent": null,
+        "context": {
+          "weather": null,
+          "companion": null,
+          "timeBudgetMinutes": null,
+          "timeBand": null,
+          "notes": null
+        },
+        "preferredPurposes": [],
+        "avoidPurposes": []
+      }
+    ],
+    "Source": [
+      {
+        "namespaceId": "ns_demo",
+        "id": "source_seed",
+        "revision": 1,
+        "createdAt": "2026-09-09T00:00:00Z",
+        "updatedAt": "2026-09-09T00:00:00Z",
+        "sourceMode": "sample",
+        "name": "架空街区seed",
+        "provider": "sample",
+        "url": null,
+        "license": "Synthetic fixture"
+      }
+    ],
+    "Place": [
+      {
+        "namespaceId": "ns_demo",
+        "id": "place_book",
+        "revision": 1,
+        "createdAt": "2026-09-09T00:00:00Z",
+        "updatedAt": "2026-09-09T00:00:00Z",
+        "sourceMode": "sample",
+        "cityId": "city_sample",
+        "name": "サンプルの本の場所",
+        "location": {
+          "longitude": 136.9,
+          "latitude": 35.1
+        },
+        "buildingId": null,
+        "levelLabel": null,
+        "categories": [
+          "library"
+        ],
+        "roleTags": [
+          "reading",
+          "rest"
+        ],
+        "providerRefs": [],
+        "facts": {
+          "covered": {
+            "status": "unknown",
+            "value": null,
+            "reason": "未取得",
+            "sourceIds": []
+          },
+          "stepFree": {
+            "status": "unknown",
+            "value": null,
+            "reason": "未取得",
+            "sourceIds": []
+          },
+          "quiet": {
+            "status": "unknown",
+            "value": null,
+            "reason": "未取得",
+            "sourceIds": []
+          },
+          "seats": {
+            "status": "unknown",
+            "value": null,
+            "reason": "未取得",
+            "sourceIds": []
+          },
+          "openNow": {
+            "status": "unknown",
+            "value": null,
+            "reason": "未取得",
+            "sourceIds": []
+          },
+          "cost": {
+            "status": "unknown",
+            "amountJPY": null,
+            "reason": "サンプルに料金情報なし",
+            "sourceIds": []
+          }
+        },
+        "provenance": {
+          "sourceMode": "sample",
+          "sourceIds": [
+            "source_seed"
+          ],
+          "executionMode": "rules",
+          "retrievedAt": null,
+          "validUntil": null
+        }
+      }
+    ]
+  }
+}

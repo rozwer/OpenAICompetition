@@ -1,0 +1,39 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "applyAiJob",
+  "method": "POST",
+  "path": "/api/v1/ai/jobs/{jobId}/apply",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    },
+    "path": {
+      "jobId": "id_example"
+    }
+  },
+  "requestSchema": "ApplyAiJobRequest",
+  "responseSchema": "ApplyAiJobResponse",
+  "successStatus": 200,
+  "request": {
+    "opId": "id_example",
+    "expectedRevision": 1,
+    "payload": {
+      "approve": true
+    }
+  },
+  "response": {
+    "data": {
+      "jobId": "id_example",
+      "entities": []
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

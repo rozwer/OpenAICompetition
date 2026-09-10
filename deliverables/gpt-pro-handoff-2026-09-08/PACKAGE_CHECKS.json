@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-09-08",
+  "source_files_byte_identical": 37,
+  "all_source_docs_included": true,
+  "symlinks": 0,
+  "excluded_artifacts_present": false,
+  "credential_pattern_hits": [],
+  "credential_check_scope": "Common credential string patterns in text files; not a comprehensive secret audit. Real env files are excluded.",
+  "source_relative_link_missing_targets": [],
+  "archive_verification": "ZIP CRC and every member hash are checked after writing; the external SHA-256 identifies the archive."
+}

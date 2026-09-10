@@ -1,0 +1,29 @@
+{
+  "version": "v2.1.0",
+  "artifactDate": "2026-09-09",
+  "requirements": 157,
+  "tasks": 114,
+  "initialDependencyReady": 77,
+  "explicitPoolTasks": 8,
+  "apiOperations": 89,
+  "jsonSchemas": 304,
+  "sqlTables": 44,
+  "domainColumns": 506,
+  "noTaskTimeboxes": true,
+  "allTasksUnassigned": true,
+  "sourceApplicationImplemented": false,
+  "githubIssuesCreated": false,
+  "supersedesSpecification": "v2.0.0",
+  "wireCompatibleWithV2": false,
+  "reviewFindingsAddressed": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6"
+  ],
+  "manifest": "MANIFEST.sha256",
+  "fileCount": 291,
+  "markdownLinks": "local targets verified"
+}

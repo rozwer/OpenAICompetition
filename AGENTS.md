@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Project boundaries
 
-- Read docs/spec/implementation-status.md and docs/team/reproduce.md first.
+- Read docs/spec/implementation-status.md and docs/team/reproduce.md first. For the next competition implementation, also follow docs/production-plan/v2/README.md and its REVIEW_PREVENTION.md; the older reproduction roles do not define task ownership.
 - Feature modules must not import other feature modules, server code, or infrastructure.
 - Keep domain and contracts independent of UI, HTTP, database, and Codex implementations.
 - Assemble dependencies in src/server and src/app only. Coordinate contract/schema changes before parallel work.

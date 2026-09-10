@@ -1,0 +1,54 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "updateSettings",
+  "method": "PATCH",
+  "path": "/api/v1/settings",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    }
+  },
+  "requestSchema": "UpdateSettingsRequest",
+  "responseSchema": "UpdateSettingsResponse",
+  "successStatus": 200,
+  "request": {
+    "opId": "id_example",
+    "expectedRevision": 1,
+    "payload": {
+      "discoveryEnabled": false,
+      "proactiveSuggestions": false,
+      "exploreUnfamiliar": false,
+      "blockedConceptIds": [],
+      "preferredEntry": "map",
+      "locationEnabled": false,
+      "aiEnabled": false
+    }
+  },
+  "response": {
+    "data": {
+      "namespaceId": "id_example",
+      "id": "id_example",
+      "revision": 1,
+      "createdAt": "2026-09-09T00:00:00Z",
+      "updatedAt": "2026-09-09T00:00:00Z",
+      "sourceMode": "live",
+      "actorId": "id_example",
+      "discoveryEnabled": false,
+      "proactiveSuggestions": false,
+      "exploreUnfamiliar": false,
+      "blockedConceptIds": [],
+      "preferredEntry": "map",
+      "locationEnabled": false,
+      "aiEnabled": false
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

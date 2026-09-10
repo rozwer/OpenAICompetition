@@ -1,0 +1,58 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "openDiscovery",
+  "method": "POST",
+  "path": "/api/v1/discoveries",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    }
+  },
+  "requestSchema": "OpenDiscoveryRequest",
+  "responseSchema": "OpenDiscoveryResponse",
+  "successStatus": 201,
+  "request": {
+    "opId": "id_example",
+    "payload": {
+      "anchor": {
+        "kind": "place",
+        "targetId": "id_example",
+        "features": []
+      },
+      "intent": "normal"
+    }
+  },
+  "response": {
+    "data": {
+      "namespaceId": "id_example",
+      "id": "id_example",
+      "revision": 1,
+      "createdAt": "2026-09-09T00:00:00Z",
+      "updatedAt": "2026-09-09T00:00:00Z",
+      "sourceMode": "live",
+      "actorId": "id_example",
+      "anchor": {
+        "kind": "place",
+        "targetId": "id_example",
+        "features": []
+      },
+      "bridge": "bridge",
+      "knowledge": "knowledge",
+      "observationPrompt": "observationPrompt",
+      "conceptIds": [],
+      "sources": [],
+      "intent": "normal",
+      "inputVersions": [],
+      "executionMode": "live-codex"
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

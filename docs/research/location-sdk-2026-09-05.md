@@ -3,15 +3,11 @@
 調査日：2026年9月5日\
 対象：[育てる地図の実装仕様書](../spec/implementation.md)
 
-このメモは、Mac上の仮想端末でのデモを完成させた後、実機の位置記録を組み込む際の参考資料とする。
-今回のデモは再生入力から始め、SDKの採用と組込みを完成条件に含めない。
-今回の優先は、記録と対話が地図・比較・提案へつながるデモであり、省電力性の訴求やSDK間の電池消費の比較は行わない。
-日常の移動を操作なしで記録するため、既存の位置情報SDKを利用する案を整理する。
-最初の候補は、自分たちのサーバーへの送信と移動検知が公開APIで扱えるTransistorsoft Background Geolocation SDKとする。
-ブログウォッチャーのProfile Passport SDK、GoogleとAppleの公開API、Radarも比較した。
-これは公開仕様に基づく選定案であり、SDKの組込み、実機での精度・電池測定、契約や購入はまだ行っていない。
+Macデモ後に、日常の移動を自動記録するSDKを選ぶための調査資料。初期候補は、移動検知と自前サーバーへの送信を公開APIで扱えるTransistorsoft Background Geolocation SDKとする。Profile Passport SDK、Google・AppleのAPI、Radarも比較した。
 
-## SDKごとに、取得できる情報と導入条件が異なる
+今回のデモは再生入力を使い、SDK導入や電池消費の比較を完成条件に含めない。以下は調査日時点の公開仕様に基づく案であり、組込み・実機測定・契約・購入は未実施。
+
+## SDKの機能と導入条件
 
 | 候補 | 公開資料で確認できた機能 | 導入とデータ利用の確認事項 |
 |---|---|---|
@@ -21,7 +17,7 @@
 | Transistorsoft Background Geolocation | iOS・Androidの移動検知、測位の開始・停止、端末内保存、自分たちのサーバーへのHTTP送信 | v5はDEBUGで評価でき、両OSのRELEASEにはライセンスが必要 |
 | Radar SDK | iOS・Androidの背景記録とジオフェンス。移動・停止に応じた記録設定 | Radarのキーとサービスを利用する構成。契約・料金と記録の送信経路を確認する |
 
-### Profile Passport SDKは実在し、導入事業者向けに提供されている
+### Profile Passport：契約とデータ利用範囲を確認
 
 ブログウォッチャーは、アプリへ組み込むProfile Passport SDKを提供している。
 対応環境やAPIの提供範囲、導入日程は、採用を検討する際に確認する。[公式サービス](https://www.blogwatcher.co.jp/service/profile-passport-sdk)
@@ -30,7 +26,7 @@
 契約と提供仕様に応じた情報の取扱いが定められているため、本人のアカウントに紐付く履歴として保存・表示できる範囲を確認する必要がある。[SDKサービス約款](https://www.blogwatcher.co.jp/terms_sdk)
 既存契約や提供済みSDKの有無は未確認である。既に利用できる条件がある場合は、導入の見込みを再評価する。
 
-### Google系では、位置取得と地図表示のAPIを使い分ける
+### Google・Apple：位置取得と地図表示を分離
 
 Fused Location ProviderはGoogle Play servicesのAndroid向けAPIで、GPSやWi-Fiなど複数の信号を組み合わせる。
 アプリから求める精度や更新条件を指定できる。[Fused Location Provider](https://developers.google.com/location-context/fused-location-provider)
@@ -49,7 +45,7 @@ Google Maps Timelineの履歴を第三者アプリから自動取得する公開
 公式ヘルプには、本人がアプリから履歴をファイルへ書き出す方法がある。
 この履歴取込みは、これからの行動を収集するSDKの組込みとは別に扱う。[Timelineの公式ヘルプ](https://support.google.com/maps/answer/6258979?co=GENIE.Platform%3DiOS&hl=en)
 
-### Transistorsoftは、自動切替と保存・送信をまとめて評価できる
+### Transistorsoft・Radar：記録と送信をまとめて評価
 
 Background Geolocation SDKには、移動時に測位し、静止時に位置サービスを止める処理がある。
 位置の端末内保存、HTTP送信、同期状態や位置更新のイベントをアプリへ渡すAPIもある。[SDKのAPI](https://docs.transistorsoft.com/react-native/BackgroundGeolocation/)

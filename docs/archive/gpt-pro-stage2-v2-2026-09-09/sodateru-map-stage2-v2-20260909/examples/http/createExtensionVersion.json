@@ -1,0 +1,62 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "createExtensionVersion",
+  "method": "POST",
+  "path": "/api/v1/extensions/{extensionId}/versions",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    },
+    "path": {
+      "extensionId": "id_example"
+    }
+  },
+  "requestSchema": "CreateExtensionVersionRequest",
+  "responseSchema": "CreateExtensionVersionResponse",
+  "successStatus": 201,
+  "request": {
+    "opId": "id_example",
+    "payload": {
+      "versionTag": "versionTag",
+      "definition": {
+        "schemaVersion": "dsl.v1",
+        "inputs": [],
+        "steps": [],
+        "outputKeys": [],
+        "hostSlot": "map-sheet"
+      }
+    }
+  },
+  "response": {
+    "data": {
+      "namespaceId": "id_example",
+      "id": "id_example",
+      "revision": 1,
+      "createdAt": "2026-09-09T00:00:00Z",
+      "updatedAt": "2026-09-09T00:00:00Z",
+      "sourceMode": "live",
+      "actorId": "id_example",
+      "extensionId": "id_example",
+      "versionTag": "versionTag",
+      "definition": {
+        "schemaVersion": "dsl.v1",
+        "inputs": [],
+        "steps": [],
+        "outputKeys": [],
+        "hostSlot": "map-sheet"
+      },
+      "artifactHash": "artifactHash",
+      "runtimeKind": "dsl",
+      "status": "draft"
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

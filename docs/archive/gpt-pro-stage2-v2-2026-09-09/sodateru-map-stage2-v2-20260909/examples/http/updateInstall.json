@@ -1,0 +1,50 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "updateInstall",
+  "method": "PATCH",
+  "path": "/api/v1/extension-installs/{installId}",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    },
+    "path": {
+      "installId": "id_example"
+    }
+  },
+  "requestSchema": "UpdateInstallRequest",
+  "responseSchema": "UpdateInstallResponse",
+  "successStatus": 200,
+  "request": {
+    "opId": "id_example",
+    "expectedRevision": 1,
+    "payload": {
+      "enabled": false,
+      "activeVersionId": "id_example"
+    }
+  },
+  "response": {
+    "data": {
+      "namespaceId": "id_example",
+      "id": "id_example",
+      "revision": 1,
+      "createdAt": "2026-09-09T00:00:00Z",
+      "updatedAt": "2026-09-09T00:00:00Z",
+      "sourceMode": "live",
+      "actorId": "id_example",
+      "extensionId": "id_example",
+      "activeVersionId": "id_example",
+      "previousVersionId": null,
+      "enabled": false,
+      "privateState": {}
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

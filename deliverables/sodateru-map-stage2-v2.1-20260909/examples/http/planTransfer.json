@@ -1,0 +1,74 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "planTransfer",
+  "method": "POST",
+  "path": "/api/v1/transfers",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    }
+  },
+  "requestSchema": "PlanTransferRequest",
+  "responseSchema": "PlanTransferResponse",
+  "successStatus": 201,
+  "request": {
+    "opId": "id_example",
+    "payload": {
+      "recipeId": "id_example",
+      "candidateSetId": "id_example",
+      "targetCityId": "id_example",
+      "mode": "faithful",
+      "routeInput": {
+        "originPlaceId": "id_example",
+        "destinationPlaceId": "id_example",
+        "waypoints": [],
+        "departureAt": "2026-09-09T00:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": false,
+          "requireCovered": false,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": null
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      }
+    }
+  },
+  "response": {
+    "data": {
+      "namespaceId": "id_example",
+      "id": "id_example",
+      "revision": 1,
+      "createdAt": "2026-09-09T00:00:00Z",
+      "updatedAt": "2026-09-09T00:00:00Z",
+      "sourceMode": "live",
+      "actorId": "id_example",
+      "recipeId": "id_example",
+      "candidateSetId": "id_example",
+      "targetCityId": "id_example",
+      "mode": "faithful",
+      "roles": [],
+      "routePlanId": null,
+      "constraints": [],
+      "inputVersions": [],
+      "status": "proposed"
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

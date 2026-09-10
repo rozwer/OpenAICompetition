@@ -1,0 +1,78 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "setRouteState",
+  "method": "PATCH",
+  "path": "/api/v1/routes/{routeId}",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    },
+    "path": {
+      "routeId": "id_example"
+    }
+  },
+  "requestSchema": "SetRouteStateRequest",
+  "responseSchema": "SetRouteStateResponse",
+  "successStatus": 200,
+  "request": {
+    "opId": "id_example",
+    "expectedRevision": 1,
+    "payload": {
+      "status": "selected"
+    }
+  },
+  "response": {
+    "data": {
+      "namespaceId": "id_example",
+      "id": "id_example",
+      "revision": 1,
+      "createdAt": "2026-09-09T00:00:00Z",
+      "updatedAt": "2026-09-09T00:00:00Z",
+      "sourceMode": "live",
+      "actorId": "id_example",
+      "input": {
+        "originPlaceId": "id_example",
+        "destinationPlaceId": "id_example",
+        "waypoints": [],
+        "departureAt": "2026-09-09T00:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": false,
+          "requireCovered": false,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": null
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      },
+      "legs": [],
+      "constraints": [],
+      "totalTravelSeconds": 0,
+      "totalStaySeconds": 0,
+      "cost": {
+        "status": "known",
+        "amountJPY": 0,
+        "sourceIds": []
+      },
+      "status": "proposed",
+      "feasibility": "pass",
+      "inputVersions": []
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

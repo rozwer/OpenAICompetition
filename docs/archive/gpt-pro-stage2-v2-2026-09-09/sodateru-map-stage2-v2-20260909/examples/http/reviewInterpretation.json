@@ -1,0 +1,57 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "reviewInterpretation",
+  "method": "POST",
+  "path": "/api/v1/interpretations/{interpretationId}/review",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    },
+    "path": {
+      "interpretationId": "id_example"
+    }
+  },
+  "requestSchema": "ReviewInterpretationRequest",
+  "responseSchema": "ReviewInterpretationResponse",
+  "successStatus": 200,
+  "request": {
+    "opId": "id_example",
+    "expectedRevision": 1,
+    "payload": {
+      "action": "accept"
+    }
+  },
+  "response": {
+    "data": {
+      "namespaceId": "id_example",
+      "id": "id_example",
+      "revision": 1,
+      "createdAt": "2026-09-09T00:00:00Z",
+      "updatedAt": "2026-09-09T00:00:00Z",
+      "sourceMode": "live",
+      "actorId": "id_example",
+      "experienceId": "id_example",
+      "jobId": "id_example",
+      "purpose": null,
+      "reason": null,
+      "context": {
+        "weather": null,
+        "companion": null,
+        "timeBudgetMinutes": null,
+        "timeBand": null,
+        "notes": null
+      },
+      "evidenceIds": [],
+      "status": "proposed"
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

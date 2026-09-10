@@ -1,0 +1,9 @@
+﻿id,title,priority,effective_priority,kind,assignee,write_paths,complexity
+POOL-001,建物の質感・影・形の読みやすさ,P1,P1,pool,,src/map/materials/,S
+POOL-002,空状態・保存失敗・再試行の文言,P1,P1,pool,,src/content/states/,S
+POOL-003,発見カードの知識・根拠セット,P1,P1,pool,,fixtures/discovery-reviewed/,S
+POOL-004,移植の役割と変更理由の例,P1,P1,pool,,fixtures/transfer-cases/,S
+POOL-005,3テーマ拡張の可変入力ケース,P1,P1,pool,,fixtures/extension-cases/,S
+POOL-006,390幅の表示確認と局所修正案,P1,P1,pool,,evidence/responsive/,S
+POOL-007,Codex活用の証拠と再利用README,P1,P1,pool,,docs/codex-evidence/;docs/reuse/,S
+POOL-008,起動/訂正/取消/復帰の操作カード,P1,P1,pool,,docs/demo-cards/,S

@@ -1,0 +1,78 @@
+{
+  "definition": {
+    "schemaVersion": "dsl.v1",
+    "inputs": [
+      {
+        "key": "budget",
+        "label": "使える時間（分）",
+        "type": "number",
+        "required": true
+      },
+      {
+        "key": "travel",
+        "label": "移動時間（分）",
+        "type": "number",
+        "required": true
+      },
+      {
+        "key": "title",
+        "label": "カード名",
+        "type": "string",
+        "required": true
+      },
+      {
+        "key": "status",
+        "label": "表示区分",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "steps": [
+      {
+        "id": "remaining",
+        "op": "subtract",
+        "inputKeys": [
+          "input.budget",
+          "input.travel"
+        ],
+        "outputKey": "remaining"
+      },
+      {
+        "id": "card",
+        "op": "formatCard",
+        "inputKeys": [
+          "input.title",
+          "step.remaining",
+          "input.status"
+        ],
+        "outputKey": "card"
+      }
+    ],
+    "outputKeys": [
+      "step.remaining",
+      "step.card"
+    ],
+    "hostSlot": "route-panel"
+  },
+  "cases": [
+    {
+      "inputs": {
+        "budget": 45,
+        "travel": 20,
+        "title": "残り時間",
+        "status": "info"
+      },
+      "expectedRemaining": 25
+    },
+    {
+      "inputs": {
+        "budget": 30,
+        "travel": 40,
+        "title": "残り時間",
+        "status": "info"
+      },
+      "expectedRemaining": -10
+    }
+  ],
+  "note": "有限演算の受入用fixture。実行器そのものはEXT-001で実装する。"
+}

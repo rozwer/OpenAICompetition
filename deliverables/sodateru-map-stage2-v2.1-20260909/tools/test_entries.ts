@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import { inspectEntries } from '../reference/entry-registry';
+import { healthUI, healthServer, integration } from '../examples/entry-wiring';
+import type { ServiceLookup, ServerEntry, ConnectionReceipt } from '../contracts/entries';
+const services:ServiceLookup={get() {throw new Error('No service in fixture');}};
+const real:ServerEntry={...healthServer,manifest:{...healthServer.manifest,mode:'implementation'}};
+// This 'implementation' descriptor is a local test double; no app receipt is written.
+const ui={...healthUI,manifest:{...healthUI.manifest,requiresCapabilities:[integration.manifest.providesCapability]}};
+const receipt:ConnectionReceipt={integrationId:'INT-EXAMPLE',buildRevision:'local-test',operationIds:['getHealth'],evidencePaths:['test-only'],dataMode:'sample',aiMode:'unused'};
+const base={ui:[ui],server:[real],integrations:[integration],services,buildRevision:'local-test',receipts:[receipt]};
+assert.deepEqual(inspectEntries(base).enabledUI,['core.health-ui']);
+assert.throws(()=>inspectEntries({...base,ui:[ui,ui]}),/Duplicate entry/);
+assert.throws(()=>inspectEntries({...base,server:[real,{...real,manifest:{...real.manifest,id:'other'}}]}),/Duplicate operation/);
+assert.throws(()=>inspectEntries({...base,server:[{...real,register(){}}]}),/differ from manifest/);
+assert.deepEqual(inspectEntries({...base,server:[healthServer]}).enabledUI,[]);
+assert.deepEqual(inspectEntries({...base,receipts:[]}).enabledUI,[]);
+assert.deepEqual(inspectEntries({...base,buildRevision:'different'}).enabledUI,[]);
+assert.throws(()=>inspectEntries({...base,integrations:[{...integration,wire(){return {uiEntryIds:['missing'],serverEntryIds:[]};}}]}),/Unknown UI/);
+assert.throws(()=>inspectEntries({...base,server:[{...real,manifest:{...real.manifest,requiresServices:['db']}}]}),/No service/);
+assert.deepEqual(inspectEntries({...base,integrations:[{...integration,manifest:{...integration.manifest,requiresLiveAI:true}}]}).enabledUI,[]);
+console.log(JSON.stringify({kind:'entry-ABI-reference',passed:10,scope:'Local registry descriptors, not app startup or live integration'}));

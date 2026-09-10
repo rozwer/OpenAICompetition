@@ -1,0 +1,50 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "createDiary",
+  "method": "POST",
+  "path": "/api/v1/diaries",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    }
+  },
+  "requestSchema": "CreateDiaryRequest",
+  "responseSchema": "CreateDiaryResponse",
+  "successStatus": 201,
+  "request": {
+    "opId": "id_example",
+    "payload": {
+      "date": "2026-09-09",
+      "text": "text",
+      "experienceIds": [],
+      "assetIds": [],
+      "status": "draft"
+    }
+  },
+  "response": {
+    "data": {
+      "namespaceId": "id_example",
+      "id": "id_example",
+      "revision": 1,
+      "createdAt": "2026-09-09T00:00:00Z",
+      "updatedAt": "2026-09-09T00:00:00Z",
+      "sourceMode": "live",
+      "actorId": "id_example",
+      "date": "2026-09-09",
+      "text": "text",
+      "experienceIds": [],
+      "assetIds": [],
+      "status": "draft",
+      "jobId": null
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

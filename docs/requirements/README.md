@@ -1,0 +1,28 @@
+# 要件定義
+
+**2026-09-10 リハーサル反映**：[本番実装計画](../production-plan/v2/README.md)に、他担当の完了済みTaskを含む再編・依存関係・再発防止条件を反映しました。[共通受入](../production-plan/v2/common-acceptance.md)と[依存変更・反例](../production-plan/v2/RECURRENCE.md)を次回実装に適用します。既存アプリの実装状態を更新したという意味ではありません。 今回の追加条件は[レビュー前の事前条件](../production-plan/v2/REVIEW_PREVENTION.md)、事実と修正の根拠は[担当側の記録](../production-plan/v2/review-evidence/LRN-REVIEW-RETROSPECT-ROOT.md)・[後継側の記録](../production-plan/v2/review-evidence/LRN-REVIEW-RETROSPECT-SUCCESSOR.md)を参照します。
+
+更新日：2026年9月8日
+
+「育てる地図」は次の4タブで構成する。本フォルダを利用体験の正本とし、[レビュー反映後の要件](reviewed-requirements.md)をID付き要件・受入条件の基準とする。各タブの文書は体験の説明と具体例を管理する。
+
+| 順序 | タブ | 中心となる体験 |
+|---:|---|---|
+| 1 | [地図を育てる](grow-map.md) | 探索・案内・記録を行い、訪問と用途で建物が育つ |
+| 2 | [みんなで育てる](grow-together.md) | 目的や場所から他者の体験を探し、意味の比較や共同コースへ進む |
+| 3 | [アプリを育てる](grow-app.md) | アプリ内ストアで導入し、GitHubのノウハウで開発に参加する |
+| 4 | [自分を知る](know-yourself.md) | 記録と対話から、場所を選ぶ理由・傾向・変化を知る |
+
+起動・タブ間の引継ぎ・AIの共通導線は[画面構成と起動](navigation.md)にまとめる。各文書では、操作、保存、失敗時の状態、受入条件、未決事項を定義する。「望ましい機能」は必須要件と分けて扱う。
+
+## レビュー反映後の読み方
+
+まず[反映方針と議論](review-integration.md)で製品の中心と具体化を続ける点を確認する。次に各タブの体験を読み、実装時は[ID付き要件と受入条件](reviewed-requirements.md)へ対応付ける。[旧A01〜A55の対応表](acceptance-mapping.md)も保持する。
+
+2026年9月8日に受領したGPT Pro案を、ユーザーの反映依頼に基づき今後の基準とした。元出力は[アーカイブ](../archive/gpt-pro-stage1-2026-09-08/README.md)に保全する。現在の要件は本フォルダで更新し、原本の提案状態と混同しない。具体的なモデル・数値・外部条件は未決のまま扱う。
+
+## 既存仕様との関係
+
+従来の5ページを4タブへ変更した。「地域を育てる」の場所情報・意見は地図の建物詳細へ、「人とつながる」の共有・比較・共同コースは「みんなで育てる」へ整理している。
+
+[基礎要件](../spec/requirements.md)は製品の目的と共通原則、[実装仕様書](../spec/implementation.md)・[データとAPI](../spec/data-and-api.md)・[受入条件](../spec/acceptance-criteria.md)は詳細設計の参照先とする。追加・変更した体験のAPIや実装順序は次の詳細設計で反映する。機能の配置や体験が異なる場合は本フォルダを優先する。

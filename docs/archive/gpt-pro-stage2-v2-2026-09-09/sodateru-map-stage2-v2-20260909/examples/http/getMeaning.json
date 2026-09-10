@@ -1,0 +1,38 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "getMeaning",
+  "method": "GET",
+  "path": "/api/v1/places/{placeId}/meaning",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    },
+    "path": {
+      "placeId": "id_example"
+    }
+  },
+  "requestSchema": "",
+  "responseSchema": "GetMeaningResponse",
+  "successStatus": 200,
+  "response": {
+    "data": {
+      "placeId": "id_example",
+      "actorId": "id_example",
+      "inputRevision": 0,
+      "purposeCounts": [],
+      "confirmedVisitCount": 0,
+      "growthStage": 0,
+      "bodyForm": "physical",
+      "evidenceIds": []
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

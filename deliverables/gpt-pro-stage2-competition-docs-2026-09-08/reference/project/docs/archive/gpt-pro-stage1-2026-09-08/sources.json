@@ -1,0 +1,104 @@
+[
+  {
+    "id": "W01",
+    "title": "OpenAI Codex Student Builder Fest 2026 公式ルール",
+    "url": "https://codex-student-hack-fes.openai.chatgpt.site/official-rules/",
+    "scope": "公式開発期間、既存資産の開示、審査軸。事前PoCの個別許可や具体的な発表尺は別途確認。"
+  },
+  {
+    "id": "W02",
+    "title": "Google: Ask Maps and Immersive Navigation（2026-03-12）",
+    "url": "https://blog.google/products-and-platforms/products/maps/ask-maps-immersive-navigation/",
+    "scope": "会話型の場所探し・ナビゲーションとの競合を考慮。日本での現時点の提供範囲を断定しない。"
+  },
+  {
+    "id": "W03",
+    "title": "OpenUAS dataset, Zenodo record 13141800",
+    "url": "https://zenodo.org/records/13141800",
+    "scope": "都市、メッシュ、補完フラグ、データ配布、特許と商用時の案内。公開というだけで権利を一括推定しない。"
+  },
+  {
+    "id": "W04",
+    "title": "OpenUAS paper v3 / official project repository",
+    "url": "https://arxiv.org/html/2407.19872v3",
+    "scope": "都市利用の埋込み、比較可能にするアンカー、過去のデータ期間。公式実装: https://github.com/UCLabNU/OpenUAS 。個人の性格や店内状態のラベルではない。"
+  },
+  {
+    "id": "W05",
+    "title": "Mapbox GL JS: Replace a building with a custom model",
+    "url": "https://docs.mapbox.com/mapbox-gl-js/example/clip-layer-building/",
+    "scope": "Standardの対象をclipしてモデルを置く公式例。実験的機能であり、実データと対象版で検証する。"
+  },
+  {
+    "id": "W06",
+    "title": "Mapbox: Attribution",
+    "url": "https://docs.mapbox.com/help/dive-deeper/attribution/",
+    "scope": "帰属とロゴの表示。正確な適用条件と配置は使用スタイル・データで確認する。"
+  },
+  {
+    "id": "W07",
+    "title": "Mapbox Directions API",
+    "url": "https://docs.mapbox.com/api/navigation/directions/",
+    "scope": "徒歩・自動車等のルーティング。日本の全鉄道・バス・定期運賃を同APIで扱える根拠ではない。"
+  },
+  {
+    "id": "W08",
+    "title": "駅すぱあと Webサービス: 定期券の控除",
+    "url": "https://docs.ekispert.com/v1/dictionary/teiki-deduction/",
+    "scope": "当該控除の対象は鉄道。非鉄道・対象券種・経路への適用状態を混同しない。"
+  },
+  {
+    "id": "W09",
+    "title": "NAVITIME API: 定期券を考慮した経路探索",
+    "url": "https://api-sdk.navitime.co.jp/api/specs/tips/commuter_pass.html",
+    "scope": "定期区間を扱う技術経路。バス全券種・全契約への対応を保証しない。"
+  },
+  {
+    "id": "W10",
+    "title": "Fleeson (2007), Situation-Based Contingencies Underlying Trait-Content Manifestation in Behavior",
+    "url": "https://ubc-emotionlab.ca/wp-content/uploads/2012/05/Fleeson-2007-Situation-Based-Contingencies.pdf",
+    "scope": "原著論文。状況依存と個人内の変動を設計の参考にする。位置ログからの心理診断を検証した論文ではない。"
+  },
+  {
+    "id": "W11",
+    "title": "Li et al. (2010), A Contextual-Bandit Approach to Personalized News Article Recommendation",
+    "url": "https://www.microsoft.com/en-us/research/publication/a-contextual-bandit-approach-to-personalized-news-article-recommendation-3/",
+    "scope": "文脈付き推薦と反応による更新。ニュース推薦の手法であり、本案の体験適合の性能を保証しない。"
+  },
+  {
+    "id": "W12",
+    "title": "Schnabel et al. (2016), Recommendations as Treatments: Debiasing Learning and Evaluation",
+    "url": "https://proceedings.mlr.press/v48/schnabel16.html",
+    "scope": "推薦ログの選択バイアスと学習・評価。候補表示の記録だけで全バイアスが除去できるわけではない。"
+  },
+  {
+    "id": "W13",
+    "title": "OpenAI: Codex App Server",
+    "url": "https://developers.openai.com/codex/app-server",
+    "scope": "Codexの呼出し、進行イベント、承認等。配布した新規プラグインの端末内隔離とは別。"
+  },
+  {
+    "id": "W14",
+    "title": "OpenAI: Running Codex safely",
+    "url": "https://openai.com/index/running-codex-safely/",
+    "scope": "承認、権限、実行環境の安全な運用。追加公式資料: https://developers.openai.com/codex/agent-approvals-security 。"
+  },
+  {
+    "id": "W15",
+    "title": "Fog of World official",
+    "url": "https://fogofworld.app/",
+    "scope": "探索・移動の記録という既存価値との比較。競合の全機能を調査済みという意味ではない。"
+  },
+  {
+    "id": "W16",
+    "title": "Polarsteps official",
+    "url": "https://www.polarsteps.com/",
+    "scope": "旅行の計画・記録・共有という既存価値との比較。世界初の証拠ではない。"
+  },
+  {
+    "id": "W17",
+    "title": "QuickJS Emscripten official repository",
+    "url": "https://github.com/justjake/quickjs-emscripten",
+    "scope": "ブラウザ等の実行、メモリ・スタック・割込み制限、明示的なhost関数公開。ランタイム候補であり、全体のセキュリティを保証しない。"
+  }
+]

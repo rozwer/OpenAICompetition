@@ -1,0 +1,1281 @@
+{
+  "note": "Sample graph facts only; geographic coordinates do not establish a walkable or safe route. Endpoint covered=true is held fixed across the first cases.",
+  "endpointCovered": {
+    "status": "known",
+    "value": true,
+    "sourceIds": [
+      "source_sample"
+    ]
+  },
+  "cases": [
+    {
+      "name": "all route edges covered",
+      "input": {
+        "originPlaceId": "place_a",
+        "destinationPlaceId": "place_b",
+        "waypoints": [],
+        "departureAt": "2026-09-09T01:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": false,
+          "requireCovered": true,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": "motorcycle-large"
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      },
+      "legs": [
+        {
+          "fromPlaceId": "place_a",
+          "toPlaceId": "place_b",
+          "mode": "walk",
+          "distanceMeters": 100,
+          "durationSeconds": 90,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                136.9,
+                35.17
+              ],
+              [
+                136.901,
+                35.17
+              ]
+            ]
+          },
+          "instructions": [],
+          "cost": {
+            "status": "known",
+            "amountJPY": 0,
+            "sourceIds": [
+              "source_sample"
+            ]
+          },
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-10T00:00:00Z"
+          },
+          "edgeCoverage": "complete",
+          "edgeFacts": [
+            {
+              "edgeId": "edge_one",
+              "stairs": {
+                "status": "known",
+                "value": false,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "covered": {
+                "status": "known",
+                "value": true,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "vehicleAccess": [
+                {
+                  "vehicleClass": "motorcycle-large",
+                  "allowed": {
+                    "status": "known",
+                    "value": true,
+                    "sourceIds": [
+                      "source_sample"
+                    ]
+                  }
+                }
+              ],
+              "provenance": {
+                "sourceMode": "sample",
+                "sourceIds": [
+                  "source_sample"
+                ],
+                "executionMode": "rules",
+                "retrievedAt": "2026-09-09T00:00:00Z",
+                "validUntil": "2026-09-10T00:00:00Z"
+              }
+            }
+          ],
+          "transit": null,
+          "passAssessments": []
+        }
+      ],
+      "condition": "requireCovered",
+      "expected": "pass"
+    },
+    {
+      "name": "destination covered but road uncovered",
+      "input": {
+        "originPlaceId": "place_a",
+        "destinationPlaceId": "place_b",
+        "waypoints": [],
+        "departureAt": "2026-09-09T01:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": false,
+          "requireCovered": true,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": "motorcycle-large"
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      },
+      "legs": [
+        {
+          "fromPlaceId": "place_a",
+          "toPlaceId": "place_b",
+          "mode": "walk",
+          "distanceMeters": 100,
+          "durationSeconds": 90,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                136.9,
+                35.17
+              ],
+              [
+                136.901,
+                35.17
+              ]
+            ]
+          },
+          "instructions": [],
+          "cost": {
+            "status": "known",
+            "amountJPY": 0,
+            "sourceIds": [
+              "source_sample"
+            ]
+          },
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-10T00:00:00Z"
+          },
+          "edgeCoverage": "complete",
+          "edgeFacts": [
+            {
+              "edgeId": "edge_one",
+              "stairs": {
+                "status": "known",
+                "value": false,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "covered": {
+                "status": "known",
+                "value": false,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "vehicleAccess": [
+                {
+                  "vehicleClass": "motorcycle-large",
+                  "allowed": {
+                    "status": "known",
+                    "value": true,
+                    "sourceIds": [
+                      "source_sample"
+                    ]
+                  }
+                }
+              ],
+              "provenance": {
+                "sourceMode": "sample",
+                "sourceIds": [
+                  "source_sample"
+                ],
+                "executionMode": "rules",
+                "retrievedAt": "2026-09-09T00:00:00Z",
+                "validUntil": "2026-09-10T00:00:00Z"
+              }
+            }
+          ],
+          "transit": null,
+          "passAssessments": []
+        }
+      ],
+      "condition": "requireCovered",
+      "expected": "fail"
+    },
+    {
+      "name": "road cover unknown",
+      "input": {
+        "originPlaceId": "place_a",
+        "destinationPlaceId": "place_b",
+        "waypoints": [],
+        "departureAt": "2026-09-09T01:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": false,
+          "requireCovered": true,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": "motorcycle-large"
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      },
+      "legs": [
+        {
+          "fromPlaceId": "place_a",
+          "toPlaceId": "place_b",
+          "mode": "walk",
+          "distanceMeters": 100,
+          "durationSeconds": 90,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                136.9,
+                35.17
+              ],
+              [
+                136.901,
+                35.17
+              ]
+            ]
+          },
+          "instructions": [],
+          "cost": {
+            "status": "known",
+            "amountJPY": 0,
+            "sourceIds": [
+              "source_sample"
+            ]
+          },
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-10T00:00:00Z"
+          },
+          "edgeCoverage": "complete",
+          "edgeFacts": [
+            {
+              "edgeId": "edge_one",
+              "stairs": {
+                "status": "known",
+                "value": false,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "covered": {
+                "status": "unknown",
+                "value": null,
+                "reason": "sample missing fact",
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "vehicleAccess": [
+                {
+                  "vehicleClass": "motorcycle-large",
+                  "allowed": {
+                    "status": "known",
+                    "value": true,
+                    "sourceIds": [
+                      "source_sample"
+                    ]
+                  }
+                }
+              ],
+              "provenance": {
+                "sourceMode": "sample",
+                "sourceIds": [
+                  "source_sample"
+                ],
+                "executionMode": "rules",
+                "retrievedAt": "2026-09-09T00:00:00Z",
+                "validUntil": "2026-09-10T00:00:00Z"
+              }
+            }
+          ],
+          "transit": null,
+          "passAssessments": []
+        }
+      ],
+      "condition": "requireCovered",
+      "expected": "unknown"
+    },
+    {
+      "name": "partial edge coverage",
+      "input": {
+        "originPlaceId": "place_a",
+        "destinationPlaceId": "place_b",
+        "waypoints": [],
+        "departureAt": "2026-09-09T01:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": false,
+          "requireCovered": true,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": "motorcycle-large"
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      },
+      "legs": [
+        {
+          "fromPlaceId": "place_a",
+          "toPlaceId": "place_b",
+          "mode": "walk",
+          "distanceMeters": 100,
+          "durationSeconds": 90,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                136.9,
+                35.17
+              ],
+              [
+                136.901,
+                35.17
+              ]
+            ]
+          },
+          "instructions": [],
+          "cost": {
+            "status": "known",
+            "amountJPY": 0,
+            "sourceIds": [
+              "source_sample"
+            ]
+          },
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-10T00:00:00Z"
+          },
+          "edgeCoverage": "partial",
+          "edgeFacts": [
+            {
+              "edgeId": "edge_one",
+              "stairs": {
+                "status": "known",
+                "value": false,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "covered": {
+                "status": "known",
+                "value": true,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "vehicleAccess": [
+                {
+                  "vehicleClass": "motorcycle-large",
+                  "allowed": {
+                    "status": "known",
+                    "value": true,
+                    "sourceIds": [
+                      "source_sample"
+                    ]
+                  }
+                }
+              ],
+              "provenance": {
+                "sourceMode": "sample",
+                "sourceIds": [
+                  "source_sample"
+                ],
+                "executionMode": "rules",
+                "retrievedAt": "2026-09-09T00:00:00Z",
+                "validUntil": "2026-09-10T00:00:00Z"
+              }
+            }
+          ],
+          "transit": null,
+          "passAssessments": []
+        }
+      ],
+      "condition": "requireCovered",
+      "expected": "unknown"
+    },
+    {
+      "name": "missing all edge facts",
+      "input": {
+        "originPlaceId": "place_a",
+        "destinationPlaceId": "place_b",
+        "waypoints": [],
+        "departureAt": "2026-09-09T01:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": false,
+          "requireCovered": true,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": "motorcycle-large"
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      },
+      "legs": [
+        {
+          "fromPlaceId": "place_a",
+          "toPlaceId": "place_b",
+          "mode": "walk",
+          "distanceMeters": 100,
+          "durationSeconds": 90,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                136.9,
+                35.17
+              ],
+              [
+                136.901,
+                35.17
+              ]
+            ]
+          },
+          "instructions": [],
+          "cost": {
+            "status": "known",
+            "amountJPY": 0,
+            "sourceIds": [
+              "source_sample"
+            ]
+          },
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-10T00:00:00Z"
+          },
+          "edgeCoverage": "complete",
+          "edgeFacts": [],
+          "transit": null,
+          "passAssessments": []
+        }
+      ],
+      "condition": "requireCovered",
+      "expected": "unknown"
+    },
+    {
+      "name": "stale road information",
+      "input": {
+        "originPlaceId": "place_a",
+        "destinationPlaceId": "place_b",
+        "waypoints": [],
+        "departureAt": "2026-09-09T01:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": false,
+          "requireCovered": true,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": "motorcycle-large"
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      },
+      "legs": [
+        {
+          "fromPlaceId": "place_a",
+          "toPlaceId": "place_b",
+          "mode": "walk",
+          "distanceMeters": 100,
+          "durationSeconds": 90,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                136.9,
+                35.17
+              ],
+              [
+                136.901,
+                35.17
+              ]
+            ]
+          },
+          "instructions": [],
+          "cost": {
+            "status": "known",
+            "amountJPY": 0,
+            "sourceIds": [
+              "source_sample"
+            ]
+          },
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-08T00:00:00Z"
+          },
+          "edgeCoverage": "complete",
+          "edgeFacts": [
+            {
+              "edgeId": "edge_one",
+              "stairs": {
+                "status": "known",
+                "value": false,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "covered": {
+                "status": "known",
+                "value": true,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "vehicleAccess": [
+                {
+                  "vehicleClass": "motorcycle-large",
+                  "allowed": {
+                    "status": "known",
+                    "value": true,
+                    "sourceIds": [
+                      "source_sample"
+                    ]
+                  }
+                }
+              ],
+              "provenance": {
+                "sourceMode": "sample",
+                "sourceIds": [
+                  "source_sample"
+                ],
+                "executionMode": "rules",
+                "retrievedAt": "2026-09-09T00:00:00Z",
+                "validUntil": "2026-09-08T00:00:00Z"
+              }
+            }
+          ],
+          "transit": null,
+          "passAssessments": []
+        }
+      ],
+      "condition": "requireCovered",
+      "expected": "unknown"
+    },
+    {
+      "name": "stairs on selected road",
+      "input": {
+        "originPlaceId": "place_a",
+        "destinationPlaceId": "place_b",
+        "waypoints": [],
+        "departureAt": "2026-09-09T01:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": true,
+          "requireCovered": false,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": "motorcycle-large"
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      },
+      "legs": [
+        {
+          "fromPlaceId": "place_a",
+          "toPlaceId": "place_b",
+          "mode": "walk",
+          "distanceMeters": 100,
+          "durationSeconds": 90,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                136.9,
+                35.17
+              ],
+              [
+                136.901,
+                35.17
+              ]
+            ]
+          },
+          "instructions": [],
+          "cost": {
+            "status": "known",
+            "amountJPY": 0,
+            "sourceIds": [
+              "source_sample"
+            ]
+          },
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-10T00:00:00Z"
+          },
+          "edgeCoverage": "complete",
+          "edgeFacts": [
+            {
+              "edgeId": "edge_one",
+              "stairs": {
+                "status": "known",
+                "value": true,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "covered": {
+                "status": "known",
+                "value": true,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "vehicleAccess": [
+                {
+                  "vehicleClass": "motorcycle-large",
+                  "allowed": {
+                    "status": "known",
+                    "value": true,
+                    "sourceIds": [
+                      "source_sample"
+                    ]
+                  }
+                }
+              ],
+              "provenance": {
+                "sourceMode": "sample",
+                "sourceIds": [
+                  "source_sample"
+                ],
+                "executionMode": "rules",
+                "retrievedAt": "2026-09-09T00:00:00Z",
+                "validUntil": "2026-09-10T00:00:00Z"
+              }
+            }
+          ],
+          "transit": null,
+          "passAssessments": []
+        }
+      ],
+      "condition": "avoidStairs",
+      "expected": "fail"
+    },
+    {
+      "name": "all selected roads step free",
+      "input": {
+        "originPlaceId": "place_a",
+        "destinationPlaceId": "place_b",
+        "waypoints": [],
+        "departureAt": "2026-09-09T01:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": true,
+          "requireCovered": false,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": "motorcycle-large"
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      },
+      "legs": [
+        {
+          "fromPlaceId": "place_a",
+          "toPlaceId": "place_b",
+          "mode": "walk",
+          "distanceMeters": 100,
+          "durationSeconds": 90,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                136.9,
+                35.17
+              ],
+              [
+                136.901,
+                35.17
+              ]
+            ]
+          },
+          "instructions": [],
+          "cost": {
+            "status": "known",
+            "amountJPY": 0,
+            "sourceIds": [
+              "source_sample"
+            ]
+          },
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-10T00:00:00Z"
+          },
+          "edgeCoverage": "complete",
+          "edgeFacts": [
+            {
+              "edgeId": "edge_one",
+              "stairs": {
+                "status": "known",
+                "value": false,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "covered": {
+                "status": "known",
+                "value": true,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "vehicleAccess": [
+                {
+                  "vehicleClass": "motorcycle-large",
+                  "allowed": {
+                    "status": "known",
+                    "value": true,
+                    "sourceIds": [
+                      "source_sample"
+                    ]
+                  }
+                }
+              ],
+              "provenance": {
+                "sourceMode": "sample",
+                "sourceIds": [
+                  "source_sample"
+                ],
+                "executionMode": "rules",
+                "retrievedAt": "2026-09-09T00:00:00Z",
+                "validUntil": "2026-09-10T00:00:00Z"
+              }
+            }
+          ],
+          "transit": null,
+          "passAssessments": []
+        }
+      ],
+      "condition": "avoidStairs",
+      "expected": "pass"
+    },
+    {
+      "name": "large motorcycle forbidden",
+      "input": {
+        "originPlaceId": "place_a",
+        "destinationPlaceId": "place_b",
+        "waypoints": [],
+        "departureAt": "2026-09-09T01:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": false,
+          "requireCovered": false,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": "motorcycle-large"
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      },
+      "legs": [
+        {
+          "fromPlaceId": "place_a",
+          "toPlaceId": "place_b",
+          "mode": "walk",
+          "distanceMeters": 100,
+          "durationSeconds": 90,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                136.9,
+                35.17
+              ],
+              [
+                136.901,
+                35.17
+              ]
+            ]
+          },
+          "instructions": [],
+          "cost": {
+            "status": "known",
+            "amountJPY": 0,
+            "sourceIds": [
+              "source_sample"
+            ]
+          },
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-10T00:00:00Z"
+          },
+          "edgeCoverage": "complete",
+          "edgeFacts": [
+            {
+              "edgeId": "edge_one",
+              "stairs": {
+                "status": "known",
+                "value": false,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "covered": {
+                "status": "known",
+                "value": true,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "vehicleAccess": [
+                {
+                  "vehicleClass": "motorcycle-large",
+                  "allowed": {
+                    "status": "known",
+                    "value": false,
+                    "sourceIds": [
+                      "source_sample"
+                    ]
+                  }
+                }
+              ],
+              "provenance": {
+                "sourceMode": "sample",
+                "sourceIds": [
+                  "source_sample"
+                ],
+                "executionMode": "rules",
+                "retrievedAt": "2026-09-09T00:00:00Z",
+                "validUntil": "2026-09-10T00:00:00Z"
+              }
+            }
+          ],
+          "transit": null,
+          "passAssessments": []
+        }
+      ],
+      "condition": "vehicleClass",
+      "expected": "fail"
+    },
+    {
+      "name": "vehicle class not supplied",
+      "input": {
+        "originPlaceId": "place_a",
+        "destinationPlaceId": "place_b",
+        "waypoints": [],
+        "departureAt": "2026-09-09T01:00:00Z",
+        "mode": "walk",
+        "hard": {
+          "avoidStairs": false,
+          "requireCovered": false,
+          "requireOpen": false,
+          "arrivalDeadline": null,
+          "maxTotalMinutes": null,
+          "maxCostJPY": null,
+          "vehicleClass": "motorcycle-large"
+        },
+        "soft": {
+          "preferredPurposes": [],
+          "preferFamiliar": false,
+          "preferQuiet": false
+        },
+        "passIds": []
+      },
+      "legs": [
+        {
+          "fromPlaceId": "place_a",
+          "toPlaceId": "place_b",
+          "mode": "walk",
+          "distanceMeters": 100,
+          "durationSeconds": 90,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                136.9,
+                35.17
+              ],
+              [
+                136.901,
+                35.17
+              ]
+            ]
+          },
+          "instructions": [],
+          "cost": {
+            "status": "known",
+            "amountJPY": 0,
+            "sourceIds": [
+              "source_sample"
+            ]
+          },
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-10T00:00:00Z"
+          },
+          "edgeCoverage": "complete",
+          "edgeFacts": [
+            {
+              "edgeId": "edge_one",
+              "stairs": {
+                "status": "known",
+                "value": false,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "covered": {
+                "status": "known",
+                "value": true,
+                "sourceIds": [
+                  "source_sample"
+                ]
+              },
+              "vehicleAccess": [],
+              "provenance": {
+                "sourceMode": "sample",
+                "sourceIds": [
+                  "source_sample"
+                ],
+                "executionMode": "rules",
+                "retrievedAt": "2026-09-09T00:00:00Z",
+                "validUntil": "2026-09-10T00:00:00Z"
+              }
+            }
+          ],
+          "transit": null,
+          "passAssessments": []
+        }
+      ],
+      "condition": "vehicleClass",
+      "expected": "unknown"
+    }
+  ],
+  "fareCases": [
+    {
+      "leg": {
+        "fromPlaceId": "place_a",
+        "toPlaceId": "place_b",
+        "mode": "transit",
+        "distanceMeters": 100,
+        "durationSeconds": 90,
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              136.9,
+              35.17
+            ],
+            [
+              136.901,
+              35.17
+            ]
+          ]
+        },
+        "instructions": [],
+        "cost": {
+          "status": "known",
+          "amountJPY": 0,
+          "sourceIds": [
+            "source_sample"
+          ]
+        },
+        "provenance": {
+          "sourceMode": "sample",
+          "sourceIds": [
+            "source_sample"
+          ],
+          "executionMode": "rules",
+          "retrievedAt": "2026-09-09T00:00:00Z",
+          "validUntil": "2026-09-10T00:00:00Z"
+        },
+        "edgeCoverage": "complete",
+        "edgeFacts": [
+          {
+            "edgeId": "edge_one",
+            "stairs": {
+              "status": "known",
+              "value": false,
+              "sourceIds": [
+                "source_sample"
+              ]
+            },
+            "covered": {
+              "status": "known",
+              "value": true,
+              "sourceIds": [
+                "source_sample"
+              ]
+            },
+            "vehicleAccess": [
+              {
+                "vehicleClass": "motorcycle-large",
+                "allowed": {
+                  "status": "known",
+                  "value": true,
+                  "sourceIds": [
+                    "source_sample"
+                  ]
+                }
+              }
+            ],
+            "provenance": {
+              "sourceMode": "sample",
+              "sourceIds": [
+                "source_sample"
+              ],
+              "executionMode": "rules",
+              "retrievedAt": "2026-09-09T00:00:00Z",
+              "validUntil": "2026-09-10T00:00:00Z"
+            }
+          }
+        ],
+        "transit": {
+          "operatorCode": "sample-operator",
+          "lineCode": "sample-line",
+          "boardingStationCode": "sample-a",
+          "alightingStationCode": "sample-b",
+          "viaStationCodes": [],
+          "departureAt": "2026-09-09T01:00:00Z",
+          "arrivalAt": "2026-09-09T01:02:00Z",
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-10T00:00:00Z"
+          }
+        },
+        "passAssessments": [
+          {
+            "passId": "pass_sample",
+            "applicable": {
+              "status": "known",
+              "value": true,
+              "sourceIds": [
+                "source_sample"
+              ]
+            },
+            "additionalFare": {
+              "status": "known",
+              "amountJPY": 0,
+              "sourceIds": [
+                "source_sample"
+              ]
+            },
+            "provenance": {
+              "sourceMode": "sample",
+              "sourceIds": [
+                "source_sample"
+              ],
+              "executionMode": "rules",
+              "retrievedAt": "2026-09-09T00:00:00Z",
+              "validUntil": "2026-09-10T00:00:00Z"
+            }
+          }
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "leg": {
+        "fromPlaceId": "place_a",
+        "toPlaceId": "place_b",
+        "mode": "transit",
+        "distanceMeters": 100,
+        "durationSeconds": 90,
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              136.9,
+              35.17
+            ],
+            [
+              136.901,
+              35.17
+            ]
+          ]
+        },
+        "instructions": [],
+        "cost": {
+          "status": "unknown",
+          "amountJPY": null,
+          "reason": "fare adapter unavailable",
+          "sourceIds": []
+        },
+        "provenance": {
+          "sourceMode": "sample",
+          "sourceIds": [
+            "source_sample"
+          ],
+          "executionMode": "rules",
+          "retrievedAt": "2026-09-09T00:00:00Z",
+          "validUntil": "2026-09-10T00:00:00Z"
+        },
+        "edgeCoverage": "complete",
+        "edgeFacts": [
+          {
+            "edgeId": "edge_one",
+            "stairs": {
+              "status": "known",
+              "value": false,
+              "sourceIds": [
+                "source_sample"
+              ]
+            },
+            "covered": {
+              "status": "known",
+              "value": true,
+              "sourceIds": [
+                "source_sample"
+              ]
+            },
+            "vehicleAccess": [
+              {
+                "vehicleClass": "motorcycle-large",
+                "allowed": {
+                  "status": "known",
+                  "value": true,
+                  "sourceIds": [
+                    "source_sample"
+                  ]
+                }
+              }
+            ],
+            "provenance": {
+              "sourceMode": "sample",
+              "sourceIds": [
+                "source_sample"
+              ],
+              "executionMode": "rules",
+              "retrievedAt": "2026-09-09T00:00:00Z",
+              "validUntil": "2026-09-10T00:00:00Z"
+            }
+          }
+        ],
+        "transit": {
+          "operatorCode": "sample-operator",
+          "lineCode": "sample-line",
+          "boardingStationCode": "sample-a",
+          "alightingStationCode": "sample-b",
+          "viaStationCodes": [],
+          "departureAt": "2026-09-09T01:00:00Z",
+          "arrivalAt": "2026-09-09T01:02:00Z",
+          "provenance": {
+            "sourceMode": "sample",
+            "sourceIds": [
+              "source_sample"
+            ],
+            "executionMode": "rules",
+            "retrievedAt": "2026-09-09T00:00:00Z",
+            "validUntil": "2026-09-10T00:00:00Z"
+          }
+        },
+        "passAssessments": []
+      },
+      "expected": null
+    }
+  ]
+}

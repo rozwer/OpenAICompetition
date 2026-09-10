@@ -1,0 +1,6 @@
+{
+  "command": "tsc --noEmit --strict --target es2022 --module esnext --moduleResolution bundler contracts/domain.ts contracts/ports.ts",
+  "result": "passed",
+  "typescript": "Version 5.8.3",
+  "scope": "Shared DTO/ports only; application source not present"
+}

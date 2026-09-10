@@ -15,6 +15,10 @@ pnpm dev
 
 ## 実装の入口
 
+次回本番の新規実装は[28単位の実装計画](docs/production-plan/v2/README.md)を使います。
+着手前に[レビュー差し戻しを防ぐ条件](docs/production-plan/v2/REVIEW_PREVENTION.md)と[共通受入](docs/production-plan/v2/common-acceptance.md)を読み、担当Issueに生成された固有条件を確認します。
+下記の実装仕様にも今回の条件を反映しています。現在のアプリの起動方法と動作状況は上記の手順を参照してください。
+
 | 文書 | 内容 |
 |---|---|
 | [実装仕様書](docs/spec/implementation.md) | 画面、各機能の処理、構成、既定案と未決事項 |

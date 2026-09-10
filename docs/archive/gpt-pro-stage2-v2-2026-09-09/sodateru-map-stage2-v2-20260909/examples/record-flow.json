@@ -1,0 +1,121 @@
+{
+  "note": "seed-core.jsonのplaceに対する連続操作の契約例。アプリのHTTP実行結果ではない。",
+  "headers": {
+    "X-Namespace-Id": "ns_demo",
+    "X-Actor-Id": "actor_self"
+  },
+  "create": {
+    "method": "POST",
+    "path": "/api/v1/experiences",
+    "request": {
+      "opId": "op_record1",
+      "payload": {
+        "placeId": "place_book",
+        "originalText": "雨を避けて本を読みました。今日は座れる場所が必要でした。",
+        "purpose": "reading",
+        "reason": "落ち着いて読みたかった",
+        "context": {
+          "weather": "rain",
+          "companion": "alone",
+          "timeBudgetMinutes": 45,
+          "timeBand": "day",
+          "notes": null
+        },
+        "explicitPreference": "unspecified",
+        "outcome": null,
+        "visit": null
+      }
+    },
+    "response": {
+      "data": {
+        "experience": {
+          "namespaceId": "ns_demo",
+          "id": "exp_reading",
+          "revision": 1,
+          "createdAt": "2026-09-09T00:00:00Z",
+          "updatedAt": "2026-09-09T00:00:00Z",
+          "sourceMode": "sample",
+          "actorId": "actor_self",
+          "placeId": "place_book",
+          "visitId": null,
+          "originalEvidenceId": "ev_original",
+          "evidenceIds": [
+            "ev_original"
+          ],
+          "purpose": "reading",
+          "reason": "落ち着いて読みたかった",
+          "context": {
+            "weather": "rain",
+            "companion": "alone",
+            "timeBudgetMinutes": 45,
+            "timeBand": "day",
+            "notes": null
+          },
+          "explicitPreference": "unspecified",
+          "outcome": null,
+          "status": "active"
+        },
+        "evidence": {
+          "namespaceId": "ns_demo",
+          "id": "ev_original",
+          "revision": 1,
+          "createdAt": "2026-09-09T00:00:00Z",
+          "updatedAt": "2026-09-09T00:00:00Z",
+          "sourceMode": "sample",
+          "actorId": "actor_self",
+          "kind": "utterance",
+          "text": "雨を避けて本を読みました。今日は座れる場所が必要でした。",
+          "sourceId": null,
+          "assetId": null
+        },
+        "visit": null
+      },
+      "meta": {
+        "requestId": "req_record1",
+        "namespaceId": "ns_demo",
+        "canonicalRevision": 1,
+        "nextCursor": null
+      },
+      "changed": [
+        {
+          "type": "Experience",
+          "id": "exp_reading",
+          "revision": 1,
+          "action": "created"
+        },
+        {
+          "type": "Evidence",
+          "id": "ev_original",
+          "revision": 1,
+          "action": "created"
+        }
+      ],
+      "invalidated": [
+        "history:actor_self",
+        "meaning:actor_self:place_book"
+      ]
+    }
+  },
+  "correct": {
+    "method": "POST",
+    "path": "/api/v1/experiences/exp_reading/corrections",
+    "request": {
+      "opId": "op_correction1",
+      "expectedRevision": 1,
+      "payload": {
+        "patch": {
+          "field": "reason",
+          "replacement": "その日は雨を避けて座れたことが理由です。"
+        },
+        "reasonText": "好き嫌いではなく、その日の事情です。"
+      }
+    }
+  },
+  "expectedAfter": {
+    "experienceRevision": 2,
+    "originalEvidenceTextUnchanged": true,
+    "purposeUnchanged": "reading",
+    "reason": "その日は雨を避けて座れたことが理由です。",
+    "confirmedVisitCountUnchanged": true
+  }
+}

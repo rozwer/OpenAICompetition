@@ -1,0 +1,82 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "createAiJob",
+  "method": "POST",
+  "path": "/api/v1/ai/jobs",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    }
+  },
+  "requestSchema": "CreateAiJobRequest",
+  "responseSchema": "CreateAiJobResponse",
+  "successStatus": 202,
+  "request": {
+    "opId": "id_example",
+    "payload": {
+      "request": {
+        "task": "extract",
+        "input": {
+          "experienceId": "id_example"
+        }
+      },
+      "scope": {
+        "actorId": "id_example",
+        "namespaceId": "id_example",
+        "placeId": null,
+        "experienceId": null,
+        "peerId": null,
+        "candidateSetId": null,
+        "dateRange": null,
+        "entityVersions": [],
+        "grantVersions": [],
+        "settingsRevision": 1
+      },
+      "executionMode": "live-codex"
+    }
+  },
+  "response": {
+    "data": {
+      "namespaceId": "id_example",
+      "id": "id_example",
+      "revision": 1,
+      "createdAt": "2026-09-09T00:00:00Z",
+      "updatedAt": "2026-09-09T00:00:00Z",
+      "sourceMode": "live",
+      "actorId": "id_example",
+      "request": {
+        "task": "extract",
+        "input": {
+          "experienceId": "id_example"
+        }
+      },
+      "scope": {
+        "actorId": "id_example",
+        "namespaceId": "id_example",
+        "placeId": null,
+        "experienceId": null,
+        "peerId": null,
+        "candidateSetId": null,
+        "dateRange": null,
+        "entityVersions": [],
+        "grantVersions": [],
+        "settingsRevision": 1
+      },
+      "inputHash": "inputHash",
+      "status": "queued",
+      "executionMode": "live-codex",
+      "result": null,
+      "errorCode": null,
+      "appliedEntityIds": []
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

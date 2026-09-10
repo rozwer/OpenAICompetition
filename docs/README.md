@@ -1,26 +1,37 @@
 # ドキュメント一覧
 
-実装は[実装仕様書](spec/implementation.md)から始めます。
-このフォルダでは、現在の仕様、実演の手順、調査資料、過去の検討記録を分けて管理します。
+**2026-09-10 リハーサル反映**：[本番実装計画](production-plan/v2/README.md)に、他担当の完了済みTaskを含む再編・依存関係・再発防止条件を反映しました。[共通受入](production-plan/v2/common-acceptance.md)と[依存変更・反例](production-plan/v2/RECURRENCE.md)を次回実装に適用します。既存アプリの実装状態を更新したという意味ではありません。 今回の追加条件は[レビュー前の事前条件](production-plan/v2/REVIEW_PREVENTION.md)、事実と修正の根拠は[担当側の記録](production-plan/v2/review-evidence/LRN-REVIEW-RETROSPECT-ROOT.md)・[後継側の記録](production-plan/v2/review-evidence/LRN-REVIEW-RETROSPECT-SUCCESSOR.md)を参照します。
+
+今回の空リポジトリ・二人のCodexによる開発は、[コンペのリハーサル方針](team/competition-rehearsal.md)に従います。準備をリポジトリへ組み込み、実装中の発見を仕様・依存関係・Issueへ反映します。
+
+まず[レビュー反映方針](requirements/review-integration.md)と[4タブの要件定義](requirements/README.md)で利用体験を確認し、実装時は[実装仕様書](spec/implementation.md)へ進みます。詳細設計には最新要件の未反映部分があります。
+
+2026-09-09：空リポジトリからの開発に向けた[Stage2 v2.1仕様パッケージ](../deliverables/sodateru-map-stage2-v2.1-20260909/START_HERE.md)に、[精査した6項目](research/pro-stage2-v2-review-2026-09-09.md)の修正を反映しました。登録形式・操作別API型・経路制約・質問回答・統合タスクを具体化しています。現行アプリへの実装適用はまだ行っていません。
 
 ## 現在の仕様とデモ
 
 | 文書 | 位置付け |
 |---|---|
+| [ID付き要件](requirements/reviewed-requirements.md) | レビュー反映後の要件・受入条件の正本。方式や数値の未決状態も保持 |
+| [旧受入条件の対応](requirements/acceptance-mapping.md) | A01〜A55と137要件の対応 |
+| [要件定義](requirements/README.md) | 4タブ別の要件と、操作・状態・タブ間のつながりを定義 |
 | [実装仕様書](spec/implementation.md) | 画面、処理、判定規則、Macデモの完成条件。合意した方針と実装用の既定案を記載 |
 | [データとAPI](spec/data-and-api.md) | 保存形式、型、状態名、API契約の正本 |
-| [受入条件と実装順序](spec/acceptance-criteria.md) | 55の受入条件と段階別の完了条件 |
-| [基礎要件 v4](spec/requirements.md) | 製品の目的と全機能の範囲。端末と詳細な動作は実装仕様書を優先 |
+| [受入条件と実装順序](spec/acceptance-criteria.md) | 既存詳細設計の55条件と実装順序。追加要件は各タブの受入条件も参照 |
+| [基礎要件 v4](spec/requirements.md) | 製品の目的と共通原則。タブ構成・利用体験はタブ別要件、端末と実装段階は実装仕様書を優先 |
+| [レビュー後の主実演と11シナリオ](demo/reviewed-scenarios.md) | 一言・成長・訂正・移し替え・拡張をつなぐ新しい実演案 |
 | [デモシナリオ](demo/scenario.md) | 6場面の入力、操作、保存結果と次に起こる変化 |
 | [用語集](../CONTEXT.md) | 場所との関係、体験、用途、理由、視点などの共通定義 |
 
-まず実装仕様書の1〜4節を読み、受入条件の実装順序に沿って必要な処理とAPIを確認します。
-仕様を変更するときは、対応するAPI契約、デモ、受入条件も更新します。
+実装仕様書の1〜4節で全体を確認し、受入条件の実装順序に沿って必要な処理とAPIを読みます。詳細設計を更新するときは、対応するAPI・デモ・受入条件も揃えます。
+
+[地図・人物のプロトタイプ](../prototypes/mapbox-character/README.md)には、試作の起動方法と表示確認を記載しています。
 
 ## 調査資料と大会の準備
 
 | 文書 | 参照する場面 |
 |---|---|
+| [理由の発見と推薦をつなぐ提案](research/recommendation-cognitive-conflict-2026-09-08.md) | 過去の推薦研究、認知的対立、説明への訂正を地図へ組み込む設計案 |
 | [技術スタックとOSSの選定案](research/tech-stack-2026-09-05.md) | 採用候補の根拠や既存部品を確認するとき。2026年9月5日時点の調査で、組込みの検証結果ではない |
 | [位置情報SDKの選定メモ](research/location-sdk-2026-09-05.md) | Macデモ後にスマホ実機の記録へ進むとき。今回の必須実装には含めない |
 | [大会ルール確認メモ](competition/rules-2026-09-05.md) | 提出物と事前準備の扱いを確認するとき。記載された確認日時点の資料 |
@@ -32,14 +43,13 @@
 
 | フォルダ | 保存する内容 |
 |---|---|
+| `requirements/` | UIを起点とした利用体験と合意済みの画面要件 |
 | `spec/` | 現在の要件、実装仕様、データとAPI、受入条件 |
 | `demo/` | 実演する場面と操作手順 |
 | `research/` | 日付を付けた技術調査と、追加段階の検討資料 |
 | `competition/` | 大会のルールと準備資料 |
 | `archive/` | 後続仕様で置き換えた設計、完了したレビュー、提出時点の原文 |
 
-現行仕様のファイル名は固定し、更新履歴はGitで追います。
-調査資料には確認日を残し、過去の設計を保管するときは[アーカイブ一覧](archive/README.md)へ理由と後継文書を記載します。
-文書間のリンクは相対パスで書き、移動時には参照元も更新します。
+現行文書のファイル名は固定し、更新履歴はGitで追います。調査資料には確認日を残し、旧設計は[アーカイブ一覧](archive/README.md)に理由と後継文書を記載します。文書間のリンクは相対パスとし、移動時に参照元も更新します。
 
 [プロジェクト概要へ戻る](../README.md)

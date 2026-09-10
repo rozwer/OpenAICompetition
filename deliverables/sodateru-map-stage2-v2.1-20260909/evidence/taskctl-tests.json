@@ -1,0 +1,24 @@
+{
+  "kind": "local-git-task-lock-tests",
+  "passed": 17,
+  "checks": [
+    "Board init is create-only; cannot erase existing claims",
+    "Two concurrent claims for one task: exactly one succeeds",
+    "Claim leaves working tree/index unchanged",
+    "Concurrent disjoint claims both succeed after CAS retry",
+    "Directory-prefix lock conflicts with child locks",
+    "Multi-path add-lock is all-or-none on conflict",
+    "Hard dependency blocks until done, not merely claimed",
+    "Stale/invalid token cannot release another claim",
+    "Submitted task cannot land before source commit reaches main",
+    "Submitted retains lock and does not release dependent work",
+    "Reachable main commit atomically marks done and releases paths",
+    "Dependency claim requires local base to include required merged commit",
+    "Submitting source edits outside reserved paths is rejected",
+    "Handoff rotates generation/token and fences old owner transitions",
+    "Recovery requires explicit stop confirmation; late old-token submit fails",
+    "Remote rejection is not treated as successful offline claim",
+    "No elapsed-time/TTL automatic lock stealing"
+  ],
+  "scope": "Temporary local bare repository and four clones; no user GitHub writes"
+}

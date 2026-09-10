@@ -1,0 +1,5019 @@
+{
+  "schemaVersion": 2,
+  "contractVersion": "v2.1.0",
+  "executionPolicy": "dependency-and-path-lock",
+  "tasks": [
+    {
+      "id": "FND-001",
+      "title": "起動・依存固定・機能manifestの自動収集",
+      "priority": "P0",
+      "kind": "foundation",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "package.json",
+        "bun.lock",
+        "vite.config.ts",
+        "tsconfig.json",
+        "server/index.ts",
+        "src/app/",
+        "index.html",
+        ".mise.toml"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "L",
+      "confidence": "未実測",
+      "operation_ids": [
+        "getHealth"
+      ],
+      "requirement_ids": [
+        "CORE-004",
+        "DATA-001",
+        "NAV-001",
+        "NEW-001",
+        "NEW-002",
+        "NEW-010",
+        "OPS-001"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A01",
+        "DAY-B01",
+        "DAY-C01",
+        "DAY-D01"
+      ],
+      "deliverable": "ENTRY_CONTRACT.mdのdefault exportを収集する。UI・server・integration・service entryを分け、重複ID/operationと未解決capabilityを検査。未接続は無効化する。",
+      "acceptance": "空状態を開く。未実装機能へ遷移しても成功表示で偽装しない。getHealthが実状態を返す。",
+      "notes": "",
+      "body_file": "issues/FND-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "FND-002",
+      "title": "SQLite・冪等書込・revision・DTO mapper",
+      "priority": "P0",
+      "kind": "foundation",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/db/",
+        "server/core/mutation/",
+        "server/core/changes/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript",
+        "SQL"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "getChanges"
+      ],
+      "requirement_ids": [
+        "CORE-002",
+        "DATA-001",
+        "NAV-007",
+        "NEW-002",
+        "OPS-004",
+        "REC-001",
+        "REC-002",
+        "REC-006"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B01",
+        "DAY-B02"
+      ],
+      "deliverable": "db/schema.sqlを一括適用。transaction内だけ書くDbPortを実装。複合外部キー・opId・changed/invalidatedを扱う。",
+      "acceptance": "同一opIdは同一結果。別payloadは409。途中例外で全rollback。同名idを別namespaceに保存できる。",
+      "notes": "",
+      "body_file": "issues/FND-002.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "FND-003",
+      "title": "型付きAPI client・草稿保持・共通エラー",
+      "priority": "P0",
+      "kind": "foundation",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/api/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "CORE-004",
+        "DATA-001",
+        "NAV-001",
+        "NEW-001",
+        "NEW-002",
+        "NEW-010",
+        "OPS-001"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A01",
+        "DAY-B01"
+      ],
+      "deliverable": "contracts/operations.tsのOperationMapから型付きAPI clientを実装。path/query/bodyを分離し、操作とDTOを一致させる。opIdは論理操作開始時に一度生成し再送で保持、expectedRevisionは編集開始時の対象版を保持する。",
+      "acceptance": "409後も入力が残り、最新値との比較を表示。ライブ失敗をfixtureへ自動切替しない。",
+      "notes": "",
+      "body_file": "issues/FND-003.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "FND-004",
+      "title": "2都市・人物2人・同じ候補集合のseed",
+      "priority": "P0",
+      "kind": "fixture",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "fixtures/core/",
+        "db/seed/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-001",
+        "NEW-002"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C01",
+        "DAY-B01"
+      ],
+      "deliverable": "サンプル12地点・道graph・異なる理由・同じ候補集合・3テーマ入力を、contractsの型どおり生成。",
+      "acceptance": "seedを2回適用して重複しない。実店舗・道路・運賃でない旨がデータごとに残る。",
+      "notes": "",
+      "body_file": "issues/FND-004.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "UI-001",
+      "title": "共通Sheet・SourceBadge・空/失敗部品",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/ui/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "React",
+        "CSS"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "CORE-004",
+        "EVAL-007",
+        "NAV-001",
+        "NAV-002",
+        "NEW-001",
+        "NEW-010",
+        "OPS-001",
+        "SOC-008"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A01",
+        "DAY-A07"
+      ],
+      "deliverable": "Sheet、Button、Field、SourceBadge、ErrorStateをpropsだけで作る。画面routerやDBは触らない。",
+      "acceptance": "390px幅で原文が読める。live/user/sample/importedとAI実行モードを別表示。",
+      "notes": "",
+      "body_file": "issues/UI-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "UI-002",
+      "title": "文脈の保存・復帰とbootstrap",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/context/",
+        "server/features/context/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "getBootstrap",
+        "putContext"
+      ],
+      "requirement_ids": [
+        "CORE-001",
+        "DATA-001",
+        "NAV-005",
+        "NEW-002"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A05",
+        "DAY-B01"
+      ],
+      "deliverable": "AppContextのIDを画面間で運ぶ。draftはlocal、確定文脈はDB。bootstrapは全DBを返さない。",
+      "acceptance": "場所変更後に戻ると草稿・カメラが戻る。別場所のAI結果を現在地へ誤保存しない。",
+      "notes": "",
+      "body_file": "issues/UI-002.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "PLC-001",
+      "title": "場所検索・詳細・実形状のAPI",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/places/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "listPlaces",
+        "getPlace",
+        "listBuildings"
+      ],
+      "requirement_ids": [
+        "MAP-001",
+        "MAP-012",
+        "MAP-013",
+        "SOC-001",
+        "SOC-004"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C02",
+        "DAY-A02"
+      ],
+      "deliverable": "場所/建物をDBから検索。query/city/purpose/limit/cursorを検証。個人の意味をPlaceへ混ぜない。",
+      "acceptance": "異なるqueryで候補が変わる。知らないfactsはunknown。",
+      "notes": "",
+      "body_file": "issues/PLC-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "PLC-002",
+      "title": "場所詳細・他者体験検索のUI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/place/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "MAP-013",
+        "SOC-001",
+        "SOC-004"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C02"
+      ],
+      "deliverable": "一般情報・自分の意味・共有意見を分離した詳細。手動記録・比較・移植へIDを渡す。",
+      "acceptance": "権限で見えない理由は空欄扱い。場所変更時に前店舗の理由が残らない。",
+      "notes": "",
+      "body_file": "issues/PLC-002.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "MAP-001",
+      "title": "MapLibreとThreeの同一座標layer",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/map/host/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "MapLibre",
+        "Three.js"
+      ],
+      "complexity": "L",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "MAP-001",
+        "MAP-012"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A02"
+      ],
+      "deliverable": "MapLibre custom layerにThree sceneを接続。WGS84とlocal metersを変換。disposeとresizeを実装。",
+      "acceptance": "pan/zoom/回転して建物が同じ場所へ付く。背景不調は明示sampleへ手動移行。",
+      "notes": "",
+      "body_file": "issues/MAP-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "MAP-002",
+      "title": "用途によって変わる建物本体の造形",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/map/forms/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "Three.js"
+      ],
+      "complexity": "L",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "CORE-003",
+        "MAP-002",
+        "MAP-003",
+        "MAP-004",
+        "MAP-005",
+        "MAP-009"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A03"
+      ],
+      "deliverable": "Meaning DTOだけから本・会話・庭・混合のThree Groupを返す。回数装飾は用途と別パラメータ。",
+      "acceptance": "purposeのみ変えて本体が変わる。訪問増加では装飾だけ変わる。アイコン追加だけで済ませない。",
+      "notes": "",
+      "body_file": "issues/MAP-002.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "MAP-003",
+      "title": "人物・リプレイ位置の描画部品",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/map/avatar/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "Three.js"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "MAP-006",
+        "MAP-007",
+        "MAP-008",
+        "MAP-010",
+        "NAV-003",
+        "NAV-004"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A04",
+        "DAY-A06"
+      ],
+      "deliverable": "livePositionとreplayPositionを別々に受ける人物。移動方向・停止を描画し地図座標を使う。",
+      "acceptance": "Replayを閉じると実位置へ戻る。実GPS未取得を取得済みと表示しない。",
+      "notes": "",
+      "body_file": "issues/MAP-003.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "MAP-004",
+      "title": "2D/3D・実形状・レンズの状態機械",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/map/state/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "MAP-006",
+        "MAP-007",
+        "MAP-008",
+        "MAP-010",
+        "NAV-003",
+        "NAV-004"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A04"
+      ],
+      "deliverable": "dimensionとlens、camera2d/3dを独立reducerで保持。位置観測の有無を前提にしない。",
+      "acceptance": "peer→physical→mineで本人の造形とカメラが正しく復帰。",
+      "notes": "",
+      "body_file": "issues/MAP-004.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "REC-001",
+      "title": "手動記録フォームと入力草稿",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/record-create/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "CORE-002",
+        "NAV-007",
+        "OPS-004",
+        "REC-001",
+        "REC-002",
+        "REC-006"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B02"
+      ],
+      "deliverable": "RecordCreateフォーム。位置権限・AI・友人ゼロでも場所と一言で記録する。",
+      "acceptance": "保存成功後だけ完了表示。API失敗から入力を失わず再送。",
+      "notes": "",
+      "body_file": "issues/REC-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "REC-002",
+      "title": "原文・体験・任意訪問のAPI",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/experiences/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "createExperience",
+        "listExperiences",
+        "getExperience",
+        "getEvidence",
+        "deleteExperience"
+      ],
+      "requirement_ids": [
+        "CORE-002",
+        "NAV-007",
+        "OPS-004",
+        "REC-001",
+        "REC-002",
+        "REC-006"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B02"
+      ],
+      "deliverable": "Evidence→optional Visit→Experienceを1transactionで保存。原文は独立、不変。読み出しと削除も実装。",
+      "acceptance": "原文が保存され再読込で一致。deleteで他者の実体験を消さず本人原文を削除対象にする。",
+      "notes": "",
+      "body_file": "issues/REC-002.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "REC-003",
+      "title": "根拠・理由・用途の訂正UI",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/corrections/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-002",
+        "EVAL-002",
+        "NEW-004",
+        "SELF-002",
+        "SELF-003",
+        "SELF-009"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B04"
+      ],
+      "deliverable": "原文と解釈と本人訂正を並べる。reasonとpurposeを別操作にする。 比較表示はSELF-001とRTE-004に渡し、このフォームに別の仮説・経路画面を再実装しない。",
+      "acceptance": "同じ理由だけの訂正で必ず本体を変える演出をしない。409後の草稿保持。",
+      "notes": "",
+      "body_file": "issues/REC-003.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "REC-004",
+      "title": "訂正transaction・失効対象の計算",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/corrections/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript",
+        "SQL"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "correctExperience"
+      ],
+      "requirement_ids": [
+        "DATA-002",
+        "DATA-004",
+        "EVAL-002",
+        "NEW-004",
+        "SELF-002",
+        "SELF-003",
+        "SELF-009"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B04",
+        "DAY-D08"
+      ],
+      "deliverable": "expectedRevisionを照合、Correction追加、Experience更新、派生とAIの依存版を失効させる。",
+      "acceptance": "古い版は409。原文は変わらない。scope外のAI遅着は適用できない。",
+      "notes": "",
+      "body_file": "issues/REC-004.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "REC-005",
+      "title": "正本から地図意味を作る純関数",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/meaning/",
+        "server/features/meaning/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "getMeaning"
+      ],
+      "requirement_ids": [
+        "CORE-003",
+        "DATA-002",
+        "EVAL-002",
+        "MAP-002",
+        "MAP-003",
+        "MAP-004",
+        "MAP-005",
+        "MAP-009",
+        "NEW-004",
+        "SELF-002",
+        "SELF-003",
+        "SELF-009"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A03",
+        "DAY-B04"
+      ],
+      "deliverable": "confirm済みvisitのunique集計とpurposeからMeaningを返す。0/1/2/4/8/16の段階。",
+      "acceptance": "未確定・重複訪問は増えない。理由だけの訂正では用途本体を保つ。",
+      "notes": "",
+      "body_file": "issues/REC-005.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "REC-006",
+      "title": "GPS/GPX/JSONの観測正規化",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/observations/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "MAP-014",
+        "REC-003",
+        "REC-004",
+        "REC-005",
+        "REC-010",
+        "REC-011"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B03"
+      ],
+      "deliverable": "raw record→時刻順Observationと候補区間。source+recordID/hashで重複排除。120秒gap/50m accuracyは製品ヒューリスティック。",
+      "acceptance": "同じファイルを再取込して重複ゼロ。通過と確定訪問を分離。",
+      "notes": "",
+      "body_file": "issues/REC-006.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "REC-007",
+      "title": "観測取込・訪問確認API",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "REC-006"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/observations/",
+        "server/features/visits/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "importObservations",
+        "listVisits",
+        "updateVisit"
+      ],
+      "requirement_ids": [
+        "MAP-014",
+        "REC-003",
+        "REC-004",
+        "REC-005",
+        "REC-010",
+        "REC-011"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B03"
+      ],
+      "deliverable": "正規化adapterを呼び観測とcandidateを保存。確認/却下/場所修正/削除を扱う。",
+      "acceptance": "候補からconfirmした場所だけ育つ。建物内の全階へ加算しない。",
+      "notes": "",
+      "body_file": "issues/REC-007.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "SELF-001",
+      "title": "履歴・振り返り・反例UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/self/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "REC-007",
+        "SELF-001",
+        "SELF-004",
+        "SELF-005",
+        "SELF-006",
+        "SELF-007",
+        "SELF-008",
+        "SELF-011"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B05",
+        "DAY-A06"
+      ],
+      "deliverable": "日/月履歴と支持/反例を示す仮説UI。知識0は足りないと示す。",
+      "acceptance": "通勤回数を好み得票にしない。確率を捏造せず1問をskipできる。",
+      "notes": "",
+      "body_file": "issues/SELF-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "SELF-002",
+      "title": "条件付き仮説・現在希望の計算",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/hypotheses/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "REC-007",
+        "SELF-001",
+        "SELF-004",
+        "SELF-005",
+        "SELF-006",
+        "SELF-007",
+        "SELF-008",
+        "SELF-011"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B05"
+      ],
+      "deliverable": "Context一致の支持/反例/代替説明から仮説。現在希望を履歴と分離する。",
+      "acceptance": "weather unknownをrain支持に混ぜない。理由を訂正すると該当仮説だけ再計算。",
+      "notes": "",
+      "body_file": "issues/SELF-002.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "SELF-003",
+      "title": "履歴・仮説・希望API",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "SELF-002"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/self/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "getHistory",
+        "listHypotheses",
+        "putPreference",
+        "reviewHypothesis"
+      ],
+      "requirement_ids": [
+        "REC-007",
+        "SELF-001",
+        "SELF-004",
+        "SELF-005",
+        "SELF-006",
+        "SELF-007",
+        "SELF-008",
+        "SELF-011"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B05"
+      ],
+      "deliverable": "日時窓、hypotheses再計算、明示希望・仮説確認を保存。",
+      "acceptance": "希望保存と履歴集計が再表示される。拒否を全人格へ拡張しない。",
+      "notes": "",
+      "body_file": "issues/SELF-003.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "DISC-001",
+      "title": "特徴→知識の発見選択器",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/discovery/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DISC-001",
+        "DISC-002",
+        "DISC-003",
+        "DISC-004",
+        "DISC-005",
+        "DISC-006",
+        "DISC-008",
+        "SELF-013"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B06"
+      ],
+      "deliverable": "場所/建物/写真anchorからfeature→bridge→knowledgeを選ぶ。禁止と苦手を分離。",
+      "acceptance": "探索opt-inでもblocked概念は出ない。固有事実に出典がなければ断定しない。",
+      "notes": "",
+      "body_file": "issues/DISC-001.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "DISC-002",
+      "title": "発見カード・既知・関心UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/discovery/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DISC-001",
+        "DISC-002",
+        "DISC-003",
+        "DISC-004",
+        "DISC-005",
+        "DISC-006",
+        "DISC-008",
+        "SELF-013"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B06"
+      ],
+      "deliverable": "本人が開くカードと、既知/興味/閉じる/禁止の別操作。",
+      "acceptance": "気になるだけがinterestへ残る。閉じるを嫌いとして学習しない。",
+      "notes": "",
+      "body_file": "issues/DISC-002.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "DISC-003",
+      "title": "発見・イベント・関心API",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "DISC-001"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/discovery/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "openDiscovery",
+        "getDiscovery",
+        "recordDiscoveryEvent",
+        "listInterests"
+      ],
+      "requirement_ids": [
+        "DATA-008",
+        "DATA-011",
+        "DISC-001",
+        "DISC-002",
+        "DISC-003",
+        "DISC-004",
+        "DISC-005",
+        "DISC-006",
+        "DISC-007",
+        "DISC-008",
+        "NAV-009",
+        "REC-009",
+        "SELF-012",
+        "SELF-013"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B06",
+        "DAY-B07"
+      ],
+      "deliverable": "ルール選択器を呼びカードとイベントを保存。event再送で二重関心を作らない。",
+      "acceptance": "設定全停止で能動提案を停止、本人の過去の関心は消さない。",
+      "notes": "",
+      "body_file": "issues/DISC-003.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "RTE-001",
+      "title": "サンプル有向graphの経路計算",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/graph/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript",
+        "アルゴリズム"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "ROUTE-001",
+        "ROUTE-002",
+        "ROUTE-003",
+        "ROUTE-007",
+        "ROUTE-009",
+        "TRF-003"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C03"
+      ],
+      "deliverable": "Dijkstraで時間/距離と足跡polylineを計算。未接続を直線で補完しない。",
+      "acceptance": "通れないedgeを抜くと別経路またはno-route。",
+      "notes": "",
+      "body_file": "issues/RTE-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "RTE-002",
+      "title": "hard制約・寄り道・追加運賃の評価",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/constraints/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "ROUTE-001",
+        "ROUTE-002",
+        "ROUTE-003",
+        "ROUTE-004",
+        "ROUTE-005",
+        "ROUTE-006",
+        "ROUTE-007",
+        "ROUTE-009",
+        "ROUTE-010",
+        "TRF-003"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C03",
+        "DAY-C07"
+      ],
+      "deliverable": "pass/fail/unknown。寄り道は全行程差分+滞在。定期控除未対応はunknown。",
+      "acceptance": "階段必須にunknownなら案内確定しない。unknown費用を0円へしない。",
+      "notes": "",
+      "body_file": "issues/RTE-002.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "RTE-003",
+      "title": "固定候補・経路・Quest API",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "RTE-001",
+        "RTE-002"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/routes/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "createCandidateSet",
+        "getCandidateSet",
+        "planRoute",
+        "getRoute",
+        "setRouteState",
+        "createQuest",
+        "updateQuest"
+      ],
+      "requirement_ids": [
+        "ROUTE-001",
+        "ROUTE-002",
+        "ROUTE-003",
+        "ROUTE-007",
+        "ROUTE-009",
+        "TRF-003"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C03"
+      ],
+      "deliverable": "CandidateSet/RoutePlan/Questを保存。運賃/provider状態を戻し、採用済みを勝手に置換しない。",
+      "acceptance": "同じ候補集合で理由変更前後を比較。未達制約は採用不可。",
+      "notes": "",
+      "body_file": "issues/RTE-003.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "RTE-004",
+      "title": "経路候補と制約変更UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/routes/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "CORE-001",
+        "NAV-005",
+        "ROUTE-001",
+        "ROUTE-002",
+        "ROUTE-003",
+        "ROUTE-007",
+        "ROUTE-009",
+        "TRF-003"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C03",
+        "DAY-A05"
+      ],
+      "deliverable": "出発・目的・寄り道・締切・制約の入力、採用/後で/却下。",
+      "acceptance": "条件緩和は本人操作後にだけ再計算。順位が変わらなくても差分理由を表示。",
+      "notes": "",
+      "body_file": "issues/RTE-004.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "RTE-005",
+      "title": "定期券CRUD API",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/passes/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "listPasses",
+        "createPass",
+        "updatePass",
+        "deletePass"
+      ],
+      "requirement_ids": [
+        "ROUTE-004",
+        "ROUTE-005",
+        "ROUTE-006",
+        "ROUTE-010"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C07"
+      ],
+      "deliverable": "operator/station/via/validity/cardType/providerCourseを保存。",
+      "acceptance": "期限切れは適用候補にしない。入力保存だけを実運賃対応と称さない。",
+      "notes": "",
+      "body_file": "issues/RTE-005.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "RTE-006",
+      "title": "乗換・定期券入力UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/passes/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "ROUTE-004",
+        "ROUTE-005",
+        "ROUTE-006",
+        "ROUTE-010"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C07"
+      ],
+      "deliverable": "定期入力、source表示、鉄道/バスと未対応の区別。",
+      "acceptance": "unknown運賃とサンプル運賃に区別がある。",
+      "notes": "",
+      "body_file": "issues/RTE-006.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "SOC-001",
+      "title": "項目単位の共有投影関数",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/sharing/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-003",
+        "DATA-007",
+        "DATA-009",
+        "ROUTE-008",
+        "SOC-002",
+        "SOC-003",
+        "SOC-006",
+        "SOC-007",
+        "SOC-009",
+        "SOC-014"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C04"
+      ],
+      "deliverable": "ShareGrantからSharedExperience DTOだけを作る。非許可原文/写真を含めない。",
+      "acceptance": "用途のみ共有のJSONにreason/text/写真が出ない。",
+      "notes": "",
+      "body_file": "issues/SOC-001.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "SOC-002",
+      "title": "共有・取消・公開検索API",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "SOC-001"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/sharing/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "listSharedExperiences",
+        "createShareGrant",
+        "revokeShareGrant"
+      ],
+      "requirement_ids": [
+        "DATA-003",
+        "DATA-007",
+        "DATA-009",
+        "MAP-013",
+        "ROUTE-008",
+        "SOC-001",
+        "SOC-002",
+        "SOC-003",
+        "SOC-004",
+        "SOC-006",
+        "SOC-007",
+        "SOC-009",
+        "SOC-014"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C04",
+        "DAY-C02"
+      ],
+      "deliverable": "検索と詳細で同じ投影を使う。取消はgrantRevisionを増し派生をstaleにする。",
+      "acceptance": "取消直後の次fetchとAI applyで旧共有内容が出ない。",
+      "notes": "",
+      "body_file": "issues/SOC-002.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "SOC-003",
+      "title": "5類型の比較builder",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/comparison/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-003",
+        "DATA-007",
+        "DATA-009",
+        "ROUTE-008",
+        "SOC-002",
+        "SOC-003",
+        "SOC-006",
+        "SOC-007",
+        "SOC-009",
+        "SOC-014"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C04"
+      ],
+      "deliverable": "同じ場所/別用途、別場所/同役割、実用知、似て非なる理由を区別。",
+      "acceptance": "根拠の無い似ている推論は確定扱いしない。拒否対応は再提示しない。",
+      "notes": "",
+      "body_file": "issues/SOC-003.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "SOC-004",
+      "title": "比較・友人レンズ・共有設定UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/social/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-003",
+        "DATA-007",
+        "DATA-009",
+        "EVAL-007",
+        "NAV-002",
+        "ROUTE-008",
+        "SOC-002",
+        "SOC-003",
+        "SOC-006",
+        "SOC-007",
+        "SOC-008",
+        "SOC-009",
+        "SOC-014"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C04",
+        "DAY-A07"
+      ],
+      "deliverable": "違いと共通役割を比較カードにし、項目共有を切り替えられる。",
+      "acceptance": "相手レンズ表示と自分の正本の編集対象を混同しない。",
+      "notes": "",
+      "body_file": "issues/SOC-004.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "SOC-005",
+      "title": "比較保存・否定API",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "SOC-001",
+        "SOC-003"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/comparison/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "createComparison",
+        "getComparison",
+        "rejectMapping"
+      ],
+      "requirement_ids": [
+        "DATA-003",
+        "DATA-007",
+        "DATA-009",
+        "ROUTE-008",
+        "SOC-002",
+        "SOC-003",
+        "SOC-006",
+        "SOC-007",
+        "SOC-009",
+        "SOC-014"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C04"
+      ],
+      "deliverable": "投影済み入力から比較を作り版とgrantVersionsを保持。",
+      "acceptance": "相手の共有取消で保存済み結果もstale。否定対応を保持。",
+      "notes": "",
+      "body_file": "issues/SOC-005.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "TRF-001",
+      "title": "役割レシピCRUDと編集UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/recipes/",
+        "src/features/recipe/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "createRecipe",
+        "getRecipe",
+        "updateRecipe"
+      ],
+      "requirement_ids": [
+        "EVAL-003",
+        "SOC-010",
+        "TRF-001",
+        "TRF-002",
+        "TRF-004",
+        "TRF-005"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C05"
+      ],
+      "deliverable": "役割/順序/固定/可変/思い出を別保存。同じplaceの再登場は別roleId。",
+      "acceptance": "カテゴリ列のコピーではなく、歩いて切替→対話→一人で整理など順序を編集。",
+      "notes": "",
+      "body_file": "issues/TRF-001.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "TRF-002",
+      "title": "別都市の役割割当・2軸評価",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/transfer/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript",
+        "アルゴリズム"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-003",
+        "SOC-010",
+        "TRF-001",
+        "TRF-002",
+        "TRF-004",
+        "TRF-005"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C05"
+      ],
+      "deliverable": "属性baselineで役割ごとに候補を割当。忠実/本人適合を分離、実在性とhardを先に確認。",
+      "acceptance": "思い出を移植可能としない。2モードで説明と尺度が対応する。",
+      "notes": "",
+      "body_file": "issues/TRF-002.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "TRF-003",
+      "title": "体験移植保存API",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "TRF-002",
+        "RTE-001",
+        "RTE-002"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/transfer/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "planTransfer",
+        "getTransfer"
+      ],
+      "requirement_ids": [
+        "EVAL-003",
+        "SOC-010",
+        "TRF-001",
+        "TRF-002",
+        "TRF-004",
+        "TRF-005"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C05"
+      ],
+      "deliverable": "candidateSet固定でdiffとRoutePlanを保存。関連版を持ち訂正で再確認を出す。",
+      "acceptance": "別都市の3役割を再構成し、retained/changed/nonTransferable/unknownを再表示。",
+      "notes": "",
+      "body_file": "issues/TRF-003.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "TRF-004",
+      "title": "移植先・モード・差分UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/transfer/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-003",
+        "SOC-010",
+        "TRF-001",
+        "TRF-002",
+        "TRF-004",
+        "TRF-005"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C05"
+      ],
+      "deliverable": "忠実さ/本人適合、移せない記憶、unknownを別欄で示す。",
+      "acceptance": "入力理由の訂正前後を同じ候補集合で比べられる。",
+      "notes": "",
+      "body_file": "issues/TRF-004.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "SOC-006",
+      "title": "共同希望の積集合・Pareto比較",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/joint/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-006",
+        "SOC-005",
+        "SOC-011",
+        "SOC-012",
+        "SOC-013",
+        "TRF-006",
+        "TRF-011"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C06"
+      ],
+      "deliverable": "参加者別hardを同時評価。softを平均1点に潰さず左右の説明を保持。",
+      "acceptance": "一方だけ違反する候補を共同候補に採用しない。不成立理由を表示。",
+      "notes": "",
+      "body_file": "issues/SOC-006.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "SOC-007",
+      "title": "共同経路APIと入力UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "SOC-006"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/joint/",
+        "src/features/joint/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "createJointPlan",
+        "getJointPlan"
+      ],
+      "requirement_ids": [
+        "DATA-006",
+        "SOC-005",
+        "SOC-011",
+        "SOC-012",
+        "SOC-013",
+        "TRF-006",
+        "TRF-011"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C06"
+      ],
+      "deliverable": "参加者別入力→共同案保存→再表示。依存未接続中は明示fixtureで開発。",
+      "acceptance": "片方の締切変更だけで結果が変わる。",
+      "notes": "",
+      "body_file": "issues/SOC-007.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "SOC-008",
+      "title": "体験の感想・返信API",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/feedback/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "createFeedback",
+        "listFeedback"
+      ],
+      "requirement_ids": [
+        "DATA-006",
+        "SOC-005",
+        "SOC-011",
+        "SOC-012",
+        "SOC-013",
+        "TRF-006",
+        "TRF-011"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C06"
+      ],
+      "deliverable": "ownExperienceを保存済み参照し元作者の体験を上書きしない。共有引用は現在投影で返す。",
+      "acceptance": "元体験の共有取消後も本人の実訪問/自作文が残る。",
+      "notes": "",
+      "body_file": "issues/SOC-008.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "SOC-009",
+      "title": "実践後の感想UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/feedback/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-006",
+        "SOC-005",
+        "SOC-011",
+        "SOC-012",
+        "SOC-013",
+        "TRF-006",
+        "TRF-011"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C06"
+      ],
+      "deliverable": "残した・変えた・合う/合わない・行かなかったを選ぶ。",
+      "acceptance": "時間不足で行かなかったことをdislikeへ変換しない。",
+      "notes": "",
+      "body_file": "issues/SOC-009.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "AI-001",
+      "title": "ローカルCodex SDK adapter",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/ai/adapter/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript",
+        "Codex"
+      ],
+      "complexity": "L",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "CORE-005",
+        "NEW-003",
+        "OPS-003",
+        "OPS-006"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D01",
+        "DAY-D02"
+      ],
+      "deliverable": "task+JSONSchema→Codex→構造化結果。専用workdir、認証状態、明示エラー。",
+      "acceptance": "実入力の変化で異なる検証済みoutput。ライブ失敗から別モデル/replayへ黙って切替しない。",
+      "notes": "実行確認は正規ログイン済みPC。実装担当をMac特定個人へ固定しない。",
+      "body_file": "issues/AI-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "AI-002",
+      "title": "ジョブ・取消・stale・承認apply API",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "AI-001",
+        "AI-008"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/ai/",
+        "server/features/interpretations/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript",
+        "SQL"
+      ],
+      "complexity": "L",
+      "confidence": "未実測",
+      "operation_ids": [
+        "createAiJob",
+        "getAiJob",
+        "cancelAiJob",
+        "applyAiJob",
+        "reviewInterpretation"
+      ],
+      "requirement_ids": [
+        "CORE-005",
+        "DATA-004",
+        "NEW-003",
+        "OPS-003",
+        "OPS-006"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D02",
+        "DAY-D08"
+      ],
+      "deliverable": "DBにjobを保存。外部待機はtransaction外。apply前にentity/grant/settings版を照合。 extract apply時の質問保存は注入されたQuestionPortを同じtransactionで呼ぶ。再抽出は許可されたquestionResponseIdsから原文を取得する。",
+      "acceptance": "取消後の遅着はapply不能。再起動running→interrupted。acceptでのみ正本へ作用。",
+      "notes": "",
+      "body_file": "issues/AI-002.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "AI-003",
+      "title": "用途/理由抽出の構造化prompt",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/ai/prompts/extract.ts"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "Codex",
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-005",
+        "DATA-010",
+        "NAV-006",
+        "REC-008",
+        "SELF-014"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D03"
+      ],
+      "deliverable": "本人原文と対象から抽出。Evidence参照と任意1問を返す。",
+      "acceptance": "存在しない根拠IDを含むoutputを拒否。",
+      "notes": "",
+      "body_file": "issues/AI-003.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "AI-004",
+      "title": "比較・レシピ生成prompt",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/ai/prompts/compare.ts",
+        "server/ai/prompts/recipe.ts"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "Codex",
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-005",
+        "DATA-010",
+        "EVAL-003",
+        "NAV-006",
+        "REC-008",
+        "SELF-014",
+        "SOC-010",
+        "TRF-001",
+        "TRF-002",
+        "TRF-004",
+        "TRF-005"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D03",
+        "DAY-C05"
+      ],
+      "deliverable": "許可済み投影のみ渡し、役割と順序と根拠を返す。",
+      "acceptance": "非公開原文をコンテキストに入れない。",
+      "notes": "",
+      "body_file": "issues/AI-004.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "AI-005",
+      "title": "発見・日記生成prompt",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/ai/prompts/discover.ts",
+        "server/ai/prompts/diary.ts"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "Codex",
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-005",
+        "DATA-008",
+        "DATA-010",
+        "DATA-011",
+        "DISC-007",
+        "NAV-006",
+        "NAV-009",
+        "REC-008",
+        "REC-009",
+        "SELF-012",
+        "SELF-014"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D03",
+        "DAY-B07"
+      ],
+      "deliverable": "発見の一般知識/固有事実を分ける。日記は本人承認前の下書き。",
+      "acceptance": "訪問していない場所や本人感情を事実として増やさない。",
+      "notes": "",
+      "body_file": "issues/AI-005.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "AI-006",
+      "title": "DSL生成・修復提案prompt",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/ai/prompts/extension.ts",
+        "server/ai/prompts/repair.ts"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "Codex",
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-008",
+        "EXT-009",
+        "EXT-011",
+        "EXT-013",
+        "EXT-014",
+        "EXT-016",
+        "EXT-017",
+        "EXT-018",
+        "EXT-019",
+        "OPS-005"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D05",
+        "DAY-D06"
+      ],
+      "deliverable": "既存opに制限した機能定義と列対応を構造化。未対応は明記する。",
+      "acceptance": "未知opをホストで実行しない。単位の意味変更を自動承認しない。",
+      "notes": "",
+      "body_file": "issues/AI-006.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "AI-007",
+      "title": "待ち・取消・明示再実行のUI",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/ai/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "CORE-005",
+        "NEW-003",
+        "OPS-003",
+        "OPS-006"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D02"
+      ],
+      "deliverable": "JobState componentをタスク画面へ埋め込む。選択scopeを固定表示。",
+      "acceptance": "画面移動中に成功しても別対象へ自動適用しない。",
+      "notes": "",
+      "body_file": "issues/AI-007.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "EXT-001",
+      "title": "限定DSLの実行器",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/dsl/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "L",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-001",
+        "EXT-002",
+        "EXT-008",
+        "EXT-009",
+        "EXT-010",
+        "EXT-011",
+        "EXT-014",
+        "EXT-015",
+        "EXT-019",
+        "OPS-005"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D04",
+        "DAY-D05"
+      ],
+      "deliverable": "有限opのデータflow実行。definition/入力を検証しoutputsを返す。",
+      "acceptance": "同じ定義で入力を変えると計算が変わる。コード文字列をevalしない。",
+      "notes": "",
+      "body_file": "issues/EXT-001.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "EXT-002",
+      "title": "ストア・版・導入・実行API",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "EXT-001"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/extensions/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "listExtensions",
+        "createExtension",
+        "createExtensionVersion",
+        "listExtensionVersions",
+        "previewExtension",
+        "installExtension",
+        "listInstalls",
+        "updateInstall",
+        "rollbackInstall",
+        "runExtension"
+      ],
+      "requirement_ids": [
+        "EXT-001",
+        "EXT-002",
+        "EXT-008",
+        "EXT-009",
+        "EXT-010",
+        "EXT-011",
+        "EXT-014",
+        "EXT-015",
+        "EXT-019",
+        "OPS-005"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D04",
+        "DAY-D05"
+      ],
+      "deliverable": "定義、artifactHash、インストール、privateStateを別保存。preview→validated→install。",
+      "acceptance": "未検証版は導入不可。rollbackで定義を戻しても本人状態を失わない。",
+      "notes": "",
+      "body_file": "issues/EXT-002.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "EXT-003",
+      "title": "ストア・生成・試用・修正UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/extensions/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-001",
+        "EXT-002",
+        "EXT-008",
+        "EXT-009",
+        "EXT-010",
+        "EXT-011",
+        "EXT-014",
+        "EXT-015",
+        "EXT-019",
+        "OPS-005"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D04",
+        "DAY-D05"
+      ],
+      "deliverable": "要求文、preview入力、結果、版、導入を1導線にする。",
+      "acceptance": "ボタンがあるだけでなく、入力変更→preview差分→導入まで確認。",
+      "notes": "",
+      "body_file": "issues/EXT-003.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "EXT-004",
+      "title": "導入済み機能のhost slot",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/extension-host/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-008",
+        "EXT-009",
+        "EXT-011",
+        "EXT-014",
+        "EXT-019",
+        "OPS-005"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D05"
+      ],
+      "deliverable": "map/self/route slotへ導入版を表示。disable/rollback/失敗を局所処理。",
+      "acceptance": "他機能のカードを壊さず無効化できる。",
+      "notes": "",
+      "body_file": "issues/EXT-004.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "EXT-005",
+      "title": "防災拡張のtyped template",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "extensions/disaster/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-006",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "EXT-006",
+        "NEW-006"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D07"
+      ],
+      "deliverable": "covered/障害/情報鮮度/unknownを入力に経路の確認・保留を計算。",
+      "acceptance": "サンプル規制変更で通行候補が変わる。安全保証として実演しない。",
+      "notes": "",
+      "body_file": "issues/EXT-005.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "EXT-006",
+      "title": "バイク拡張のtyped template",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "extensions/motorcycle/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-006",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "EXT-006",
+        "NEW-006"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D07"
+      ],
+      "deliverable": "vehicleClass・通行規制・立寄条件をDSLへ入力。",
+      "acceptance": "車種条件変更で候補か可否が変わる。実規制未取得はunknown。",
+      "notes": "",
+      "body_file": "issues/EXT-006.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "EXT-007",
+      "title": "聖地巡礼拡張のtyped template",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "extensions/pilgrimage/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-006",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "EXT-006",
+        "NEW-006"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D07"
+      ],
+      "deliverable": "順序、滞在、締切、出典を入力して全行程を計算。",
+      "acceptance": "滞在増で到着時刻/可否が変わる。許諾なし素材を混ぜない。",
+      "notes": "",
+      "body_file": "issues/EXT-007.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "DATA-001",
+      "title": "JSON/CSV/GeoJSONの正規化器",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "shared/logic/source-normalize/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-013",
+        "EXT-016",
+        "EXT-017",
+        "EXT-018"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D06"
+      ],
+      "deliverable": "列名/座標/単位を検査しtyped PlaceFactsへ写像。変換不能はunknown。",
+      "acceptance": "数値単位が変わったファイルを黙って旧parserで受理しない。",
+      "notes": "",
+      "body_file": "issues/DATA-001.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "DATA-002",
+      "title": "出典・snapshot・修復承認API",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "DATA-001"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/sources/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "createSource",
+        "createSnapshot",
+        "createRepair",
+        "getRepair",
+        "approveRepair"
+      ],
+      "requirement_ids": [
+        "EXT-013",
+        "EXT-016",
+        "EXT-017",
+        "EXT-018"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D06"
+      ],
+      "deliverable": "raw hashとparser版を保持。proposal承認時にだけ更新を公開。",
+      "acceptance": "新snapshot到着後の古い提案は409。承認失敗で旧factsが残る。",
+      "notes": "",
+      "body_file": "issues/DATA-002.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "DATA-003",
+      "title": "情報修復差分・承認UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/sources/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-013",
+        "EXT-016",
+        "EXT-017",
+        "EXT-018"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D06"
+      ],
+      "deliverable": "旧新列3行と変換/単位を比較して承認する。",
+      "acceptance": "列の対応だけの変更と意味変化の変更を区別できる。",
+      "notes": "",
+      "body_file": "issues/DATA-003.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "MEDIA-001",
+      "title": "画像アップロード・認可取得",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/assets/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "uploadAsset",
+        "getAsset",
+        "getAssetContent"
+      ],
+      "requirement_ids": [
+        "DATA-008",
+        "DATA-011",
+        "DISC-007",
+        "NAV-009",
+        "REC-009",
+        "SELF-012"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B07"
+      ],
+      "deliverable": "multipart・hash・メタデータとprivate保存先を分離。5MB/枚を初期制限。",
+      "acceptance": "禁止画像型を拒否。静的public配下へ原写真を出さない。",
+      "notes": "",
+      "body_file": "issues/MEDIA-001.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "MEDIA-002",
+      "title": "日記保存・編集API",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/diaries/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "createDiary",
+        "listDiaries",
+        "updateDiary"
+      ],
+      "requirement_ids": [
+        "DATA-008",
+        "DATA-011",
+        "DISC-007",
+        "NAV-009",
+        "REC-009",
+        "SELF-012"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B07"
+      ],
+      "deliverable": "原記録への参照と承認版の日記・asset参照を保存。",
+      "acceptance": "AI下書きが未承認のまま本人の確定文にならない。",
+      "notes": "",
+      "body_file": "issues/MEDIA-002.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "MEDIA-003",
+      "title": "日記・写真添付UI",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/diary/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-008",
+        "DATA-011",
+        "DISC-007",
+        "NAV-009",
+        "REC-009",
+        "SELF-012"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B07"
+      ],
+      "deliverable": "日記編集、写真選択、圧縮しすぎないpreview、保存済み表示。",
+      "acceptance": "写真アップロード失敗時も本文の草稿を保持。",
+      "notes": "",
+      "body_file": "issues/MEDIA-003.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "PREF-001",
+      "title": "設定と本人JSON出力",
+      "priority": "P1",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/settings/",
+        "server/features/export/",
+        "src/features/settings/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "getSettings",
+        "updateSettings",
+        "exportOwnData"
+      ],
+      "requirement_ids": [
+        "DATA-008",
+        "DATA-011",
+        "DISC-007",
+        "NAV-009",
+        "REC-009",
+        "SELF-012"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B07"
+      ],
+      "deliverable": "本人の全停止・探索設定とExportBundle。他者の非公開データを含めない。",
+      "acceptance": "停止設定はAI apply時にも参照。出力→新namespaceへの読込経路を文書化。",
+      "notes": "",
+      "body_file": "issues/PREF-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "DEMO-001",
+      "title": "demo領域作成/reset・再開UI",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [
+        "FND-004"
+      ],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/demo/",
+        "src/features/demo/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "cloneDemo",
+        "resetDemo"
+      ],
+      "requirement_ids": [
+        "EVAL-008"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A09",
+        "DAY-B09"
+      ],
+      "deliverable": "sample seedから新namespaceを作る。resetはdemoだけ、本人領域へ拒否。",
+      "acceptance": "user namespaceのresetは拒否。別demoも変えない。",
+      "notes": "",
+      "body_file": "issues/DEMO-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "DEV-001",
+      "title": "アプリ改造の開発依頼書・出力",
+      "priority": "P2",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/development/",
+        "src/features/development/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "createDevelopmentRequest",
+        "getDevelopmentRequest"
+      ],
+      "requirement_ids": [
+        "DATA-012",
+        "EVAL-006",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "EXT-006",
+        "EXT-007",
+        "NEW-006",
+        "NEW-009",
+        "OPS-009"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D07",
+        "DAY-D09"
+      ],
+      "deliverable": "requirement、許可paths、baseCommit、data clone-only、受入を出力。コード生成と区別。",
+      "acceptance": "出力契約に秘密値なし。ブラウザだけで本体改造済みと称さない。",
+      "notes": "",
+      "body_file": "issues/DEV-001.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "INT-001",
+      "title": "手動記録→保存→用途の建物を結合",
+      "priority": "P0",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "PLC-001",
+        "MAP-001",
+        "MAP-002",
+        "MAP-004",
+        "REC-001",
+        "REC-002",
+        "REC-005"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-001/",
+        "server/integrations/int-001/",
+        "evidence/INT-001/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "CORE-001",
+        "CORE-003",
+        "EVAL-004",
+        "MAP-001",
+        "MAP-002",
+        "MAP-003",
+        "MAP-004",
+        "MAP-005",
+        "MAP-009",
+        "MAP-012",
+        "NAV-005",
+        "OPS-007"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A02",
+        "DAY-A03",
+        "DAY-A05",
+        "DAY-B08"
+      ],
+      "deliverable": "記録フォームの保存後にmeaningと履歴のqueryをinvalidateし、同じplaceへ描画。",
+      "acceptance": "入力→保存→再読込→本体成長を1つの画面で実行。",
+      "notes": "",
+      "body_file": "issues/INT-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "INT-002",
+      "title": "理由訂正→自己理解→候補差分を結合",
+      "priority": "P0",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "INT-001",
+        "REC-003",
+        "REC-004",
+        "SELF-002",
+        "SELF-003",
+        "RTE-003",
+        "RTE-001",
+        "RTE-002",
+        "SELF-001",
+        "RTE-004"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-002/",
+        "server/integrations/int-002/",
+        "evidence/INT-002/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "CORE-001",
+        "DATA-002",
+        "EVAL-002",
+        "EVAL-004",
+        "NAV-005",
+        "NEW-004",
+        "OPS-007",
+        "SELF-002",
+        "SELF-003",
+        "SELF-009"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A05",
+        "DAY-B04",
+        "DAY-B08"
+      ],
+      "deliverable": "REC-003で訂正し、SELF-001で仮説差分、RTE-004で固定候補の説明差分と採用済みrouteの再確認を表示する。各UIを作り直さず接続する。",
+      "acceptance": "理由だけ変更して、原文不変・説明差分・無関係な形維持を確認。",
+      "notes": "",
+      "body_file": "issues/INT-002.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "INT-003",
+      "title": "ライブCodex→根拠→承認を結合",
+      "priority": "P0",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "AI-001",
+        "AI-002",
+        "AI-003",
+        "AI-007",
+        "REC-002",
+        "PLC-001",
+        "AI-008"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-003/",
+        "server/integrations/int-003/",
+        "evidence/INT-003/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-004",
+        "EVAL-004",
+        "OPS-007"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D08",
+        "DAY-B08"
+      ],
+      "deliverable": "原文保存済みIDをAIへ送り、job結果をInterpretationに保存して本人確認へ。",
+      "acceptance": "実応答、取消、別対象へ移動、訂正後遅着を操作して誤適用なし。",
+      "notes": "",
+      "body_file": "issues/INT-003.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "INT-004",
+      "title": "観測→履歴→人物Replayを結合",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "REC-006",
+        "REC-007",
+        "SELF-001",
+        "SELF-003",
+        "MAP-003",
+        "MAP-001",
+        "MAP-004",
+        "PLC-001",
+        "REC-005"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-004/",
+        "server/integrations/int-004/",
+        "evidence/INT-004/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "MAP-014",
+        "REC-003",
+        "REC-004",
+        "REC-005",
+        "REC-010",
+        "REC-011"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A06",
+        "DAY-B03"
+      ],
+      "deliverable": "観測候補はconfirmed前に成長させずReplayへだけ使う。",
+      "acceptance": "再取込して訪問数が増えず、Replayとlive位置を切替可能。",
+      "notes": "",
+      "body_file": "issues/INT-004.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "INT-005",
+      "title": "共有→比較→相手レンズの実接続",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "SOC-001",
+        "SOC-002",
+        "SOC-003",
+        "SOC-004",
+        "SOC-005",
+        "MAP-001",
+        "MAP-002",
+        "MAP-004",
+        "PLC-001",
+        "REC-005",
+        "REC-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-005/",
+        "server/integrations/int-005/",
+        "evidence/INT-005/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-007",
+        "NAV-002",
+        "SOC-008"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C08",
+        "DAY-C09",
+        "DAY-A07"
+      ],
+      "deliverable": "共有済み体験を比較し、同じ場所の相手レンズと対応否定を実API・DBで接続する。移植・返信完成を待たない。",
+      "acceptance": "比較を保存して再読込。対応否定が残り、相手レンズが同じ体験を指す。非公開原文は出ない。",
+      "notes": "",
+      "body_file": "issues/INT-005.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "INT-006",
+      "title": "共同希望・定期券・経路を結合",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "RTE-001",
+        "RTE-002",
+        "RTE-003",
+        "RTE-004",
+        "RTE-005",
+        "RTE-006",
+        "SOC-006",
+        "SOC-007",
+        "MAP-001",
+        "MAP-004",
+        "PLC-001"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-006/",
+        "server/integrations/int-006/",
+        "evidence/INT-006/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "ROUTE-004",
+        "ROUTE-005",
+        "ROUTE-006",
+        "ROUTE-010"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C08",
+        "DAY-C07"
+      ],
+      "deliverable": "定期券入力から制約計算、共同希望、選択route描画へ接続。",
+      "acceptance": "締切・車種・pass期限を変えて可否/unknownが正しく変わる。",
+      "notes": "",
+      "body_file": "issues/INT-006.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "INT-007",
+      "title": "発見→新しい関心→振り返りを結合",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "DISC-001",
+        "DISC-002",
+        "DISC-003",
+        "SELF-001",
+        "MAP-001",
+        "MAP-004",
+        "PLC-001",
+        "PLC-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-007/",
+        "server/integrations/int-007/",
+        "evidence/INT-007/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DISC-001",
+        "DISC-002",
+        "DISC-003",
+        "DISC-004",
+        "DISC-005",
+        "DISC-006",
+        "DISC-008",
+        "SELF-013"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A06",
+        "DAY-B06"
+      ],
+      "deliverable": "本人主導の発見を地図/写真anchorに接続。",
+      "acceptance": "興味は自分一覧へ、既知/閉じるは別記録。",
+      "notes": "",
+      "body_file": "issues/INT-007.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "INT-008",
+      "title": "生成→試用→導入の共通実接続",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "INT-003",
+        "AI-006",
+        "EXT-001",
+        "EXT-002",
+        "EXT-003",
+        "EXT-004",
+        "RTE-001",
+        "RTE-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-008/",
+        "server/integrations/int-008/",
+        "evidence/INT-008/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-004",
+        "DATA-012",
+        "EXT-007",
+        "NEW-009",
+        "OPS-009"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D08",
+        "DAY-D09"
+      ],
+      "deliverable": "汎用DSLを実Codexで生成し、計算・保存・導入・無効化・rollbackまで接続する。三つのテーマ完成を待たない。",
+      "acceptance": "要求から新定義を生成。入力変更で結果が変わり、再読込後の導入版と状態が保持され、無効化と旧版復帰ができる。",
+      "notes": "",
+      "body_file": "issues/INT-008.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "INT-009",
+      "title": "情報更新→修復承認→再計算を結合",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "DATA-001",
+        "DATA-002",
+        "DATA-003",
+        "PLC-001",
+        "RTE-001",
+        "RTE-002",
+        "RTE-003"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-009/",
+        "server/integrations/int-009/",
+        "evidence/INT-009/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-004",
+        "EXT-013",
+        "EXT-016",
+        "EXT-017",
+        "EXT-018"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D06",
+        "DAY-D08"
+      ],
+      "deliverable": "修復版を承認し現在facts更新→候補/経路再確認まで通知。",
+      "acceptance": "列名変更と単位変更の3行差分、適用失敗時旧版維持。",
+      "notes": "",
+      "body_file": "issues/INT-009.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "INT-010",
+      "title": "日記・写真・設定・出力を結合",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "MEDIA-001",
+        "MEDIA-002",
+        "MEDIA-003",
+        "PREF-001",
+        "REC-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-010/",
+        "server/integrations/int-010/",
+        "evidence/INT-010/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-008",
+        "DATA-011",
+        "DISC-007",
+        "EVAL-004",
+        "NAV-009",
+        "OPS-007",
+        "REC-009",
+        "SELF-012"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B07",
+        "DAY-B08"
+      ],
+      "deliverable": "settings、asset、diaryの実保存と本人exportを接続。",
+      "acceptance": "再起動後に本文と写真参照が戻る。許可なし他者データは出力なし。",
+      "notes": "",
+      "body_file": "issues/INT-010.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "POOL-001",
+      "title": "建物の質感・影・形の読みやすさ",
+      "priority": "P1",
+      "kind": "pool",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/map/materials/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-007",
+        "NAV-002",
+        "SOC-008"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A07"
+      ],
+      "deliverable": "3形状の共通materialと可読性presetを作り、formsへpropsで渡す。",
+      "acceptance": "正面と俯瞰の両方で本・会話・庭が区別できる。",
+      "notes": "",
+      "body_file": "issues/POOL-001.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "POOL-002",
+      "title": "空状態・保存失敗・再試行の文言",
+      "priority": "P1",
+      "kind": "pool",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/content/states/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-005",
+        "EVAL-007",
+        "NAV-002",
+        "NAV-008",
+        "NEW-012",
+        "OPS-002",
+        "OPS-008",
+        "SOC-008"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A07",
+        "DAY-A08"
+      ],
+      "deliverable": "各空/失敗状態の短文とボタンlabelをtyped辞書にする。",
+      "acceptance": "失敗文に次の操作が1つ明記される。",
+      "notes": "",
+      "body_file": "issues/POOL-002.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "POOL-003",
+      "title": "発見カードの知識・根拠セット",
+      "priority": "P1",
+      "kind": "pool",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "fixtures/discovery-reviewed/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DISC-001",
+        "DISC-002",
+        "DISC-003",
+        "DISC-004",
+        "DISC-005",
+        "DISC-006",
+        "DISC-008",
+        "SELF-013"
+      ],
+      "legacy_issue_ids": [
+        "DAY-B06"
+      ],
+      "deliverable": "一般知識/固有事実と出典を分離した短い発見カードを用意。",
+      "acceptance": "場所に架空固有事実をつけず、観察の問いがある。",
+      "notes": "",
+      "body_file": "issues/POOL-003.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "POOL-004",
+      "title": "移植の役割と変更理由の例",
+      "priority": "P1",
+      "kind": "pool",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "fixtures/transfer-cases/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-003",
+        "SOC-010",
+        "TRF-001",
+        "TRF-002",
+        "TRF-004",
+        "TRF-005"
+      ],
+      "legacy_issue_ids": [
+        "DAY-C05"
+      ],
+      "deliverable": "忠実/本人向け、固定/可変/記憶の入力例を作る。",
+      "acceptance": "同カテゴリ選択では説明できない役割の例がある。",
+      "notes": "",
+      "body_file": "issues/POOL-004.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "POOL-005",
+      "title": "3テーマ拡張の可変入力ケース",
+      "priority": "P1",
+      "kind": "pool",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "fixtures/extension-cases/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-006",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "EXT-006",
+        "NEW-006"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D07"
+      ],
+      "deliverable": "規制・排気量区分・滞在/締切を動かす入出力期待値を作る。",
+      "acceptance": "固定結果を返すだけの実装を検出できる。",
+      "notes": "",
+      "body_file": "issues/POOL-005.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "POOL-006",
+      "title": "390幅の表示確認と局所修正案",
+      "priority": "P1",
+      "kind": "pool",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "evidence/responsive/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-005",
+        "NAV-008",
+        "NEW-012",
+        "OPS-002",
+        "OPS-008"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A08"
+      ],
+      "deliverable": "既に動く画面のはみ出し・操作不能を記録。元ファイル修正は追加lock取得後。",
+      "acceptance": "修正前後画像と問題のない操作を記録。",
+      "notes": "",
+      "body_file": "issues/POOL-006.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "POOL-007",
+      "title": "Codex活用の証拠と再利用README",
+      "priority": "P1",
+      "kind": "pool",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "docs/codex-evidence/",
+        "docs/reuse/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-012",
+        "EXT-007",
+        "NEW-009",
+        "OPS-009"
+      ],
+      "legacy_issue_ids": [
+        "DAY-D09"
+      ],
+      "deliverable": "要求→差分→受入の実ログと、再利用できるDSL/投影/訂正契約を整理。",
+      "acceptance": "未実行機能をデモ済みとせず、秘密値を載せない。",
+      "notes": "",
+      "body_file": "issues/POOL-007.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "POOL-008",
+      "title": "起動/訂正/取消/復帰の操作カード",
+      "priority": "P1",
+      "kind": "pool",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "docs/demo-cards/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-008"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A09",
+        "DAY-B09",
+        "DAY-C09"
+      ],
+      "deliverable": "時計でなく場面遷移で通し実演を作る。live/sample/replayの区別を記載。",
+      "acceptance": "実演が止まっても前状態から短く戻る。",
+      "notes": "",
+      "body_file": "issues/POOL-008.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "GATE-001",
+      "title": "通し体験の確認・動作版タグ",
+      "priority": "P0",
+      "kind": "gate",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "INT-001",
+        "INT-002",
+        "INT-003",
+        "DEMO-001",
+        "PREF-001",
+        "INT-016"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "evidence/release/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "S",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-004",
+        "DATA-012",
+        "EVAL-004",
+        "EVAL-005",
+        "EVAL-008",
+        "EXT-007",
+        "NAV-008",
+        "NEW-009",
+        "NEW-012",
+        "OPS-002",
+        "OPS-007",
+        "OPS-008",
+        "OPS-009"
+      ],
+      "legacy_issue_ids": [
+        "DAY-A08",
+        "DAY-A09",
+        "DAY-B08",
+        "DAY-B09",
+        "DAY-C08",
+        "DAY-C09",
+        "DAY-D08",
+        "DAY-D09"
+      ],
+      "deliverable": "記録/訂正/AI/復帰のP0を確認してtag。P1は完成した枝だけ選択し、全P1待ちを禁止。",
+      "acceptance": "未接続UIはcapabilitiesから外す。本人データを残してdemoを再開始。",
+      "notes": "",
+      "body_file": "issues/GATE-001.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "FUT01",
+      "title": "認証・本物の友人共有・取消の全派生反映",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "SOC-002",
+        "AI-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut01/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-003",
+        "DATA-004",
+        "DATA-005",
+        "DATA-006",
+        "DATA-007",
+        "DATA-008",
+        "DATA-009",
+        "EVAL-004",
+        "SOC-002",
+        "SOC-003",
+        "SOC-013",
+        "SOC-014"
+      ],
+      "legacy_issue_ids": [
+        "FUT01"
+      ],
+      "deliverable": "OIDCまたはprovider認証→actorをsessionへ→recipient別投影→grant revision→検索/会話/画像URL/生成中結果まで依存失効→2アカウントで取消を確認。",
+      "acceptance": "2端末間で用途だけ公開し、原文がAPI/画像からも出ない。取消後も相手自身の実体験は残る。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT01.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT02",
+      "title": "配備向け永続化・データ移行・非公開デプロイ",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-002",
+        "PREF-001"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut02/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-001",
+        "DATA-011",
+        "NEW-011",
+        "OPS-001",
+        "OPS-003",
+        "REC-011"
+      ],
+      "legacy_issue_ids": [
+        "FUT02"
+      ],
+      "deliverable": "ローカルSQLiteは既に正本。本人export→検証→配備先へのmigration→秘密値/AI workerをserverへ分離→非公開preview→backup/restoreを実証。コード移行とデータ移行を別承認。",
+      "acceptance": "移行前後のID/訂正/写真/拡張stateが一致し、再起動後も残る。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT02.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT03",
+      "title": "実機・背景位置・許可されたオフライン地図",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "MAP-001",
+        "REC-007"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut03/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-018",
+        "MAP-001",
+        "NAV-008",
+        "NAV-009",
+        "OPS-002",
+        "OPS-010",
+        "REC-009",
+        "REC-010"
+      ],
+      "legacy_issue_ids": [
+        "FUT03"
+      ],
+      "deliverable": "前景GPSを実機HTTPSで確認→Capacitor等native bridgeまたはMapLibre Native選定→OS権限と背景life cycle→オンデバイス記録queue→許可済みtile bundle→復帰同期。",
+      "acceptance": "画面off区間と実観測を区別し、圏外で保存した1記録だけ同期する。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT03.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT04",
+      "title": "立体フロア・ランドマーク・造形の理想版",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "MAP-001",
+        "MAP-002",
+        "MAP-004"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut04/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-005",
+        "MAP-003",
+        "MAP-006",
+        "MAP-007",
+        "MAP-010",
+        "MAP-011",
+        "MAP-014"
+      ],
+      "legacy_issue_ids": [
+        "FUT04"
+      ],
+      "deliverable": "PLATEAU等の権利/座標/LOD確認→建物外殻/入口/階接続を別データ→手動階確認→GLBは少数→混合用途の実体形状→記録/物理モデル分離を維持。",
+      "acceptance": "地下と上層の同一平面座標を異なるPlaceLevelで扱い、unknownを埋めない。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT04.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT05",
+      "title": "実乗換・定期控除・リアルタイム寄り道",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "RTE-003",
+        "RTE-005"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut05/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "ROUTE-001",
+        "ROUTE-003",
+        "ROUTE-004",
+        "ROUTE-005",
+        "ROUTE-006",
+        "ROUTE-007",
+        "ROUTE-010"
+      ],
+      "legacy_issue_ids": [
+        "FUT05"
+      ],
+      "deliverable": "駅すぱあと等の契約/料金/対応交通を確認→provider courseを保持→鉄道定期区間控除→バス等は別対応確認→最終到着時刻/運休/再検索→fixtureと区別。",
+      "acceptance": "鉄道定期の適用/期限切れ/経由違いを実provider応答で比較し、非対応を0円にしない。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT05.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT06",
+      "title": "OpenUASを体験移植の候補取得へ導入",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "TRF-002",
+        "DATA-001"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut06/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "TRF-007",
+        "TRF-008",
+        "TRF-009",
+        "TRF-010"
+      ],
+      "legacy_issue_ids": [
+        "FUT06"
+      ],
+      "deliverable": "東京/名古屋の必要meshだけ読込→anchor/model/time/versionを照合→compatible空間のみcosine top-k→広域候補→POI検索→feasibility検証→属性のみbaselineと候補差比較。",
+      "acceptance": "実vector使用を記録し、is_complemented表示が残る。都市外へ無理に外挿しない。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT06.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT07",
+      "title": "小標本選好学習・将来予測・比較実験",
+      "priority": "P3",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "SELF-002",
+        "SOC-008"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut07/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [
+        "previewCorrections",
+        "applyCorrections"
+      ],
+      "requirement_ids": [
+        "EVAL-001",
+        "EVAL-002",
+        "SELF-005",
+        "SELF-006",
+        "SELF-007",
+        "SELF-008",
+        "SELF-009",
+        "SELF-010",
+        "TRF-011"
+      ],
+      "legacy_issue_ids": [
+        "FUT07"
+      ],
+      "deliverable": "候補提示/選択/制約/結果をログ→階層Bayesまたは正則化pairwise model→contextを少数に→time splitの将来選択予測→単純頻度/申告のみ/理由なしと比較。",
+      "acceptance": "訂正による画面変化を精度改善と呼ばず、未使用将来ログでcalibrationと適合を測る。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT07.md",
+      "effective_priority": "P3"
+    },
+    {
+      "id": "FUT08",
+      "title": "写真からの発見・能動提案・関心変化学習",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "DISC-001",
+        "MEDIA-001",
+        "AI-005"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut08/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DISC-001",
+        "DISC-002",
+        "DISC-003",
+        "DISC-004",
+        "DISC-005",
+        "DISC-006",
+        "DISC-007"
+      ],
+      "legacy_issue_ids": [
+        "FUT08"
+      ],
+      "deliverable": "画像特徴を本人確認→一般知識の出典検索→anchor bridgeを検証→known graph更新→receptive&&available&&optinの時だけ一枚→週後の自主学習/関心を評価。",
+      "acceptance": "写真の建物名が不明でも対象の構造から発見でき、禁止分野は能動探索でも出ない。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT08.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT09",
+      "title": "新規コードプラグイン・隔離ランタイム",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "EXT-001",
+        "EXT-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut09/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-002",
+        "EXT-008",
+        "EXT-009",
+        "EXT-010",
+        "EXT-011",
+        "EXT-012",
+        "EXT-013"
+      ],
+      "legacy_issue_ids": [
+        "FUT09"
+      ],
+      "deliverable": "DSLで不可能な新関数をDevelopmentRequest→Codexが専用worktreeでTS生成→別に保持したtestで検証→artifact build/hash→networkなしの隔離process/container等で実行→JSON入出力のみhost反映。",
+      "acceptance": "未実装の新計算が動き、無限loopは停止、検証後改変artifactは導入されない。workerだけで安全とはしない。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT09.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT10",
+      "title": "画面・データ・処理の組替えStudio",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "EXT-003",
+        "EXT-004"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut10/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-014",
+        "EXT-019",
+        "NEW-005"
+      ],
+      "legacy_issue_ids": [
+        "FUT10"
+      ],
+      "deliverable": "screen schema/typed field binding/action DAG→既存機能を再配置→入力型と循環を検査→sample preview→definition版を保存→slotだけ差替→旧版戻し。",
+      "acceptance": "人物別タイムライン＋雨の日の条件filterを利用者が組み、既存記録を維持して戻せる。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT10.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT11",
+      "title": "利用者自身のAIへ開発契約を渡すローカルbridge",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "DEV-001"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut11/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "NEW-006",
+        "NEW-007",
+        "OPS-005"
+      ],
+      "legacy_issue_ids": [
+        "FUT11"
+      ],
+      "deliverable": "DevelopmentRequestをexport→PC上のloopback bridgeでhuman approval→repo allowlist/worktree作成→自身のCodex認証でtask実行→progress/preview URLを返す→承認後artifact取得。",
+      "acceptance": "通常ブラウザはCLIを勝手に起動せず、許可したPCのrepoだけを利用者契約で変更する。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT11.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT12",
+      "title": "本体UI/機能の改造・preview・データ保持rollback",
+      "priority": "P3",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FUT11",
+        "FND-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut12/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "NEW-008"
+      ],
+      "legacy_issue_ids": [
+        "FUT12"
+      ],
+      "deliverable": "許可pathsを限定した別worktreeでUI/処理を生成→schema変更計画→SQLite複製でpreview→旧データ互換を確認→本人承認→artifact切替。code rollbackとdata restoreを分離。deployや汎用plugin完成を待たずローカルで実証。",
+      "acceptance": "自分タブに新画面と集計を追加し、既存訪問を残したまま旧buildへ戻す。既存データ破壊を許可なしでしない。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT12.md",
+      "effective_priority": "P3"
+    },
+    {
+      "id": "FUT13",
+      "title": "HTML/PDFを含む5形式と意味変化の修復",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "DATA-001",
+        "DATA-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut13/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-016",
+        "EXT-017"
+      ],
+      "legacy_issue_ids": [
+        "FUT13"
+      ],
+      "deliverable": "API/CSV/GeoJSONにHTMLとPDFを追加→許可URL/単位/時刻/source version→schema drift/semantic driftを分離→parser提案と3行diff→回帰fixture→承認適用→previous parser復帰。",
+      "acceptance": "5形式全てを取り込め、単位/対象範囲変化は列名修復だけで自動適用しない。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT13.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT14",
+      "title": "防災の実データ統合・不確実性・案内保留",
+      "priority": "P3",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "EXT-005",
+        "RTE-002",
+        "DATA-001"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut14/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-004"
+      ],
+      "legacy_issue_ids": [
+        "FUT14"
+      ],
+      "deliverable": "自治体/JMA等の許可データadapter→地震/浸水/通行止めの用途別時刻→安全制約→GPS不確実時はランドマーク確認→Recommend/Warn/Abstain→人命判断を自動断定しない。",
+      "acceptance": "公式情報の失効/矛盾で案内を保留し、過去の人流を今の安全根拠に使わない。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT14.md",
+      "effective_priority": "P3"
+    },
+    {
+      "id": "FUT15",
+      "title": "バイクの車種/排気量/時間規制を実データ化",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "EXT-006",
+        "RTE-002",
+        "DATA-001"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut15/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-005"
+      ],
+      "legacy_issue_ids": [
+        "FUT15"
+      ],
+      "deliverable": "対応providerと道路規制source確認→車種/排気量/時間/二人乗り等の制約モデル→通行可否unknownを区別→禁止edge回避→規制変更の再検索。",
+      "acceptance": "同じ起終点でもclass/timeで実経路可否が変わり、自動車経路にバイク色を付けただけでない。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT15.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT16",
+      "title": "聖地巡礼の出典・許諾・時間順の体験",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "EXT-007",
+        "DATA-001"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut16/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EXT-006"
+      ],
+      "legacy_issue_ids": [
+        "FUT16"
+      ],
+      "deliverable": "official/fan/communityの出典を分離→作品/scene/場所の対応証拠→公開可素材だけ→私有地/混雑配慮→順序/営業時間/移動時間検証→本人の写真/感想。",
+      "acceptance": "非公式対応を公式と表示せず、無許諾の作品画像を配布しない。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT16.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT17",
+      "title": "公開API/第三者が追加する機能テンプレート",
+      "priority": "P2",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "EXT-002",
+        "FUT09"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut17/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-006",
+        "EXT-001",
+        "EXT-007",
+        "EXT-015",
+        "NEW-009"
+      ],
+      "legacy_issue_ids": [
+        "FUT17"
+      ],
+      "deliverable": "schema/SDK/examplesを別packageへ→GitHub Issueテンプレ/サンプル→第三者が未打合せで1拡張を作る→install→互換版/権利/manifest審査。",
+      "acceptance": "当初4人以外が新入力/計算/表示を導入し再現できる。既存3テンプレ再設定と区別する。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT17.md",
+      "effective_priority": "P2"
+    },
+    {
+      "id": "FUT18",
+      "title": "本番権限・攻撃耐性・監視・省電力",
+      "priority": "P3",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FUT01",
+        "FUT02"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut18/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-010",
+        "MAP-012",
+        "OPS-008"
+      ],
+      "legacy_issue_ids": [
+        "FUT18"
+      ],
+      "deliverable": "境界ごとの脅威モデル→認可/秘密/remote code sandbox→負荷/timeout/resource budget→監視/backup→位置収集/描画の消費電力を計測→最適化。",
+      "acceptance": "公開/任意code導入前の要件を満たす。本日の薄い隔離を本番セキュリティ保証と言わない。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT18.md",
+      "effective_priority": "P3"
+    },
+    {
+      "id": "FUT19",
+      "title": "共同編集・地域コミュニティ・非同期共有",
+      "priority": "P3",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FUT01",
+        "SOC-007"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut19/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "CORE-001",
+        "MAP-013",
+        "SOC-001",
+        "SOC-004",
+        "SOC-005",
+        "SOC-011"
+      ],
+      "legacy_issue_ids": [
+        "FUT19"
+      ],
+      "deliverable": "共同案の版/提案/承認→本人希望を別保持→実友人の共有リンク→地域tipの鮮度/投票/訂正→取消時のmanaged cache更新→適用中断を明示。",
+      "acceptance": "同時編集を黙って上書きせず、community OFFでも個人の主要機能が成立する。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT19.md",
+      "effective_priority": "P3"
+    },
+    {
+      "id": "FUT20",
+      "title": "実利用評価・継続価値・デプロイ費用計測",
+      "priority": "P3",
+      "kind": "future",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "SELF-002",
+        "DISC-003",
+        "TRF-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "future/fut20/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "XL",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "DATA-012",
+        "DISC-008",
+        "EVAL-003",
+        "EVAL-007",
+        "EVAL-008",
+        "OPS-006",
+        "SELF-004"
+      ],
+      "legacy_issue_ids": [
+        "FUT20"
+      ],
+      "deliverable": "cold start到達時間→任意同意の継続観測→自己理解/移植/発見の別評価→heldout/ablation→アプリAI/地図/交通/compute/storageの実請求から1人当りcost算出。",
+      "acceptance": "少数デモを科学的効果と主張せず、保持率/未知概念/意図と結果の差/費用を実測する。",
+      "notes": "このpathは隔離PoC用。製品へ反映する変更対象は追加lockを全取得してから編集する。",
+      "body_file": "issues/FUT20.md",
+      "effective_priority": "P3"
+    },
+    {
+      "id": "INT-011",
+      "title": "レシピ→別都市への移植の実接続",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "SOC-001",
+        "SOC-002",
+        "TRF-001",
+        "TRF-002",
+        "TRF-003",
+        "TRF-004",
+        "RTE-001",
+        "RTE-002",
+        "PLC-001"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-011/",
+        "server/integrations/int-011/",
+        "evidence/INT-011/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-007",
+        "NAV-002",
+        "SOC-008"
+      ],
+      "legacy_issue_ids": [],
+      "deliverable": "保存済み許可体験から役割レシピを作り、移植先の候補へ対応付けて差分と経路を保存する。比較画面や返信を待たない。",
+      "acceptance": "役割順序と固定条件を変えると対応が変わり、再読込後も同じTransferPlanを開ける。",
+      "notes": "",
+      "body_file": "issues/INT-011.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "INT-012",
+      "title": "実践した体験→感想返信の実接続",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "SOC-001",
+        "SOC-002",
+        "SOC-008",
+        "SOC-009",
+        "REC-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-012/",
+        "server/integrations/int-012/",
+        "evidence/INT-012/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-007",
+        "NAV-002",
+        "SOC-008"
+      ],
+      "legacy_issue_ids": [],
+      "deliverable": "本人の実践記録を保存し、許可された元体験への感想を返す。移植機能未完成でも既存体験から利用できる。",
+      "acceptance": "感想の作成・再表示・共有取消後の本人原文保持を実APIで確認。",
+      "notes": "",
+      "body_file": "issues/INT-012.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "INT-013",
+      "title": "防災テンプレートの実接続",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "EXT-001",
+        "EXT-002",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "RTE-001",
+        "RTE-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-013/",
+        "server/integrations/int-013/",
+        "evidence/INT-013/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-006",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "EXT-006",
+        "NEW-006"
+      ],
+      "legacy_issue_ids": [],
+      "deliverable": "防災の定義を試用・導入して入力による計算差を実行する。他テーマやAI生成の完成を待たず、登録テンプレートとして使える。",
+      "acceptance": "サンプルであることを表示し、入力→計算→DB保存→再表示→無効化が通る。AI生成は実行した場合だけ表示。",
+      "notes": "",
+      "body_file": "issues/INT-013.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "INT-014",
+      "title": "バイクテンプレートの実接続",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "EXT-001",
+        "EXT-002",
+        "EXT-003",
+        "EXT-004",
+        "EXT-006",
+        "RTE-001",
+        "RTE-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-014/",
+        "server/integrations/int-014/",
+        "evidence/INT-014/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-006",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "EXT-006",
+        "NEW-006"
+      ],
+      "legacy_issue_ids": [],
+      "deliverable": "バイクの定義を試用・導入して入力による計算差を実行する。他テーマやAI生成の完成を待たず、登録テンプレートとして使える。",
+      "acceptance": "サンプルであることを表示し、入力→計算→DB保存→再表示→無効化が通る。AI生成は実行した場合だけ表示。",
+      "notes": "",
+      "body_file": "issues/INT-014.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "INT-015",
+      "title": "聖地巡礼テンプレートの実接続",
+      "priority": "P1",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "EXT-001",
+        "EXT-002",
+        "EXT-003",
+        "EXT-004",
+        "EXT-007",
+        "RTE-001",
+        "RTE-002"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-015/",
+        "server/integrations/int-015/",
+        "evidence/INT-015/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "EVAL-006",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "EXT-006",
+        "NEW-006"
+      ],
+      "legacy_issue_ids": [],
+      "deliverable": "聖地巡礼の定義を試用・導入して入力による計算差を実行する。他テーマやAI生成の完成を待たず、登録テンプレートとして使える。",
+      "acceptance": "サンプルであることを表示し、入力→計算→DB保存→再表示→無効化が通る。AI生成は実行した場合だけ表示。",
+      "notes": "",
+      "body_file": "issues/INT-015.md",
+      "effective_priority": "P1"
+    },
+    {
+      "id": "AI-008",
+      "title": "質問・回答・保留の保存APIとQuestionPort",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "server/features/questions/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [
+        "listExperienceQuestions",
+        "listQuestionResponses",
+        "respondToQuestion"
+      ],
+      "requirement_ids": [
+        "SELF-008",
+        "SELF-002",
+        "REC-002"
+      ],
+      "legacy_issue_ids": [],
+      "deliverable": "QuestionPortで質問の重複を防ぎ、回答原文と保留イベントを同一transactionに保存する。",
+      "acceptance": "answeredでEvidenceと回答が一度だけ保存され、skip/deferでは原文を捏造しない。再送・409・他体験参照を確認。",
+      "notes": "",
+      "body_file": "issues/AI-008.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "AI-009",
+      "title": "質問への回答・後回し・スキップUI",
+      "priority": "P0",
+      "kind": "module",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/features/questions/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "SELF-008",
+        "SELF-002"
+      ],
+      "legacy_issue_ids": [],
+      "deliverable": "同じ体験の質問状態と回答草稿を復元し、保存後に回答IDを指定して再抽出する。",
+      "acceptance": "質問→回答保存→明示再抽出が通り、スキップ後の再入場で同じ質問を強制しない。",
+      "notes": "",
+      "body_file": "issues/AI-009.md",
+      "effective_priority": "P0"
+    },
+    {
+      "id": "INT-016",
+      "title": "質問→回答保存→再抽出→再入場の実接続",
+      "priority": "P0",
+      "kind": "integration",
+      "assignee": null,
+      "status": "backlog",
+      "hard_dependencies": [
+        "INT-003",
+        "AI-008",
+        "AI-009"
+      ],
+      "connect_after": [],
+      "contracts": [
+        "v2.1.0"
+      ],
+      "write_paths": [
+        "src/integrations/int-016/",
+        "server/integrations/int-016/",
+        "evidence/INT-016/"
+      ],
+      "required_capabilities": [],
+      "suggested_skills": [
+        "TypeScript"
+      ],
+      "complexity": "M",
+      "confidence": "未実測",
+      "operation_ids": [],
+      "requirement_ids": [
+        "SELF-008",
+        "SELF-002",
+        "REC-002"
+      ],
+      "legacy_issue_ids": [],
+      "deliverable": "実Codexの質問と回答保存をつなぎ、再抽出に保存済み回答のEvidenceを使う。回答で原文や用途を自動上書きせず、提案を本人が確認する。",
+      "acceptance": "answered/deferred/skippedを再入場で復元し、保存済み回答IDが次の実AI入力に含まれる。実AI未接続なら完了不可。",
+      "notes": "",
+      "body_file": "issues/INT-016.md",
+      "effective_priority": "P0"
+    }
+  ]
+}

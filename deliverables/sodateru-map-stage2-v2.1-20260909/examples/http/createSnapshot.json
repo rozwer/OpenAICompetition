@@ -1,0 +1,53 @@
+{
+  "note": "形式の例。ID参照先・店舗・道路が存在することやlive接続を保証しない。",
+  "operationId": "createSnapshot",
+  "method": "POST",
+  "path": "/api/v1/sources/{sourceId}/snapshots",
+  "parameters": {
+    "header": {
+      "X-Namespace-Id": "id_example",
+      "X-Actor-Id": "id_example"
+    },
+    "path": {
+      "sourceId": "id_example"
+    }
+  },
+  "requestSchema": "CreateSnapshotRequest",
+  "responseSchema": "CreateSnapshotResponse",
+  "successStatus": 201,
+  "request": {
+    "opId": "id_example",
+    "payload": {
+      "format": "json",
+      "rawText": "rawText",
+      "parserVersion": "parserVersion",
+      "validUntil": null
+    }
+  },
+  "response": {
+    "data": {
+      "namespaceId": "id_example",
+      "id": "id_example",
+      "revision": 1,
+      "createdAt": "2026-09-09T00:00:00Z",
+      "updatedAt": "2026-09-09T00:00:00Z",
+      "sourceMode": "live",
+      "sourceId": "id_example",
+      "format": "json",
+      "rawHash": "rawHash",
+      "rawText": "rawText",
+      "schemaVersion": "schemaVersion",
+      "parserVersion": "parserVersion",
+      "fetchedAt": "2026-09-09T00:00:00Z",
+      "validUntil": null
+    },
+    "meta": {
+      "requestId": "id_example",
+      "namespaceId": null,
+      "canonicalRevision": 0,
+      "nextCursor": null
+    },
+    "changed": [],
+    "invalidated": []
+  }
+}

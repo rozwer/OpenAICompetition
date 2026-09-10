@@ -1,0 +1,23 @@
+# Local files and credentials
+.DS_Store
+.env
+.env.*
+!.env.example
+!.env.*.example
+.local/
+
+# Dependencies and build output
+node_modules/
+.pnpm-store/
+.next/
+.turbo/
+dist/
+out/
+coverage/
+playwright-report/
+test-results/
+*.log
+
+# Supabase CLI local state
+supabase/.temp/
+supabase/.branches/

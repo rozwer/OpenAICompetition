@@ -1,0 +1,14 @@
+{
+  "count": 157,
+  "originalRequirements": 145,
+  "additionalRequirements": 12,
+  "exactFieldsPreserved": [
+    "id",
+    "feature",
+    "user_value",
+    "original_acceptance_preserved"
+  ],
+  "oldIssuesMapped": 56,
+  "oldAcceptancesMapped": 55,
+  "comparison": "Rechecked against preserved v2 field snapshot"
+}
