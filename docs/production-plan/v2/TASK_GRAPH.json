@@ -1,0 +1,5605 @@
+{
+  "plan_kind": "production-journeys",
+  "version": 2,
+  "source_task_count": 166,
+  "target_task_count": 28,
+  "grouped_source_count": 166,
+  "grouped_target_count": 28,
+  "tasks": [
+    {
+      "id": "P-START",
+      "title": "準備を終え、同じ環境・契約・UI版から着手できる",
+      "kind": "preparation",
+      "source_task_ids": [
+        "OPS-001",
+        "OPS-LAND-MIGRATION",
+        "PREP-001",
+        "PREP-002",
+        "PREP-003",
+        "PREP-004",
+        "PREP-005",
+        "PREP-006",
+        "PREP-007",
+        "PREP-008",
+        "PREP-009",
+        "SPEC-001",
+        "TOOL-001"
+      ],
+      "inventory_task_ids": [
+        "PREP-001",
+        "PREP-002",
+        "PREP-003",
+        "PREP-004",
+        "PREP-005",
+        "PREP-006",
+        "PREP-007",
+        "PREP-008",
+        "PREP-009",
+        "SPEC-001",
+        "OPS-001",
+        "TOOL-001",
+        "OPS-LAND-MIGRATION"
+      ],
+      "hard_dependencies": [],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        ".codex/",
+        ".env.example",
+        ".githooks/",
+        ".gitignore",
+        "AGENTS.md",
+        "API_ENDPOINTS.csv",
+        "DB_COLUMNS.csv",
+        "FULL_REQUIREMENT_MATRIX.csv",
+        "ISSUE_BACKLOG.csv",
+        "POOL_TASKS.csv",
+        "README.md",
+        "READY_TASKS.csv",
+        "TASK_GRAPH.json",
+        "bun.lock",
+        "contracts/",
+        "db/",
+        "docs/",
+        "examples/",
+        "issues/",
+        "mise.toml",
+        "package.json",
+        "scripts/",
+        "tools/"
+      ],
+      "read_set": [
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        },
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [],
+      "contract_symbols": [],
+      "requirement_ids": [
+        "OPS-001"
+      ],
+      "outcome": "準備を終え、同じ環境・契約・UI版から着手できる",
+      "journey": "新しいcloneを用意する → 固定環境を導入する → 同じUI版・契約版・地域入力を確認する → Mac/Windowsの取得・編集・通常merge・finishを再現する。",
+      "specific_acceptance": [
+        "新規cloneで正本・移植資産・実装対象が分かる。旧アプリ・秘密値を持ち込んでいない。",
+        "新規cloneで依存導入と運用検査を実行できる。アプリ起動はFND-001で再確認する。",
+        "二つのcloneで二重取得・範囲外変更・未提出main統合を拒否し、通常の提出・統合・landを許可する。",
+        "Issueの重複がなくTask IDを追跡できる。共有台帳は一度だけ初期化し、二人のREADY取得を確認する。",
+        "一方のclaimを保って未着手タスクの依存を変更できる。作業中の定義変更と循環は拒否される。",
+        "画面ID・共通見本・操作と保存結果を対応付ける。未受領のUIを完成扱いしない。",
+        "採用providerに必要な設定・取得手順・出典を明記し、Codexと地図と経路の成功/未接続を確認する。外部費用の自動有効化はしない。",
+        "実際の発見を仕様・Issue・受入へ反映した例を残し、完成品を新規cloneで確認する。",
+        "Windowsでmise trust→mise install→mise exec -- bun install --frozen-lockfile→mise run hooks:install→mise run checkが成功する。個人のPYTHONUTF8設定とpython3.exeコピーに依存しない。登録コマンドの許可・拒否とモデル省略拒否を検査し、テスト0件を成功扱いしない。日本語・空白パスの二つの隔離clone/worktreeで二重取得・範囲外変更・未提出main統合を拒否し、claim/submit/merge/landを許可する。台帳state.jsonの名前・UTF-8内容・担当・token・履歴を保持する。OS上未実行の検査、Codexアプリ内の信頼登録・実発火はコマンド単体検査と区別して記録する。",
+        "ペットimport/生成と健康データimport/native/集計/AI連携が独立着手可能な契約を持つ。元要件保持、型・schema・DAGの整合を検証する。製品実装の完了とはしない。",
+        "主cloneと新規作成した二つのlinked worktreeでhooks:installを実行し、各worktreeが実在する自身のhookを使い、他worktreeと共有configが変化しないことを確認する。新worktreeはmise trustとhook導入を経てtask:verifyへ到達し、branch/path guardの実発火を確認する。途中でtrustまたはhookが失敗したclaimは成功表示せず原子的にreleaseされ、再現手順と安全な復旧をlearningへ残す。",
+        "Windows実操作でclaim・submit等の完了statusと所要を記録し、経過時間だけでabort、retry、lock削除をしない手順を確認する。管理者権限が必要なGitHub保護はAPI証拠を取得し、local guardとGitHub保護を混同しない。管理者証拠が未取得なら未完了として残し、権限待ちを記録しただけでは完了にしない。",
+        "旧helperとclosed/submittedからland/finishできる。同一clone・linked root・担当・現在receipt/token・develop到達性を検証し、別clone/主checkout/サブdirectory/別担当/不一致token/未mergeを拒否。再実行で台帳更新を重複させない。",
+        "版directoryを変更する場合は、旧版のlockで覆えると推測せず、新しい全pathを取得してから編集する。",
+        "[リハーサル #220](https://github.com/rozwer/sodateru-map-rehearsal/issues/220): 裸のCODEX_OWNER=... prefixとprefixなしの正式mise task起動を、既存仕様・parserと照合する。必要な修正後も未所有path編集・develop直接書込みを拒否し、失敗claimを成功扱いしない。prefixなしの正規経路で既に取得できた証拠を保持する。",
+        "[リハーサル #233](https://github.com/rozwer/sodateru-map-rehearsal/issues/233): DESTの親directoryが未存在なら、安全に親を用意して通常のclaim/trust/hooks/guardを完了するか、claim前に副作用なしで明示拒否する。親の有無の隔離テストと途中失敗時のbacklog復帰・receipt stage/reason・branch/destination残留を確認する。trustとbranch/per-worktree guardを迂回せず、toolingの推奨DESTを実装に合わせる。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "PREP-001",
+          "outcome": "仕様・契約・資産の初期移植を確認する。docs/team/competition-rehearsal.mdの対応項目に従う。",
+          "acceptance": [
+            "新規cloneで正本・移植資産・実装対象が分かる。旧アプリ・秘密値を持ち込んでいない。"
+          ]
+        },
+        {
+          "source_task_id": "PREP-002",
+          "outcome": "導入環境と起動・検査の入口を整える。docs/team/competition-rehearsal.mdの対応項目に従う。",
+          "acceptance": [
+            "新規cloneで依存導入と運用検査を実行できる。アプリ起動はFND-001で再確認する。"
+          ]
+        },
+        {
+          "source_task_id": "PREP-003",
+          "outcome": "タスク取得に適合するhooksを確認する。docs/team/competition-rehearsal.mdの対応項目に従う。",
+          "acceptance": [
+            "二つのcloneで二重取得・範囲外変更・未提出main統合を拒否し、通常の提出・統合・landを許可する。"
+          ]
+        },
+        {
+          "source_task_id": "PREP-004",
+          "outcome": "Issue登録と共有台帳を開始する。docs/team/competition-rehearsal.mdの対応項目に従う。",
+          "acceptance": [
+            "Issueの重複がなくTask IDを追跡できる。共有台帳は一度だけ初期化し、二人のREADY取得を確認する。"
+          ]
+        },
+        {
+          "source_task_id": "PREP-005",
+          "outcome": "実行中の依存更新を整備する。docs/team/competition-rehearsal.mdの対応項目に従う。",
+          "acceptance": [
+            "一方のclaimを保って未着手タスクの依存を変更できる。作業中の定義変更と循環は拒否される。"
+          ]
+        },
+        {
+          "source_task_id": "PREP-006",
+          "outcome": "別セッションのUIを受領し画面契約へ接続する。docs/team/competition-rehearsal.mdの対応項目に従う。",
+          "acceptance": [
+            "画面ID・共通見本・操作と保存結果を対応付ける。未受領のUIを完成扱いしない。"
+          ]
+        },
+        {
+          "source_task_id": "PREP-007",
+          "outcome": "地域データと実接続の再現手順を整える。docs/team/competition-rehearsal.mdの対応項目に従う。",
+          "acceptance": [
+            "採用providerに必要な設定・取得手順・出典を明記し、Codexと地図と経路の成功/未接続を確認する。外部費用の自動有効化はしない。"
+          ]
+        },
+        {
+          "source_task_id": "PREP-008",
+          "outcome": "知見反映と完成品確認を運用する。docs/team/competition-rehearsal.mdの対応項目に従う。",
+          "acceptance": [
+            "実際の発見を仕様・Issue・受入へ反映した例を残し、完成品を新規cloneで確認する。"
+          ]
+        },
+        {
+          "source_task_id": "PREP-009",
+          "outcome": "WindowsのPowerShellから、同梱miseタスク・Gitフック・Codexフック起動コマンドを実行できるようにする。日本語・空白パス、Python実行名、UTF-8、台帳のCRLF変換、worktreeを検証する。Windows cloneの未push修正案768f9bfを引継ぎ元とし、取得baseへ適用して再検証する。Macの命名規則修復はPREP-003へ残す。現行mainのMac/POSIX向けコマンドを保持し、未統合のMac変更を実装済みとして扱わない。docs/team/tooling.mdとdocs/learnings/LRN-windows-hooks.mdへ再現手順・制限・証拠を残す。",
+          "acceptance": [
+            "Windowsでmise trust→mise install→mise exec -- bun install --frozen-lockfile→mise run hooks:install→mise run checkが成功する。個人のPYTHONUTF8設定とpython3.exeコピーに依存しない。登録コマンドの許可・拒否とモデル省略拒否を検査し、テスト0件を成功扱いしない。日本語・空白パスの二つの隔離clone/worktreeで二重取得・範囲外変更・未提出main統合を拒否し、claim/submit/merge/landを許可する。台帳state.jsonの名前・UTF-8内容・担当・token・履歴を保持する。OS上未実行の検査、Codexアプリ内の信頼登録・実発火はコマンド単体検査と区別して記録する。"
+          ]
+        },
+        {
+          "source_task_id": "SPEC-001",
+          "outcome": "利用者の追加依頼を、画面入口・型付き契約・API・DB・native/provider境界・権限・未接続動作・実装タスクとして定義する。既存157要件を保持する。",
+          "acceptance": [
+            "ペットimport/生成と健康データimport/native/集計/AI連携が独立着手可能な契約を持つ。元要件保持、型・schema・DAGの整合を検証する。製品実装の完了とはしない。"
+          ]
+        },
+        {
+          "source_task_id": "OPS-001",
+          "outcome": "hooks:installが実行中worktreeのconfig.worktreeだけを設定し、共有Git configや他worktreeの有効hook pathを上書きしないよう修正する。新linked worktree作成時のmise trust・hook導入・branch guardの順序も再現可能にし、失敗したclaimを成功扱いせずreleaseされた状態と理由を保持する。既存の担当/path guardを無効化しない。",
+          "acceptance": [
+            "主cloneと新規作成した二つのlinked worktreeでhooks:installを実行し、各worktreeが実在する自身のhookを使い、他worktreeと共有configが変化しないことを確認する。新worktreeはmise trustとhook導入を経てtask:verifyへ到達し、branch/path guardの実発火を確認する。途中でtrustまたはhookが失敗したclaimは成功表示せず原子的にreleaseされ、再現手順と安全な復旧をlearningへ残す。"
+          ]
+        },
+        {
+          "source_task_id": "TOOL-001",
+          "outcome": "OPS-001のhook isolation修正を再実装せず、Windowsで共有Git参照操作の無出力・時間超過を進行中、CAS競合、失敗に区別し、mise PATH継承とGitHub保護確認の再現・証拠・復旧境界を正本化する。",
+          "acceptance": [
+            "Windows実操作でclaim・submit等の完了statusと所要を記録し、経過時間だけでabort、retry、lock削除をしない手順を確認する。管理者権限が必要なGitHub保護はAPI証拠を取得し、local guardとGitHub保護を混同しない。管理者証拠が未取得なら未完了として残し、権限待ちを記録しただけでは完了にしない。"
+          ]
+        },
+        {
+          "source_task_id": "OPS-LAND-MIGRATION",
+          "outcome": "最新主checkoutのland/finishに対象linked worktreeを明示し、旧toolsやhookを変更せず終了できるようにする。",
+          "acceptance": [
+            "旧helperとclosed/submittedからland/finishできる。同一clone・linked root・担当・現在receipt/token・develop到達性を検証し、別clone/主checkout/サブdirectory/別担当/不一致token/未mergeを拒否。再実行で台帳更新を重複させない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-START.md",
+      "recurrence_ids": [
+        "R28",
+        "R29"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-RUNTIME",
+      "title": "起動し、同じ本人領域でAPI・DB・画像を保存して読み直せる",
+      "kind": "foundation",
+      "source_task_ids": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "MEDIA-001",
+        "MEDIA-HTTP-001",
+        "TEST-002",
+        "UI-001",
+        "UI-002"
+      ],
+      "inventory_task_ids": [
+        "FND-001",
+        "FND-002",
+        "FND-003",
+        "FND-004",
+        "UI-001",
+        "UI-002",
+        "MEDIA-001",
+        "MEDIA-HTTP-001",
+        "TEST-002"
+      ],
+      "hard_dependencies": [
+        "P-START"
+      ],
+      "connect_after": [
+        "P-DIARY"
+      ],
+      "required_capabilities": [],
+      "write_paths": [
+        "bun.lock",
+        "db/seed/",
+        "docs/evidence/MEDIA-HTTP-001/",
+        "docs/evidence/TEST-002/",
+        "docs/learnings/LRN-DEV-001-test-database-isolation.md",
+        "docs/learnings/LRN-MEDIA-HTTP-001-binary-response.md",
+        "fixtures/core/",
+        "index.html",
+        "mise.toml",
+        "package.json",
+        "server/core/changes/",
+        "server/core/mutation/",
+        "server/db/",
+        "server/features/assets/",
+        "server/features/context/",
+        "server/index.test.ts",
+        "server/index.ts",
+        "server/integrations/int-009/entry.test.ts",
+        "src/api/",
+        "src/app/",
+        "src/features/context/",
+        "src/test/",
+        "src/ui/",
+        "tsconfig.json",
+        "vite.config.ts"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "GetAssetResponse",
+            "GetBootstrapResponse",
+            "GetChangesResponse",
+            "GetHealthResponse",
+            "PutContextRequest",
+            "PutContextResponse",
+            "UploadAssetResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "getAsset",
+            "getAssetContent",
+            "getBootstrap",
+            "getChanges",
+            "getHealth",
+            "putContext",
+            "uploadAsset"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "getAsset",
+        "getAssetContent",
+        "getBootstrap",
+        "getChanges",
+        "getHealth",
+        "putContext",
+        "uploadAsset"
+      ],
+      "contract_symbols": [
+        "GetAssetResponse",
+        "GetBootstrapResponse",
+        "GetChangesResponse",
+        "GetHealthResponse",
+        "PutContextRequest",
+        "PutContextResponse",
+        "UploadAssetResponse",
+        "getAsset",
+        "getAssetContent",
+        "getBootstrap",
+        "getChanges",
+        "getHealth",
+        "putContext",
+        "uploadAsset"
+      ],
+      "requirement_ids": [
+        "CORE-001",
+        "CORE-002",
+        "CORE-004",
+        "DATA-001",
+        "DATA-008",
+        "DATA-011",
+        "DISC-007",
+        "EVAL-007",
+        "NAV-001",
+        "NAV-002",
+        "NAV-005",
+        "NAV-007",
+        "NAV-009",
+        "NEW-001",
+        "NEW-002",
+        "NEW-010",
+        "OPS-001",
+        "OPS-004",
+        "REC-001",
+        "REC-002",
+        "REC-006",
+        "REC-009",
+        "SELF-012",
+        "SOC-008"
+      ],
+      "outcome": "起動し、同じ本人領域でAPI・DB・画像を保存して読み直せる",
+      "journey": "空のアプリを開く → 本人領域を選ぶ → APIでデータと画像を保存する → DBを再openして同じJSON/bytes/MIMEを読む → 領域を切り替えて旧応答を拒否する。",
+      "specific_acceptance": [
+        "空状態を開く。未実装機能へ遷移しても成功表示で偽装しない。getHealthが実状態を返す。",
+        "同一opIdは同一結果。別payloadは409。途中例外で全rollback。同名idを別namespaceに保存できる。",
+        "409後も入力が残り、最新値との比較を表示。ライブ失敗をfixtureへ自動切替しない。",
+        "seedを2回適用して重複しない。実店舗・道路・運賃でない旨がデータごとに残る。",
+        "390px幅で原文が読める。live/user/sample/importedとAI実行モードを別表示。",
+        "場所変更後に戻ると草稿・カメラが戻る。別場所のAI結果を現在地へ誤保存しない。",
+        "禁止画像型を拒否。静的public配下へ原写真を出さない。",
+        "実HTTPで画像upload→metadata→contentを通し、返却bytesとupload bytes、許可画像MIME、5MB境界、不正画像型拒否、他actor取得不可、通常JSON応答の維持を確認する。fakeだけで接続完了にしない。",
+        "空のcheckoutでmise exec -- bun run testをfile並列のまま連続2回実行し、registry.test.tsとINT-009を含む全suiteが成功する。各workerのDB pathが衝突せず、製品buildと明示file DBの再open確認も成功する。--no-file-parallelismで隠すだけ、既存data fileの事前削除、失敗suiteの除外では完了にしない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "FND-001",
+          "outcome": "docs/spec/ENTRY_CONTRACT.mdのdefault exportを収集する。UI・server・integration・service entryを分け、重複ID/operationと未解決capabilityを検査。未接続は無効化する。 v2.2のoptional client-serviceとai-task descriptor、companion-overlay/settings-panel/health-panelを収集する。未実装providerで本体起動を止めない。",
+          "acceptance": [
+            "空状態を開く。未実装機能へ遷移しても成功表示で偽装しない。getHealthが実状態を返す。"
+          ]
+        },
+        {
+          "source_task_id": "FND-002",
+          "outcome": "db/schema.sqlを一括適用。transaction内だけ書くDbPortを実装。複合外部キー・opId・changed/invalidatedを扱う。",
+          "acceptance": [
+            "同一opIdは同一結果。別payloadは409。途中例外で全rollback。同名idを別namespaceに保存できる。"
+          ]
+        },
+        {
+          "source_task_id": "FND-003",
+          "outcome": "contracts/operations.tsのOperationMapから型付きAPI clientを実装。path/query/bodyを分離し、操作とDTOを一致させる。opIdは論理操作開始時に一度生成し再送で保持、expectedRevisionは編集開始時の対象版を保持する。",
+          "acceptance": [
+            "409後も入力が残り、最新値との比較を表示。ライブ失敗をfixtureへ自動切替しない。"
+          ]
+        },
+        {
+          "source_task_id": "FND-004",
+          "outcome": "サンプル12地点・道graph・異なる理由・同じ候補集合・3テーマ入力を、contractsの型どおり生成。",
+          "acceptance": [
+            "seedを2回適用して重複しない。実店舗・道路・運賃でない旨がデータごとに残る。"
+          ]
+        },
+        {
+          "source_task_id": "UI-001",
+          "outcome": "Sheet、Button、Field、SourceBadge、ErrorStateをpropsだけで作る。画面routerやDBは触らない。",
+          "acceptance": [
+            "390px幅で原文が読める。live/user/sample/importedとAI実行モードを別表示。"
+          ]
+        },
+        {
+          "source_task_id": "UI-002",
+          "outcome": "AppContextのIDを画面間で運ぶ。draftはlocal、確定文脈はDB。bootstrapは全DBを返さない。",
+          "acceptance": [
+            "場所変更後に戻ると草稿・カメラが戻る。別場所のAI結果を現在地へ誤保存しない。"
+          ]
+        },
+        {
+          "source_task_id": "MEDIA-001",
+          "outcome": "multipart・hash・メタデータとprivate保存先を分離。5MB/枚を初期制限。",
+          "acceptance": [
+            "禁止画像型を拒否。静的public配下へ原写真を出さない。"
+          ]
+        },
+        {
+          "source_task_id": "MEDIA-HTTP-001",
+          "outcome": "getAssetContentのUint8Arrayを保存済みの許可画像MIMEとともにbinary HTTP応答へ接続し、既存JSON応答・認可・エラー変換を維持する。",
+          "acceptance": [
+            "実HTTPで画像upload→metadata→contentを通し、返却bytesとupload bytes、許可画像MIME、5MB境界、不正画像型拒否、他actor取得不可、通常JSON応答の維持を確認する。fakeだけで接続完了にしない。"
+          ]
+        },
+        {
+          "source_task_id": "TEST-002",
+          "outcome": "Vitest workerがserver/index.tsをimportしても既定data/sodateru-map.sqliteを共有しないテスト用DB境界を設ける。製品起動時のfile DB、個別fixture DB、SODATERU_DB_PATHを明示する統合テストの意味は変えない。",
+          "acceptance": [
+            "空のcheckoutでmise exec -- bun run testをfile並列のまま連続2回実行し、registry.test.tsとINT-009を含む全suiteが成功する。各workerのDB pathが衝突せず、製品buildと明示file DBの再open確認も成功する。--no-file-parallelismで隠すだけ、既存data fileの事前削除、失敗suiteの除外では完了にしない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-RUNTIME.md",
+      "recurrence_ids": [
+        "R01",
+        "R04",
+        "R15",
+        "R16",
+        "R19",
+        "R20",
+        "R27",
+        "R30"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-MAP",
+      "title": "場所を探し、地図・建物・人物を同じ座標と文脈で確認できる",
+      "kind": "journey",
+      "source_task_ids": [
+        "MAP-001",
+        "MAP-002",
+        "MAP-003",
+        "MAP-004",
+        "PLC-001",
+        "PLC-002",
+        "POOL-001"
+      ],
+      "inventory_task_ids": [
+        "PLC-001",
+        "PLC-002",
+        "MAP-001",
+        "MAP-002",
+        "MAP-003",
+        "MAP-004",
+        "POOL-001"
+      ],
+      "hard_dependencies": [
+        "P-RUNTIME"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "server/features/places/",
+        "src/features/place/",
+        "src/map/avatar/",
+        "src/map/forms/",
+        "src/map/host/",
+        "src/map/materials/",
+        "src/map/state/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "GetPlaceResponse",
+            "ListBuildingsResponse",
+            "ListPlacesResponse"
+          ]
+        },
+        {
+          "path": "contracts/map-ports.ts",
+          "symbols": [
+            "AvatarPort",
+            "FormsPort",
+            "MapDependencies",
+            "MapHostFactory",
+            "MapStatePort",
+            "Primitive"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "getPlace",
+            "listBuildings",
+            "listPlaces"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        },
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "getPlace",
+        "listBuildings",
+        "listPlaces"
+      ],
+      "contract_symbols": [
+        "AvatarPort",
+        "FormsPort",
+        "GetPlaceResponse",
+        "ListBuildingsResponse",
+        "ListPlacesResponse",
+        "MapDependencies",
+        "MapHostFactory",
+        "MapStatePort",
+        "Primitive",
+        "getPlace",
+        "listBuildings",
+        "listPlaces"
+      ],
+      "requirement_ids": [
+        "CORE-003",
+        "EVAL-007",
+        "MAP-001",
+        "MAP-002",
+        "MAP-003",
+        "MAP-004",
+        "MAP-005",
+        "MAP-006",
+        "MAP-007",
+        "MAP-008",
+        "MAP-009",
+        "MAP-010",
+        "MAP-012",
+        "MAP-013",
+        "NAV-002",
+        "NAV-003",
+        "NAV-004",
+        "SOC-001",
+        "SOC-004",
+        "SOC-008"
+      ],
+      "outcome": "場所を探し、地図・建物・人物を同じ座標と文脈で確認できる",
+      "journey": "地図を開く → 場所を検索する → 詳細と出典を確認する → 2D/3D・人物・レンズを切り替える → 同じ場所と文脈へ復帰する。",
+      "specific_acceptance": [
+        "異なるqueryで候補が変わる。知らないfactsはunknown。",
+        "権限で見えない理由は空欄扱い。場所変更時に前店舗の理由が残らない。",
+        "pan/zoom/回転して建物が同じ場所へ付く。背景不調は明示sampleへ手動移行。",
+        "purposeのみ変えて本体が変わる。訪問増加では装飾だけ変わる。アイコン追加だけで済ませない。",
+        "Replayを閉じると実位置へ戻る。実GPS未取得を取得済みと表示しない。",
+        "peer→physical→mineで本人の造形とカメラが正しく復帰。",
+        "正面と俯瞰の両方で本・会話・庭が区別できる。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "PLC-001",
+          "outcome": "場所/建物をDBから検索。query/city/purpose/limit/cursorを検証。個人の意味をPlaceへ混ぜない。",
+          "acceptance": [
+            "異なるqueryで候補が変わる。知らないfactsはunknown。"
+          ]
+        },
+        {
+          "source_task_id": "PLC-002",
+          "outcome": "一般情報・自分の意味・共有意見を分離した詳細。手動記録・比較・移植へIDを渡す。",
+          "acceptance": [
+            "権限で見えない理由は空欄扱い。場所変更時に前店舗の理由が残らない。"
+          ]
+        },
+        {
+          "source_task_id": "MAP-001",
+          "outcome": "MapLibre custom layerにThree sceneを接続。WGS84とlocal metersを変換。disposeとresizeを実装。",
+          "acceptance": [
+            "pan/zoom/回転して建物が同じ場所へ付く。背景不調は明示sampleへ手動移行。"
+          ]
+        },
+        {
+          "source_task_id": "MAP-002",
+          "outcome": "FormsPort.build(meaning)からメートル単位の本体PrimitiveとMeaning.growthStage由来の装飾を返す。Three型を共有契約へ持ち込まない。",
+          "acceptance": [
+            "purposeのみ変えて本体が変わる。訪問増加では装飾だけ変わる。アイコン追加だけで済ませない。"
+          ]
+        },
+        {
+          "source_task_id": "MAP-003",
+          "outcome": "livePositionとreplayPositionを別々に受ける人物。移動方向・停止を描画し地図座標を使う。",
+          "acceptance": [
+            "Replayを閉じると実位置へ戻る。実GPS未取得を取得済みと表示しない。"
+          ]
+        },
+        {
+          "source_task_id": "MAP-004",
+          "outcome": "dimensionとlens、camera2d/3dを独立reducerで保持。位置観測の有無を前提にしない。",
+          "acceptance": [
+            "peer→physical→mineで本人の造形とカメラが正しく復帰。"
+          ]
+        },
+        {
+          "source_task_id": "POOL-001",
+          "outcome": "3形状の共通materialと可読性presetを作り、formsへpropsで渡す。",
+          "acceptance": [
+            "正面と俯瞰の両方で本・会話・庭が区別できる。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-MAP.md",
+      "recurrence_ids": [
+        "R04",
+        "R05"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-RECORD",
+      "title": "観測や原文を場所へ記録し、本人が確認した体験と成長を再表示できる",
+      "kind": "journey",
+      "source_task_ids": [
+        "INT-001",
+        "REC-001",
+        "REC-002",
+        "REC-005",
+        "REC-006",
+        "REC-007",
+        "REC-008",
+        "REC-009"
+      ],
+      "inventory_task_ids": [
+        "INT-001",
+        "REC-005",
+        "REC-006",
+        "REC-007"
+      ],
+      "hard_dependencies": [
+        "P-MAP"
+      ],
+      "connect_after": [
+        "P-REFLECT"
+      ],
+      "required_capabilities": [
+        "api:createExperience",
+        "api:deleteExperience",
+        "api:getBootstrap",
+        "api:getEvidence",
+        "api:getExperience",
+        "api:getHistory",
+        "api:getMeaning",
+        "api:listExperiences"
+      ],
+      "write_paths": [
+        "contracts/ports.ts",
+        "docs/evidence/INT-001/",
+        "docs/evidence/REC-005/",
+        "docs/spec/ENTRY_CONTRACT.md",
+        "docs/spec/MAP_GROWTH_AND_DISCOVERY.md",
+        "server/features/experiences/",
+        "server/features/meaning/",
+        "server/features/observations/",
+        "server/features/visits/",
+        "server/integrations/int-001/",
+        "shared/logic/meaning/",
+        "shared/logic/observations/",
+        "src/api/draft.ts",
+        "src/features/record-create/",
+        "src/integrations/int-001/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CreateExperienceRequest",
+            "CreateExperienceResponse",
+            "DeleteExperienceRequest",
+            "DeleteExperienceResponse",
+            "GetBootstrapResponse",
+            "GetEvidenceResponse",
+            "GetExperienceResponse",
+            "GetHistoryResponse",
+            "GetMeaningResponse",
+            "ImportObservationsRequest",
+            "ImportObservationsResponse",
+            "ListExperiencesResponse",
+            "ListVisitsResponse",
+            "UpdateVisitRequest",
+            "UpdateVisitResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "createExperience",
+            "deleteExperience",
+            "getBootstrap",
+            "getEvidence",
+            "getExperience",
+            "getHistory",
+            "getMeaning",
+            "importObservations",
+            "listExperiences",
+            "listVisits",
+            "updateVisit"
+          ]
+        },
+        {
+          "path": "contracts/ports.ts",
+          "symbols": [
+            "ApiPort",
+            "DbPort",
+            "MeaningPort",
+            "ObservationCandidateInterval",
+            "ObservationsPort"
+          ]
+        },
+        {
+          "path": "docs/spec/MAP_GROWTH_AND_DISCOVERY.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "createExperience",
+        "deleteExperience",
+        "getEvidence",
+        "getExperience",
+        "getMeaning",
+        "importObservations",
+        "listExperiences",
+        "listVisits",
+        "updateVisit"
+      ],
+      "contract_symbols": [
+        "ApiPort",
+        "CreateExperienceRequest",
+        "CreateExperienceResponse",
+        "DbPort",
+        "DeleteExperienceRequest",
+        "DeleteExperienceResponse",
+        "GetBootstrapResponse",
+        "GetEvidenceResponse",
+        "GetExperienceResponse",
+        "GetHistoryResponse",
+        "GetMeaningResponse",
+        "ImportObservationsRequest",
+        "ImportObservationsResponse",
+        "ListExperiencesResponse",
+        "ListVisitsResponse",
+        "MeaningPort",
+        "ObservationCandidateInterval",
+        "ObservationsPort",
+        "UpdateVisitRequest",
+        "UpdateVisitResponse",
+        "getMeaning",
+        "importObservations",
+        "listVisits",
+        "updateVisit"
+      ],
+      "requirement_ids": [
+        "CORE-001",
+        "CORE-002",
+        "CORE-003",
+        "DATA-002",
+        "EVAL-002",
+        "EVAL-004",
+        "MAP-001",
+        "MAP-002",
+        "MAP-003",
+        "MAP-004",
+        "MAP-005",
+        "MAP-009",
+        "MAP-012",
+        "MAP-014",
+        "NAV-005",
+        "NAV-007",
+        "NEW-004",
+        "OPS-004",
+        "OPS-007",
+        "REC-001",
+        "REC-002",
+        "REC-003",
+        "REC-004",
+        "REC-005",
+        "REC-006",
+        "REC-008",
+        "REC-010",
+        "REC-011",
+        "SELF-002",
+        "SELF-003",
+        "SELF-009"
+      ],
+      "outcome": "観測や原文を場所へ記録し、本人が確認した体験と成長を再表示できる",
+      "journey": "場所または観測入力を選ぶ → 原文を記録する → 本人が訪問・用途を確認する → 保存を確認する → 再入場して体験と建物の変化を読む。",
+      "specific_acceptance": [
+        "保存前に成長せず、保存済み原文・ID・本人stateが再表示で一致する。",
+        "生成操作IDを実OpenAPI decoderへ渡せる。API失敗後の再送で重複記録しない。",
+        "未確定・重複訪問は成長しない。理由だけの訂正で用途本体を変えない。",
+        "確認時刻を保存境界から受け取り、呼出側ごとに推測しない。",
+        "同じファイルを再取込して重複ゼロ。通過と確定訪問を分離。",
+        "候補からconfirmした場所だけ育つ。建物内の全階へ加算しない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "INT-001",
+          "outcome": "場所に原文を記録し、保存後も同じ場所の体験と成長を確認できる",
+          "acceptance": [
+            "保存前に成長せず、保存済み原文・ID・本人stateが再表示で一致する。",
+            "生成操作IDを実OpenAPI decoderへ渡せる。API失敗後の再送で重複記録しない。"
+          ]
+        },
+        {
+          "source_task_id": "REC-005",
+          "outcome": "確定した訪問と用途から再利用可能なMeaningを作る",
+          "acceptance": [
+            "未確定・重複訪問は成長しない。理由だけの訂正で用途本体を変えない。",
+            "確認時刻を保存境界から受け取り、呼出側ごとに推測しない。"
+          ]
+        },
+        {
+          "source_task_id": "REC-006",
+          "outcome": "raw record→時刻順Observationと候補区間。source+recordID/hashで重複排除。120秒gap/50m accuracyは製品ヒューリスティック。",
+          "acceptance": [
+            "同じファイルを再取込して重複ゼロ。通過と確定訪問を分離。"
+          ]
+        },
+        {
+          "source_task_id": "REC-007",
+          "outcome": "正規化adapterを呼び観測とcandidateを保存。確認/却下/場所修正/削除を扱う。",
+          "acceptance": [
+            "候補からconfirmした場所だけ育つ。建物内の全階へ加算しない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-RECORD.md",
+      "recurrence_ids": [
+        "R06",
+        "R07",
+        "R08"
+      ],
+      "consumes_operation_ids": [
+        "getBootstrap",
+        "getHistory"
+      ],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-ROUTE",
+      "title": "条件と定期券を設定し、根拠付きの経路を比較して選べる",
+      "kind": "journey",
+      "source_task_ids": [
+        "RTE-001",
+        "RTE-002",
+        "RTE-003",
+        "RTE-004",
+        "RTE-005",
+        "RTE-006"
+      ],
+      "inventory_task_ids": [
+        "RTE-001",
+        "RTE-002",
+        "RTE-003",
+        "RTE-004",
+        "RTE-005",
+        "RTE-006"
+      ],
+      "hard_dependencies": [
+        "P-MAP"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "server/features/passes/",
+        "server/features/routes/",
+        "shared/logic/constraints/",
+        "shared/logic/graph/",
+        "src/features/passes/",
+        "src/features/routes/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CreateCandidateSetRequest",
+            "CreateCandidateSetResponse",
+            "CreatePassRequest",
+            "CreatePassResponse",
+            "CreateQuestRequest",
+            "CreateQuestResponse",
+            "DeletePassRequest",
+            "DeletePassResponse",
+            "GetCandidateSetResponse",
+            "GetRouteResponse",
+            "ListPassesResponse",
+            "PlanRouteRequest",
+            "PlanRouteResponse",
+            "SetRouteStateRequest",
+            "SetRouteStateResponse",
+            "UpdatePassRequest",
+            "UpdatePassResponse",
+            "UpdateQuestRequest",
+            "UpdateQuestResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "createCandidateSet",
+            "createPass",
+            "createQuest",
+            "deletePass",
+            "getCandidateSet",
+            "getRoute",
+            "listPasses",
+            "planRoute",
+            "setRouteState",
+            "updatePass",
+            "updateQuest"
+          ]
+        },
+        {
+          "path": "contracts/ports.ts",
+          "symbols": [
+            "ConstraintEvaluationContext",
+            "ConstraintPort",
+            "DbPort",
+            "GraphPort"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "createCandidateSet",
+        "createPass",
+        "createQuest",
+        "deletePass",
+        "getCandidateSet",
+        "getRoute",
+        "listPasses",
+        "planRoute",
+        "setRouteState",
+        "updatePass",
+        "updateQuest"
+      ],
+      "contract_symbols": [
+        "ConstraintEvaluationContext",
+        "ConstraintPort",
+        "CreateCandidateSetRequest",
+        "CreateCandidateSetResponse",
+        "CreatePassRequest",
+        "CreatePassResponse",
+        "CreateQuestRequest",
+        "CreateQuestResponse",
+        "DbPort",
+        "DeletePassRequest",
+        "DeletePassResponse",
+        "GetCandidateSetResponse",
+        "GetRouteResponse",
+        "GraphPort",
+        "ListPassesResponse",
+        "PlanRouteRequest",
+        "PlanRouteResponse",
+        "SetRouteStateRequest",
+        "SetRouteStateResponse",
+        "UpdatePassRequest",
+        "UpdatePassResponse",
+        "UpdateQuestRequest",
+        "UpdateQuestResponse",
+        "createCandidateSet",
+        "createPass",
+        "createQuest",
+        "deletePass",
+        "getCandidateSet",
+        "getRoute",
+        "listPasses",
+        "planRoute",
+        "setRouteState",
+        "updatePass",
+        "updateQuest"
+      ],
+      "requirement_ids": [
+        "CORE-001",
+        "NAV-005",
+        "ROUTE-001",
+        "ROUTE-002",
+        "ROUTE-003",
+        "ROUTE-004",
+        "ROUTE-005",
+        "ROUTE-006",
+        "ROUTE-007",
+        "ROUTE-009",
+        "ROUTE-010",
+        "TRF-003"
+      ],
+      "outcome": "条件と定期券を設定し、根拠付きの経路を比較して選べる",
+      "journey": "希望・制約・定期券を入力する → 同じ候補集合で経路を比較する → 選択を保存する → 条件を変更して理由と差分を確認する。",
+      "specific_acceptance": [
+        "通れないedgeを抜くと別経路またはno-route。",
+        "階段必須にunknownなら案内確定しない。unknown費用を0円へしない。",
+        "同じ候補集合で理由変更前後を比較。未達制約は採用不可。",
+        "RouteNetworkPortのversioned snapshot供給をこのIssue内のruntime注入として実装する。sampleはFND-004から供給し、実道路provider未設定はunavailableのまま表示する。",
+        "条件緩和は本人操作後にだけ再計算。順位が変わらなくても差分理由を表示。",
+        "期限切れは適用候補にしない。入力保存だけを実運賃対応と称さない。",
+        "unknown運賃とサンプル運賃に区別がある。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "RTE-001",
+          "outcome": "GraphPortからedgeIds・時間・距離を返す。同じgraph snapshotから呼出側がpolylineを組み立てる。",
+          "acceptance": [
+            "通れないedgeを抜くと別経路またはno-route。"
+          ]
+        },
+        {
+          "source_task_id": "RTE-002",
+          "outcome": "pass/fail/unknown。寄り道は全行程差分+滞在。定期控除未対応はunknown。",
+          "acceptance": [
+            "階段必須にunknownなら案内確定しない。unknown費用を0円へしない。"
+          ]
+        },
+        {
+          "source_task_id": "RTE-003",
+          "outcome": "CandidateSet/RoutePlan/Questを保存。運賃/provider状態を戻し、採用済みを勝手に置換しない。 任意healthContextIdを出典として保持できる入口を設ける。本人許可と失効を確認し、未指定は従来動作。健康値からhard条件を自動変更しない。",
+          "acceptance": [
+            "同じ候補集合で理由変更前後を比較。未達制約は採用不可。",
+            "RouteNetworkPortのversioned snapshot供給をこのIssue内のruntime注入として実装する。sampleはFND-004から供給し、実道路provider未設定はunavailableのまま表示する。"
+          ]
+        },
+        {
+          "source_task_id": "RTE-004",
+          "outcome": "出発・目的・寄り道・締切・制約の入力、採用/後で/却下。",
+          "acceptance": [
+            "条件緩和は本人操作後にだけ再計算。順位が変わらなくても差分理由を表示。"
+          ]
+        },
+        {
+          "source_task_id": "RTE-005",
+          "outcome": "operator/station/via/validity/cardType/providerCourseを保存。",
+          "acceptance": [
+            "期限切れは適用候補にしない。入力保存だけを実運賃対応と称さない。"
+          ]
+        },
+        {
+          "source_task_id": "RTE-006",
+          "outcome": "定期入力、source表示、鉄道/バスと未対応の区別。",
+          "acceptance": [
+            "unknown運賃とサンプル運賃に区別がある。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-ROUTE.md",
+      "recurrence_ids": [
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-REFLECT",
+      "title": "記録を振り返って理由を訂正し、自己理解と候補の変化を確かめられる",
+      "kind": "journey",
+      "source_task_ids": [
+        "INT-002",
+        "INT-004",
+        "REC-003",
+        "REC-004",
+        "SELF-001",
+        "SELF-002",
+        "SELF-003"
+      ],
+      "inventory_task_ids": [
+        "REC-003",
+        "REC-004",
+        "SELF-001",
+        "SELF-002",
+        "SELF-003",
+        "INT-002",
+        "INT-004"
+      ],
+      "hard_dependencies": [
+        "P-RECORD",
+        "P-ROUTE"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "docs/evidence/INT-002/",
+        "docs/evidence/INT-004/",
+        "server/features/corrections/",
+        "server/features/self/",
+        "server/integrations/int-002/",
+        "server/integrations/int-004/",
+        "shared/logic/hypotheses/",
+        "src/features/corrections/",
+        "src/features/self/",
+        "src/integrations/int-002/",
+        "src/integrations/int-004/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CorrectExperienceRequest",
+            "CorrectExperienceResponse",
+            "GetHistoryResponse",
+            "ListHypothesesResponse",
+            "PutPreferenceRequest",
+            "PutPreferenceResponse",
+            "ReviewHypothesisRequest",
+            "ReviewHypothesisResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "correctExperience",
+            "getHistory",
+            "listHypotheses",
+            "putPreference",
+            "reviewHypothesis"
+          ]
+        },
+        {
+          "path": "contracts/ports.ts",
+          "symbols": [
+            "HypothesisPort"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "correctExperience",
+        "getHistory",
+        "listHypotheses",
+        "putPreference",
+        "reviewHypothesis"
+      ],
+      "contract_symbols": [
+        "CorrectExperienceRequest",
+        "CorrectExperienceResponse",
+        "GetHistoryResponse",
+        "HypothesisPort",
+        "ListHypothesesResponse",
+        "PutPreferenceRequest",
+        "PutPreferenceResponse",
+        "ReviewHypothesisRequest",
+        "ReviewHypothesisResponse",
+        "correctExperience",
+        "getHistory",
+        "listHypotheses",
+        "putPreference",
+        "reviewHypothesis"
+      ],
+      "requirement_ids": [
+        "CORE-001",
+        "DATA-002",
+        "DATA-004",
+        "EVAL-002",
+        "EVAL-004",
+        "MAP-014",
+        "NAV-005",
+        "NEW-004",
+        "OPS-007",
+        "REC-003",
+        "REC-004",
+        "REC-005",
+        "REC-007",
+        "REC-010",
+        "REC-011",
+        "SELF-001",
+        "SELF-002",
+        "SELF-003",
+        "SELF-004",
+        "SELF-005",
+        "SELF-006",
+        "SELF-007",
+        "SELF-008",
+        "SELF-009",
+        "SELF-011"
+      ],
+      "outcome": "記録を振り返って理由を訂正し、自己理解と候補の変化を確かめられる",
+      "journey": "履歴とReplayを開く → 根拠・理由・用途を訂正する → 保存する → 再入場して自己理解・希望・候補の差分と失効を確認する。",
+      "specific_acceptance": [
+        "同じ理由だけの訂正で必ず本体を変える演出をしない。409後の草稿保持。",
+        "古い版は409。原文は変わらない。scope外のAI遅着は適用できない。",
+        "通勤回数を好み得票にしない。確率を捏造せず1問をskipできる。",
+        "weather unknownをrain支持に混ぜない。理由を訂正すると該当仮説だけ再計算。",
+        "希望保存と履歴集計が再表示される。拒否を全人格へ拡張しない。",
+        "理由だけ変更して、原文不変・説明差分・無関係な形維持を確認。",
+        "再取込して訪問数が増えず、Replayとlive位置を切替可能。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "REC-003",
+          "outcome": "原文と解釈と本人訂正を並べる。reasonとpurposeを別操作にする。 比較表示はSELF-001とRTE-004に渡し、このフォームに別の仮説・経路画面を再実装しない。",
+          "acceptance": [
+            "同じ理由だけの訂正で必ず本体を変える演出をしない。409後の草稿保持。"
+          ]
+        },
+        {
+          "source_task_id": "REC-004",
+          "outcome": "expectedRevisionを照合、Correction追加、Experience更新、派生とAIの依存版を失効させる。",
+          "acceptance": [
+            "古い版は409。原文は変わらない。scope外のAI遅着は適用できない。"
+          ]
+        },
+        {
+          "source_task_id": "SELF-001",
+          "outcome": "日/月履歴と支持/反例を示す仮説UI。知識0は足りないと示す。",
+          "acceptance": [
+            "通勤回数を好み得票にしない。確率を捏造せず1問をskipできる。"
+          ]
+        },
+        {
+          "source_task_id": "SELF-002",
+          "outcome": "Context一致の支持/反例/代替説明から仮説。現在希望を履歴と分離する。",
+          "acceptance": [
+            "weather unknownをrain支持に混ぜない。理由を訂正すると該当仮説だけ再計算。"
+          ]
+        },
+        {
+          "source_task_id": "SELF-003",
+          "outcome": "日時窓、hypotheses再計算、明示希望・仮説確認を保存。",
+          "acceptance": [
+            "希望保存と履歴集計が再表示される。拒否を全人格へ拡張しない。"
+          ]
+        },
+        {
+          "source_task_id": "INT-002",
+          "outcome": "REC-003で訂正し、SELF-001で仮説差分、RTE-004で固定候補の説明差分と採用済みrouteの再確認を表示する。各UIを作り直さず接続する。",
+          "acceptance": [
+            "理由だけ変更して、原文不変・説明差分・無関係な形維持を確認。"
+          ]
+        },
+        {
+          "source_task_id": "INT-004",
+          "outcome": "観測候補はconfirmed前に成長させずReplayへだけ使う。",
+          "acceptance": [
+            "再取込して訪問数が増えず、Replayとlive位置を切替可能。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-REFLECT.md",
+      "recurrence_ids": [
+        "R05",
+        "R07",
+        "R08",
+        "R09",
+        "R10"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-EXPLORE",
+      "title": "候補から歩く・訪問確認・記録へ進み、次の探索へ戻れる",
+      "kind": "journey",
+      "source_task_ids": [
+        "EXP-001",
+        "EXP-002",
+        "EXP-003",
+        "EXP-004",
+        "EXP-005",
+        "INT-022"
+      ],
+      "inventory_task_ids": [
+        "INT-022"
+      ],
+      "hard_dependencies": [
+        "P-REFLECT"
+      ],
+      "connect_after": [],
+      "required_capabilities": [
+        "api:createExperience",
+        "api:getCandidateSet",
+        "api:getExperience",
+        "api:getExplorationCandidate",
+        "api:getExplorationPreferences",
+        "api:getMeaning",
+        "api:listExplorationCandidates",
+        "api:planRoute",
+        "api:putExplorationPreferences",
+        "api:refreshExplorationCandidates",
+        "api:respondExplorationCandidate"
+      ],
+      "write_paths": [
+        "API_ENDPOINTS.csv",
+        "DB_COLUMNS.csv",
+        "contracts/domain.ts",
+        "contracts/exploration.ts",
+        "contracts/openapi.json",
+        "contracts/openapi.yaml",
+        "contracts/operations.json",
+        "contracts/operations.ts",
+        "contracts/schemas.json",
+        "db/dto-map.json",
+        "db/migrations/004_exploration-display-fields.sql",
+        "db/schema.sql",
+        "docs/evidence/INT-022/",
+        "docs/spec/MIST_EXPLORATION.md",
+        "examples/http/",
+        "server/features/corrections/",
+        "server/features/experiences/",
+        "server/features/exploration/",
+        "server/features/places/",
+        "server/features/visits/",
+        "server/integrations/int-022/",
+        "shared/logic/exploration/",
+        "src/features/exploration/",
+        "src/integrations/int-001/",
+        "src/integrations/int-022/",
+        "src/map/exploration/",
+        "tools/build_contracts.py",
+        "tools/mist_exploration_contracts.py"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CreateExperienceRequest",
+            "CreateExperienceResponse",
+            "GetCandidateSetResponse",
+            "GetExperienceResponse",
+            "GetExplorationCandidateResponse",
+            "GetExplorationPreferencesResponse",
+            "GetMeaningResponse",
+            "ListExplorationCandidatesResponse",
+            "PlanRouteRequest",
+            "PlanRouteResponse",
+            "PutExplorationPreferencesRequest",
+            "PutExplorationPreferencesResponse",
+            "RefreshExplorationCandidatesRequest",
+            "RefreshExplorationCandidatesResponse",
+            "RespondExplorationCandidateRequest",
+            "RespondExplorationCandidateResponse"
+          ]
+        },
+        {
+          "path": "contracts/exploration.ts",
+          "symbols": []
+        },
+        {
+          "path": "contracts/map-ports.ts",
+          "symbols": [
+            "MapDependencies"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "createExperience",
+            "getCandidateSet",
+            "getExperience",
+            "getExplorationCandidate",
+            "getExplorationPreferences",
+            "getMeaning",
+            "listExplorationCandidates",
+            "planRoute",
+            "putExplorationPreferences",
+            "refreshExplorationCandidates",
+            "respondExplorationCandidate"
+          ]
+        },
+        {
+          "path": "docs/spec/MIST_EXPLORATION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "getExplorationCandidate",
+        "getExplorationPreferences",
+        "listExplorationCandidates",
+        "putExplorationPreferences",
+        "refreshExplorationCandidates",
+        "respondExplorationCandidate"
+      ],
+      "contract_symbols": [
+        "CreateExperienceRequest",
+        "CreateExperienceResponse",
+        "GetCandidateSetResponse",
+        "GetExperienceResponse",
+        "GetExplorationCandidateResponse",
+        "GetExplorationPreferencesResponse",
+        "GetMeaningResponse",
+        "ListExplorationCandidatesResponse",
+        "MapDependencies",
+        "PlanRouteRequest",
+        "PlanRouteResponse",
+        "PutExplorationPreferencesRequest",
+        "PutExplorationPreferencesResponse",
+        "RefreshExplorationCandidatesRequest",
+        "RefreshExplorationCandidatesResponse",
+        "RespondExplorationCandidateRequest",
+        "RespondExplorationCandidateResponse"
+      ],
+      "requirement_ids": [
+        "EXP-REQ-001",
+        "EXP-REQ-002",
+        "EXP-REQ-003",
+        "EXP-REQ-004",
+        "EXP-REQ-005",
+        "EXP-REQ-006",
+        "EXP-REQ-007"
+      ],
+      "outcome": "候補から歩く・訪問確認・記録へ進み、次の探索へ戻れる",
+      "journey": "候補を選ぶ → 歩行・場所で過ごす操作へ進む → 訪問を確認して記録する → 保存結果を見る → 更新後の探索へ戻る。",
+      "specific_acceptance": [
+        "候補の表示・保存だけでは建物が育たない。記録後に候補と本人Meaningを更新する。",
+        "候補IDとplaceIdを混同せず、未設定のナビを成功表示しない。2D/3Dが同じ選択を示す。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "INT-022",
+          "outcome": "候補から訪問・記録へ進み、体験後の探索へ戻れる",
+          "acceptance": [
+            "候補の表示・保存だけでは建物が育たない。記録後に候補と本人Meaningを更新する。",
+            "候補IDとplaceIdを混同せず、未設定のナビを成功表示しない。2D/3Dが同じ選択を示す。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-EXPLORE.md",
+      "recurrence_ids": [
+        "R13",
+        "R14"
+      ],
+      "consumes_operation_ids": [
+        "createExperience",
+        "getCandidateSet",
+        "getExperience",
+        "getMeaning",
+        "planRoute"
+      ],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-DISCOVER",
+      "title": "場所や記録から発見を選び、関心の変化を振り返れる",
+      "kind": "journey",
+      "source_task_ids": [
+        "DISC-001",
+        "DISC-002",
+        "DISC-003",
+        "INT-007",
+        "POOL-003"
+      ],
+      "inventory_task_ids": [
+        "DISC-001",
+        "DISC-002",
+        "DISC-003",
+        "INT-007",
+        "POOL-003"
+      ],
+      "hard_dependencies": [
+        "P-REFLECT"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "docs/evidence/INT-007/",
+        "fixtures/discovery-reviewed/",
+        "server/features/discovery/",
+        "server/integrations/int-007/",
+        "shared/logic/discovery/",
+        "src/features/discovery/",
+        "src/integrations/int-007/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "GetDiscoveryResponse",
+            "ListInterestsResponse",
+            "OpenDiscoveryRequest",
+            "OpenDiscoveryResponse",
+            "RecordDiscoveryEventRequest",
+            "RecordDiscoveryEventResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "getDiscovery",
+            "listInterests",
+            "openDiscovery",
+            "recordDiscoveryEvent"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        },
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "getDiscovery",
+        "listInterests",
+        "openDiscovery",
+        "recordDiscoveryEvent"
+      ],
+      "contract_symbols": [
+        "GetDiscoveryResponse",
+        "ListInterestsResponse",
+        "OpenDiscoveryRequest",
+        "OpenDiscoveryResponse",
+        "RecordDiscoveryEventRequest",
+        "RecordDiscoveryEventResponse",
+        "getDiscovery",
+        "listInterests",
+        "openDiscovery",
+        "recordDiscoveryEvent"
+      ],
+      "requirement_ids": [
+        "DATA-008",
+        "DATA-011",
+        "DISC-001",
+        "DISC-002",
+        "DISC-003",
+        "DISC-004",
+        "DISC-005",
+        "DISC-006",
+        "DISC-007",
+        "DISC-008",
+        "NAV-009",
+        "REC-009",
+        "SELF-012",
+        "SELF-013"
+      ],
+      "outcome": "場所や記録から発見を選び、関心の変化を振り返れる",
+      "journey": "場所や記録から発見カードを開く → 根拠を読む → 既知・関心を選ぶ → 保存する → 振り返りで関心の変化を見る。",
+      "specific_acceptance": [
+        "探索opt-inでもblocked概念は出ない。固有事実に出典がなければ断定しない。",
+        "気になるだけがinterestへ残る。閉じるを嫌いとして学習しない。",
+        "設定全停止で能動提案を停止、本人の過去の関心は消さない。",
+        "興味は自分一覧へ、既知/閉じるは別記録。",
+        "場所に架空固有事実をつけず、観察の問いがある。",
+        "固有事実の出典では掲載サイトと著者・作成機関を区別し、根拠箇所と帰属を照合する。掲載者を著者として表示しない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "DISC-001",
+          "outcome": "場所/建物/写真anchorからfeature→bridge→knowledgeを選ぶ。禁止と苦手を分離。",
+          "acceptance": [
+            "探索opt-inでもblocked概念は出ない。固有事実に出典がなければ断定しない。"
+          ]
+        },
+        {
+          "source_task_id": "DISC-002",
+          "outcome": "本人が開くカードと、既知/興味/閉じる/禁止の別操作。",
+          "acceptance": [
+            "気になるだけがinterestへ残る。閉じるを嫌いとして学習しない。"
+          ]
+        },
+        {
+          "source_task_id": "DISC-003",
+          "outcome": "ルール選択器を呼びカードとイベントを保存。event再送で二重関心を作らない。",
+          "acceptance": [
+            "設定全停止で能動提案を停止、本人の過去の関心は消さない。"
+          ]
+        },
+        {
+          "source_task_id": "INT-007",
+          "outcome": "本人主導の発見を地図/写真anchorに接続。",
+          "acceptance": [
+            "興味は自分一覧へ、既知/閉じるは別記録。"
+          ]
+        },
+        {
+          "source_task_id": "POOL-003",
+          "outcome": "一般知識/固有事実と出典を分離した短い発見カードを用意。",
+          "acceptance": [
+            "場所に架空固有事実をつけず、観察の問いがある。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-DISCOVER.md",
+      "recurrence_ids": [
+        "R18"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-SHARE",
+      "title": "共有範囲を選び、友人と体験を比較・返信し、共有を取り消せる",
+      "kind": "journey",
+      "source_task_ids": [
+        "INT-005",
+        "INT-012",
+        "SOC-001",
+        "SOC-002",
+        "SOC-003",
+        "SOC-004",
+        "SOC-005",
+        "SOC-008",
+        "SOC-009"
+      ],
+      "inventory_task_ids": [
+        "SOC-001",
+        "SOC-002",
+        "SOC-003",
+        "SOC-004",
+        "SOC-005",
+        "SOC-008",
+        "SOC-009",
+        "INT-005",
+        "INT-012"
+      ],
+      "hard_dependencies": [
+        "P-RECORD"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "docs/evidence/INT-005/",
+        "docs/evidence/INT-012/",
+        "server/features/comparison/",
+        "server/features/feedback/",
+        "server/features/sharing/",
+        "server/integrations/int-005/",
+        "server/integrations/int-012/",
+        "shared/logic/comparison/",
+        "shared/logic/sharing/",
+        "src/features/feedback/",
+        "src/features/social/",
+        "src/integrations/int-005/",
+        "src/integrations/int-012/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CreateComparisonRequest",
+            "CreateComparisonResponse",
+            "CreateFeedbackRequest",
+            "CreateFeedbackResponse",
+            "CreateShareGrantRequest",
+            "CreateShareGrantResponse",
+            "GetComparisonResponse",
+            "ListFeedbackResponse",
+            "ListSharedExperiencesResponse",
+            "RejectMappingRequest",
+            "RejectMappingResponse",
+            "RevokeShareGrantRequest",
+            "RevokeShareGrantResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "createComparison",
+            "createFeedback",
+            "createShareGrant",
+            "getComparison",
+            "listFeedback",
+            "listSharedExperiences",
+            "rejectMapping",
+            "revokeShareGrant"
+          ]
+        },
+        {
+          "path": "contracts/ports.ts",
+          "symbols": [
+            "ComparisonPort",
+            "SharingPort"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "createComparison",
+        "createFeedback",
+        "createShareGrant",
+        "getComparison",
+        "listFeedback",
+        "listSharedExperiences",
+        "rejectMapping",
+        "revokeShareGrant"
+      ],
+      "contract_symbols": [
+        "ComparisonPort",
+        "CreateComparisonRequest",
+        "CreateComparisonResponse",
+        "CreateFeedbackRequest",
+        "CreateFeedbackResponse",
+        "CreateShareGrantRequest",
+        "CreateShareGrantResponse",
+        "GetComparisonResponse",
+        "ListFeedbackResponse",
+        "ListSharedExperiencesResponse",
+        "RejectMappingRequest",
+        "RejectMappingResponse",
+        "RevokeShareGrantRequest",
+        "RevokeShareGrantResponse",
+        "SharingPort",
+        "createComparison",
+        "createFeedback",
+        "createShareGrant",
+        "getComparison",
+        "listFeedback",
+        "listSharedExperiences",
+        "rejectMapping",
+        "revokeShareGrant"
+      ],
+      "requirement_ids": [
+        "DATA-003",
+        "DATA-006",
+        "DATA-007",
+        "DATA-009",
+        "EVAL-007",
+        "MAP-013",
+        "NAV-002",
+        "ROUTE-008",
+        "SOC-001",
+        "SOC-002",
+        "SOC-003",
+        "SOC-004",
+        "SOC-005",
+        "SOC-006",
+        "SOC-007",
+        "SOC-008",
+        "SOC-009",
+        "SOC-011",
+        "SOC-012",
+        "SOC-013",
+        "SOC-014",
+        "TRF-006",
+        "TRF-011"
+      ],
+      "outcome": "共有範囲を選び、友人と体験を比較・返信し、共有を取り消せる",
+      "journey": "体験ごとの共有項目を選ぶ → 相手のレンズで比較する → 感想・返信を保存する → 共有を取り消す → 再入場で非公開部分が消えることを確認する。",
+      "specific_acceptance": [
+        "用途のみ共有のJSONにreason/text/写真が出ない。",
+        "取消直後の次fetchとAI applyで旧共有内容が出ない。",
+        "根拠の無い似ている推論は確定扱いしない。拒否対応は再提示しない。",
+        "相手レンズ表示と自分の正本の編集対象を混同しない。",
+        "相手の共有取消で保存済み結果もstale。否定対応を保持。",
+        "元体験の共有取消後も本人の実訪問/自作文が残る。",
+        "時間不足で行かなかったことをdislikeへ変換しない。",
+        "比較を保存して再読込。対応否定が残り、相手レンズが同じ体験を指す。非公開原文は出ない。",
+        "感想の作成・再表示・共有取消後の本人原文保持を実APIで確認。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "SOC-001",
+          "outcome": "ShareGrantからSharedExperience DTOだけを作る。非許可原文/写真を含めない。",
+          "acceptance": [
+            "用途のみ共有のJSONにreason/text/写真が出ない。"
+          ]
+        },
+        {
+          "source_task_id": "SOC-002",
+          "outcome": "検索と詳細で同じ投影を使う。取消はgrantRevisionを増し派生をstaleにする。",
+          "acceptance": [
+            "取消直後の次fetchとAI applyで旧共有内容が出ない。"
+          ]
+        },
+        {
+          "source_task_id": "SOC-003",
+          "outcome": "同じ場所/別用途、別場所/同役割、実用知、似て非なる理由を区別。",
+          "acceptance": [
+            "根拠の無い似ている推論は確定扱いしない。拒否対応は再提示しない。"
+          ]
+        },
+        {
+          "source_task_id": "SOC-004",
+          "outcome": "違いと共通役割を比較カードにし、項目共有を切り替えられる。",
+          "acceptance": [
+            "相手レンズ表示と自分の正本の編集対象を混同しない。"
+          ]
+        },
+        {
+          "source_task_id": "SOC-005",
+          "outcome": "投影済み入力から比較を作り版とgrantVersionsを保持。",
+          "acceptance": [
+            "相手の共有取消で保存済み結果もstale。否定対応を保持。"
+          ]
+        },
+        {
+          "source_task_id": "SOC-008",
+          "outcome": "ownExperienceを保存済み参照し元作者の体験を上書きしない。共有引用は現在投影で返す。",
+          "acceptance": [
+            "元体験の共有取消後も本人の実訪問/自作文が残る。"
+          ]
+        },
+        {
+          "source_task_id": "SOC-009",
+          "outcome": "残した・変えた・合う/合わない・行かなかったを選ぶ。",
+          "acceptance": [
+            "時間不足で行かなかったことをdislikeへ変換しない。"
+          ]
+        },
+        {
+          "source_task_id": "INT-005",
+          "outcome": "共有済み体験を比較し、同じ場所の相手レンズと対応否定を実API・DBで接続する。移植・返信完成を待たない。",
+          "acceptance": [
+            "比較を保存して再読込。対応否定が残り、相手レンズが同じ体験を指す。非公開原文は出ない。"
+          ]
+        },
+        {
+          "source_task_id": "INT-012",
+          "outcome": "本人の実践記録を保存し、許可された元体験への感想を返す。移植機能未完成でも既存体験から利用できる。",
+          "acceptance": [
+            "感想の作成・再表示・共有取消後の本人原文保持を実APIで確認。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-SHARE.md",
+      "recurrence_ids": [
+        "R15"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-TOGETHER",
+      "title": "共同の希望と制約を入力し、二人で選べる経路を保存できる",
+      "kind": "journey",
+      "source_task_ids": [
+        "INT-006",
+        "SOC-006",
+        "SOC-007"
+      ],
+      "inventory_task_ids": [
+        "SOC-006",
+        "SOC-007",
+        "INT-006"
+      ],
+      "hard_dependencies": [
+        "P-ROUTE",
+        "P-SHARE"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "docs/evidence/INT-006/",
+        "server/features/joint/",
+        "server/integrations/int-006/",
+        "shared/logic/joint/",
+        "src/features/joint/",
+        "src/integrations/int-006/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CreateJointPlanRequest",
+            "CreateJointPlanResponse",
+            "GetJointPlanResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "createJointPlan",
+            "getJointPlan"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "createJointPlan",
+        "getJointPlan"
+      ],
+      "contract_symbols": [
+        "CreateJointPlanRequest",
+        "CreateJointPlanResponse",
+        "GetJointPlanResponse",
+        "createJointPlan",
+        "getJointPlan"
+      ],
+      "requirement_ids": [
+        "DATA-006",
+        "ROUTE-004",
+        "ROUTE-005",
+        "ROUTE-006",
+        "ROUTE-010",
+        "SOC-005",
+        "SOC-011",
+        "SOC-012",
+        "SOC-013",
+        "TRF-006",
+        "TRF-011"
+      ],
+      "outcome": "共同の希望と制約を入力し、二人で選べる経路を保存できる",
+      "journey": "二人の希望・定期券・制約を入力する → 共通部分と競合を比較する → 共同経路を選ぶ → 保存後に同じ希望と結果へ戻る。",
+      "specific_acceptance": [
+        "一方だけ違反する候補を共同候補に採用しない。不成立理由を表示。",
+        "片方の締切変更だけで結果が変わる。",
+        "締切・車種・pass期限を変えて可否/unknownが正しく変わる。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "SOC-006",
+          "outcome": "参加者別hardを同時評価。softを平均1点に潰さず左右の説明を保持。",
+          "acceptance": [
+            "一方だけ違反する候補を共同候補に採用しない。不成立理由を表示。"
+          ]
+        },
+        {
+          "source_task_id": "SOC-007",
+          "outcome": "参加者別入力→共同案保存→再表示。依存未接続中は明示fixtureで開発。",
+          "acceptance": [
+            "片方の締切変更だけで結果が変わる。"
+          ]
+        },
+        {
+          "source_task_id": "INT-006",
+          "outcome": "定期券入力から制約計算、共同希望、選択route描画へ接続。",
+          "acceptance": [
+            "締切・車種・pass期限を変えて可否/unknownが正しく変わる。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-TOGETHER.md",
+      "recurrence_ids": [
+        "R12"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-TRANSFER",
+      "title": "体験の役割を編集し、別都市へ移して差分と根拠を確認できる",
+      "kind": "journey",
+      "source_task_ids": [
+        "INT-011",
+        "POOL-004",
+        "TRF-001",
+        "TRF-002",
+        "TRF-003",
+        "TRF-004"
+      ],
+      "inventory_task_ids": [
+        "TRF-001",
+        "TRF-002",
+        "TRF-003",
+        "TRF-004",
+        "INT-011",
+        "POOL-004"
+      ],
+      "hard_dependencies": [
+        "P-ROUTE",
+        "P-SHARE"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "docs/evidence/INT-011/",
+        "fixtures/transfer-cases/",
+        "server/features/recipes/",
+        "server/features/transfer/",
+        "server/integrations/int-011/",
+        "shared/logic/transfer/",
+        "src/features/recipe/",
+        "src/features/transfer/",
+        "src/integrations/int-011/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CreateRecipeRequest",
+            "CreateRecipeResponse",
+            "GetRecipeResponse",
+            "GetTransferResponse",
+            "PlanTransferRequest",
+            "PlanTransferResponse",
+            "UpdateRecipeRequest",
+            "UpdateRecipeResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "createRecipe",
+            "getRecipe",
+            "getTransfer",
+            "planTransfer",
+            "updateRecipe"
+          ]
+        },
+        {
+          "path": "contracts/ports.ts",
+          "symbols": [
+            "TransferPort"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        },
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "createRecipe",
+        "getRecipe",
+        "getTransfer",
+        "planTransfer",
+        "updateRecipe"
+      ],
+      "contract_symbols": [
+        "CreateRecipeRequest",
+        "CreateRecipeResponse",
+        "GetRecipeResponse",
+        "GetTransferResponse",
+        "PlanTransferRequest",
+        "PlanTransferResponse",
+        "TransferPort",
+        "UpdateRecipeRequest",
+        "UpdateRecipeResponse",
+        "createRecipe",
+        "getRecipe",
+        "getTransfer",
+        "planTransfer",
+        "updateRecipe"
+      ],
+      "requirement_ids": [
+        "EVAL-003",
+        "EVAL-007",
+        "NAV-002",
+        "SOC-008",
+        "SOC-010",
+        "TRF-001",
+        "TRF-002",
+        "TRF-004",
+        "TRF-005"
+      ],
+      "outcome": "体験の役割を編集し、別都市へ移して差分と根拠を確認できる",
+      "journey": "共有体験から役割レシピを作る → 別都市とモードを選ぶ → 役割の割当と差分を比較する → 保存する → 根拠と変更理由を読み直す。",
+      "specific_acceptance": [
+        "カテゴリ列のコピーではなく、歩いて切替→対話→一人で整理など順序を編集。",
+        "思い出を移植可能としない。2モードで説明と尺度が対応する。",
+        "別都市の3役割を再構成し、retained/changed/nonTransferable/unknownを再表示。",
+        "入力理由の訂正前後を同じ候補集合で比べられる。",
+        "役割順序と固定条件を変えると対応が変わり、再読込後も同じTransferPlanを開ける。",
+        "同カテゴリ選択では説明できない役割の例がある。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "TRF-001",
+          "outcome": "役割/順序/固定/可変/思い出を別保存。同じplaceの再登場は別roleId。",
+          "acceptance": [
+            "カテゴリ列のコピーではなく、歩いて切替→対話→一人で整理など順序を編集。"
+          ]
+        },
+        {
+          "source_task_id": "TRF-002",
+          "outcome": "属性baselineで役割ごとに候補を割当。忠実/本人適合を分離、実在性とhardを先に確認。",
+          "acceptance": [
+            "思い出を移植可能としない。2モードで説明と尺度が対応する。"
+          ]
+        },
+        {
+          "source_task_id": "TRF-003",
+          "outcome": "candidateSet固定でdiffとRoutePlanを保存。関連版を持ち訂正で再確認を出す。",
+          "acceptance": [
+            "別都市の3役割を再構成し、retained/changed/nonTransferable/unknownを再表示。"
+          ]
+        },
+        {
+          "source_task_id": "TRF-004",
+          "outcome": "忠実さ/本人適合、移せない記憶、unknownを別欄で示す。",
+          "acceptance": [
+            "入力理由の訂正前後を同じ候補集合で比べられる。"
+          ]
+        },
+        {
+          "source_task_id": "INT-011",
+          "outcome": "保存済み許可体験から役割レシピを作り、移植先の候補へ対応付けて差分と経路を保存する。比較画面や返信を待たない。",
+          "acceptance": [
+            "役割順序と固定条件を変えると対応が変わり、再読込後も同じTransferPlanを開ける。"
+          ]
+        },
+        {
+          "source_task_id": "POOL-004",
+          "outcome": "忠実/本人向け、固定/可変/記憶の入力例を作る。",
+          "acceptance": [
+            "同カテゴリ選択では説明できない役割の例がある。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-TRANSFER.md",
+      "recurrence_ids": [
+        "R16"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-AI",
+      "title": "保存した根拠を使ってAIへ相談し、取消・回答・採否を再入場後も辿れる",
+      "kind": "journey",
+      "source_task_ids": [
+        "AI-001",
+        "AI-002",
+        "AI-003",
+        "AI-004",
+        "AI-005",
+        "AI-006",
+        "AI-007",
+        "AI-008",
+        "AI-009",
+        "AI-010",
+        "AI-011",
+        "AI-012",
+        "INT-003",
+        "INT-016",
+        "POOL-007",
+        "TEST-001"
+      ],
+      "inventory_task_ids": [
+        "AI-001",
+        "AI-002",
+        "AI-004",
+        "AI-005",
+        "AI-006",
+        "AI-007",
+        "AI-010",
+        "INT-016",
+        "TEST-001",
+        "POOL-007"
+      ],
+      "hard_dependencies": [
+        "P-RECORD",
+        "P-ROUTE"
+      ],
+      "connect_after": [],
+      "required_capabilities": [
+        "api:applyAiJob",
+        "api:cancelAiJob",
+        "api:createAiJob",
+        "api:getAiJob",
+        "api:getBootstrap",
+        "api:getEvidence",
+        "api:getExperience",
+        "api:listExperienceQuestions",
+        "api:listQuestionResponses",
+        "api:respondToQuestion"
+      ],
+      "write_paths": [
+        "contracts/ai-prompt-task.ts",
+        "contracts/ai-task-entry.ts",
+        "contracts/entries.ts",
+        "contracts/ports.ts",
+        "docs/codex-evidence/",
+        "docs/evidence/AI-010/",
+        "docs/evidence/INT-016/",
+        "docs/evidence/TEST-001/",
+        "docs/learnings/LRN-AI-010.md",
+        "docs/reuse/",
+        "docs/spec/ENTRY_CONTRACT.md",
+        "examples/ai-prompt-task.typecheck.ts",
+        "server/ai/adapter/",
+        "server/ai/prompts/compare.ts",
+        "server/ai/prompts/diary.ts",
+        "server/ai/prompts/discover.ts",
+        "server/ai/prompts/extension.ts",
+        "server/ai/prompts/extract.ts",
+        "server/ai/prompts/recipe.ts",
+        "server/ai/prompts/repair.ts",
+        "server/features/ai/",
+        "server/features/interpretations/",
+        "server/features/meaning/entry.test.ts",
+        "server/features/questions/",
+        "server/index.ts",
+        "server/integrations/int-003/",
+        "server/integrations/int-016/",
+        "shared/logic/graph/graph.test.ts",
+        "shared/logic/meaning/meaning.test.ts",
+        "src/app/",
+        "src/features/ai/",
+        "src/features/questions/",
+        "src/integrations/int-003/",
+        "src/integrations/int-016/",
+        "tools/test_ai_prompt_task_contract.py"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/ai-prompt-task.ts",
+          "symbols": [
+            "AiPromptResolvedSource"
+          ]
+        },
+        {
+          "path": "contracts/ai-task-entry.ts",
+          "symbols": []
+        },
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "ApplyAiJobRequest",
+            "ApplyAiJobResponse",
+            "CancelAiJobRequest",
+            "CancelAiJobResponse",
+            "CreateAiJobRequest",
+            "CreateAiJobResponse",
+            "GetAiJobResponse",
+            "GetBootstrapResponse",
+            "GetEvidenceResponse",
+            "GetExperienceResponse",
+            "GetHealthResponse",
+            "ListExperienceQuestionsResponse",
+            "ListQuestionResponsesResponse",
+            "RespondToQuestionRequest",
+            "RespondToQuestionResponse",
+            "ReviewInterpretationRequest",
+            "ReviewInterpretationResponse"
+          ]
+        },
+        {
+          "path": "contracts/entries.ts",
+          "symbols": []
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "applyAiJob",
+            "cancelAiJob",
+            "createAiJob",
+            "getAiJob",
+            "getBootstrap",
+            "getEvidence",
+            "getExperience",
+            "getHealth",
+            "listExperienceQuestions",
+            "listQuestionResponses",
+            "respondToQuestion",
+            "reviewInterpretation"
+          ]
+        },
+        {
+          "path": "contracts/ports.ts",
+          "symbols": [
+            "AiPort",
+            "QuestionPort"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        },
+        {
+          "path": "docs/spec/QUESTION_FLOW.md",
+          "symbols": []
+        },
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "applyAiJob",
+        "cancelAiJob",
+        "createAiJob",
+        "getAiJob",
+        "listExperienceQuestions",
+        "listQuestionResponses",
+        "respondToQuestion",
+        "reviewInterpretation"
+      ],
+      "contract_symbols": [
+        "AiPort",
+        "AiPromptResolvedSource",
+        "ApplyAiJobRequest",
+        "ApplyAiJobResponse",
+        "CancelAiJobRequest",
+        "CancelAiJobResponse",
+        "CreateAiJobRequest",
+        "CreateAiJobResponse",
+        "GetAiJobResponse",
+        "GetBootstrapResponse",
+        "GetEvidenceResponse",
+        "GetExperienceResponse",
+        "GetHealthResponse",
+        "ListExperienceQuestionsResponse",
+        "ListQuestionResponsesResponse",
+        "QuestionPort",
+        "RespondToQuestionRequest",
+        "RespondToQuestionResponse",
+        "ReviewInterpretationRequest",
+        "ReviewInterpretationResponse",
+        "applyAiJob",
+        "cancelAiJob",
+        "createAiJob",
+        "getAiJob",
+        "getHealth",
+        "reviewInterpretation"
+      ],
+      "requirement_ids": [
+        "CORE-005",
+        "DATA-004",
+        "DATA-005",
+        "DATA-008",
+        "DATA-010",
+        "DATA-011",
+        "DATA-012",
+        "DISC-007",
+        "EVAL-003",
+        "EVAL-004",
+        "EXT-007",
+        "EXT-008",
+        "EXT-009",
+        "EXT-011",
+        "EXT-013",
+        "EXT-014",
+        "EXT-016",
+        "EXT-017",
+        "EXT-018",
+        "EXT-019",
+        "NAV-006",
+        "NAV-009",
+        "NEW-003",
+        "NEW-009",
+        "OPS-003",
+        "OPS-005",
+        "OPS-006",
+        "OPS-007",
+        "OPS-009",
+        "REC-002",
+        "REC-008",
+        "REC-009",
+        "SELF-002",
+        "SELF-008",
+        "SELF-012",
+        "SELF-014",
+        "SOC-010",
+        "TRF-001",
+        "TRF-002",
+        "TRF-004",
+        "TRF-005"
+      ],
+      "outcome": "保存した根拠を使ってAIへ相談し、取消・回答・採否を再入場後も辿れる",
+      "journey": "記録の原文を指定して相談する → 実providerの待ち・取消を操作する → 質問へ回答し提案の採否を選ぶ → 保存する → 再入場で根拠と本人stateを辿る。",
+      "specific_acceptance": [
+        "実入力の変化で異なる検証済みoutput。ライブ失敗から別モデル/replayへ黙って切替しない。",
+        "取消後の遅着はapply不能。再起動running→interrupted。acceptでのみ正本へ作用。",
+        "非公開原文をコンテキストに入れない。",
+        "訪問していない場所や本人感情を事実として増やさない。",
+        "未知opをホストで実行しない。単位の意味変更を自動承認しない。",
+        "画面移動中に成功しても別対象へ自動適用しない。",
+        "CODEX_AI_WORKDIR_ROOT等が不足しても本体は起動しAIをunavailable表示する。登録descriptorや環境変数の存在、過去receiptだけを稼働成功にせず、最小probeの費用/副作用、診断と実AI応答の証拠を分ける。秘密や本人原文をhealthへ出さない。",
+        "IDだけをpromptへ渡さず、検証済み原文と必要Evidenceだけを渡す。余分/未知/別scopeの根拠IDを拒否する。",
+        "回答保存済みIDが次の実AI入力へ入り、answered/deferred/skippedが再入場で戻る。原文・用途は本人確認なしに上書きしない。",
+        "prepare→認証確認→provider一回→current確認→decode。取消・古いscope・設定/認証/provider/出力異常を区別する。",
+        "SDK/provider準備はAI-001/AI-010、ジョブ制御はAI-002を再利用する。live未確認なら保留し固定出力で完了にしない。",
+        "回答原文をtrimせず、回答とEvidenceを同一mutationへ一度保存する。deferred/skippedではEvidenceを作らない。同opIdの再送を再生し、別opIdの二重回答を409で拒否する。",
+        "送信中の追記草稿は成功時にも消さず、再入場で回収できる。settingsRevisionは既存bootstrapから取得し、無関係な設定UIを依存に加えない。",
+        "対象六エラーとRTE-001所有のgraph fixture一エラーが解消した状態で、該当Bun suiteの件数とmodule結果を記録し、標準product:checkがNodeとBunの両runnerを実行して成功する。Bun型検査だけをruntime成功として扱わない。",
+        "未実行機能をデモ済みとせず、秘密値を載せない。",
+        "[リハーサル #185](https://github.com/rozwer/sodateru-map-rehearsal/issues/185): 既存の正式AiTaskEntryから既存の原文resolverとCodex SDK境界へ接続する。actor/namespace/revision・許可・原文/回答Evidenceの対応を検査し、必要な原文だけを渡す。自己循環・SDK二重実装を避け、取消・過去scope・provider/認証/設定/出力エラーを確認する。異なる原文による構造化実応答の差は既存証拠を照合し、不足するlive確認は保留指示のまま未完了にする。発見時の案A/Bを新規再実装の指示とはせず、現行の承認済み契約との差分だけを埋める。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "AI-001",
+          "outcome": "task+JSONSchema→Codex→構造化結果。専用workdir、認証状態、明示エラー。 v2.2のai-task descriptorをtask IDでdispatchできる入口を用意する。wellbeing未登録は明示未対応、既存taskは維持。",
+          "acceptance": [
+            "実入力の変化で異なる検証済みoutput。ライブ失敗から別モデル/replayへ黙って切替しない。"
+          ]
+        },
+        {
+          "source_task_id": "AI-002",
+          "outcome": "DBにjobを保存。外部待機はtransaction外。apply前にentity/grant/settings版を照合。 extract apply時の質問保存は注入されたQuestionPortを同じtransactionで呼ぶ。再抽出は許可されたquestionResponseIdsから原文を取得する。 健康由来jobのcreate/get/applyに注入可能な許可guardを設ける。health provider不在はその枝だけ閉じる。",
+          "acceptance": [
+            "取消後の遅着はapply不能。再起動running→interrupted。acceptでのみ正本へ作用。"
+          ]
+        },
+        {
+          "source_task_id": "AI-004",
+          "outcome": "許可済み投影のみ渡し、役割と順序と根拠を返す。",
+          "acceptance": [
+            "非公開原文をコンテキストに入れない。"
+          ]
+        },
+        {
+          "source_task_id": "AI-005",
+          "outcome": "発見の一般知識/固有事実を分ける。日記は本人承認前の下書き。",
+          "acceptance": [
+            "訪問していない場所や本人感情を事実として増やさない。"
+          ]
+        },
+        {
+          "source_task_id": "AI-006",
+          "outcome": "既存opに制限した機能定義と列対応を構造化。未対応は明記する。",
+          "acceptance": [
+            "未知opをホストで実行しない。単位の意味変更を自動承認しない。"
+          ]
+        },
+        {
+          "source_task_id": "AI-007",
+          "outcome": "JobState componentをタスク画面へ埋め込む。選択scopeを固定表示。",
+          "acceptance": [
+            "画面移動中に成功しても別対象へ自動適用しない。"
+          ]
+        },
+        {
+          "source_task_id": "AI-010",
+          "outcome": "AI adapterの未登録・設定不足・準備確認済み・実行失敗を診断Portで区別し、既存Health.aiへ現在の実行可否を安全側に投影する。OpenAPI/DBは変更しない。",
+          "acceptance": [
+            "CODEX_AI_WORKDIR_ROOT等が不足しても本体は起動しAIをunavailable表示する。登録descriptorや環境変数の存在、過去receiptだけを稼働成功にせず、最小probeの費用/副作用、診断と実AI応答の証拠を分ける。秘密や本人原文をhealthへ出さない。"
+          ]
+        },
+        {
+          "source_task_id": "INT-016",
+          "outcome": "保存済み原文に基づく用途提案と質問へ回答し、再入場後も根拠を辿れる",
+          "acceptance": [
+            "IDだけをpromptへ渡さず、検証済み原文と必要Evidenceだけを渡す。余分/未知/別scopeの根拠IDを拒否する。",
+            "回答保存済みIDが次の実AI入力へ入り、answered/deferred/skippedが再入場で戻る。原文・用途は本人確認なしに上書きしない。",
+            "prepare→認証確認→provider一回→current確認→decode。取消・古いscope・設定/認証/provider/出力異常を区別する。",
+            "SDK/provider準備はAI-001/AI-010、ジョブ制御はAI-002を再利用する。live未確認なら保留し固定出力で完了にしない。",
+            "回答原文をtrimせず、回答とEvidenceを同一mutationへ一度保存する。deferred/skippedではEvidenceを作らない。同opIdの再送を再生し、別opIdの二重回答を409で拒否する。",
+            "送信中の追記草稿は成功時にも消さず、再入場で回収できる。settingsRevisionは既存bootstrapから取得し、無関係な設定UIを依存に加えない。"
+          ]
+        },
+        {
+          "source_task_id": "TEST-001",
+          "outcome": "Bun runtime分離済みrunnerを維持し、meaning・questionsの六つとgraph fixture一つの計七つの型エラーを型安全なfixtureとregistrationへ修正する。any・unknown cast、SQLite・idempotency・原文・scope受入の弱化、packageやrunnerの変更で代替しない。",
+          "acceptance": [
+            "対象六エラーとRTE-001所有のgraph fixture一エラーが解消した状態で、該当Bun suiteの件数とmodule結果を記録し、標準product:checkがNodeとBunの両runnerを実行して成功する。Bun型検査だけをruntime成功として扱わない。"
+          ]
+        },
+        {
+          "source_task_id": "POOL-007",
+          "outcome": "要求→差分→受入の実ログと、再利用できるDSL/投影/訂正契約を整理。",
+          "acceptance": [
+            "未実行機能をデモ済みとせず、秘密値を載せない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-AI.md",
+      "recurrence_ids": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R06",
+        "R18",
+        "R21",
+        "R27"
+      ],
+      "consumes_operation_ids": [
+        "getBootstrap",
+        "getEvidence",
+        "getExperience",
+        "getHealth"
+      ],
+      "requires_live_ai": true,
+      "required_providers": []
+    },
+    {
+      "id": "P-EXTENSIONS",
+      "title": "機能を生成・試用・修正して導入し、三つのテーマを実際に使える",
+      "kind": "journey",
+      "source_task_ids": [
+        "DEV-001",
+        "EXT-001",
+        "EXT-002",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "EXT-006",
+        "EXT-007",
+        "INT-008",
+        "INT-013",
+        "INT-014",
+        "INT-015",
+        "POOL-005"
+      ],
+      "inventory_task_ids": [
+        "EXT-001",
+        "EXT-002",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "EXT-006",
+        "EXT-007",
+        "INT-008",
+        "INT-013",
+        "INT-014",
+        "INT-015",
+        "POOL-005",
+        "DEV-001"
+      ],
+      "hard_dependencies": [
+        "P-AI"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "docs/evidence/INT-008/",
+        "docs/evidence/INT-013/",
+        "docs/evidence/INT-014/",
+        "docs/evidence/INT-015/",
+        "extensions/disaster/",
+        "extensions/motorcycle/",
+        "extensions/pilgrimage/",
+        "fixtures/extension-cases/",
+        "server/features/development/",
+        "server/features/extensions/",
+        "server/integrations/int-008/",
+        "server/integrations/int-013/",
+        "server/integrations/int-014/",
+        "server/integrations/int-015/",
+        "shared/logic/dsl/",
+        "src/extension-host/",
+        "src/features/development/",
+        "src/features/extensions/",
+        "src/integrations/int-008/",
+        "src/integrations/int-013/",
+        "src/integrations/int-014/",
+        "src/integrations/int-015/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CreateDevelopmentRequestRequest",
+            "CreateDevelopmentRequestResponse",
+            "CreateExtensionRequest",
+            "CreateExtensionResponse",
+            "CreateExtensionVersionRequest",
+            "CreateExtensionVersionResponse",
+            "GetDevelopmentRequestResponse",
+            "InstallExtensionRequest",
+            "InstallExtensionResponse",
+            "ListExtensionVersionsResponse",
+            "ListExtensionsResponse",
+            "ListInstallsResponse",
+            "PreviewExtensionRequest",
+            "PreviewExtensionResponse",
+            "RollbackInstallRequest",
+            "RollbackInstallResponse",
+            "RunExtensionRequest",
+            "RunExtensionResponse",
+            "UpdateInstallRequest",
+            "UpdateInstallResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "createDevelopmentRequest",
+            "createExtension",
+            "createExtensionVersion",
+            "getDevelopmentRequest",
+            "installExtension",
+            "listExtensionVersions",
+            "listExtensions",
+            "listInstalls",
+            "previewExtension",
+            "rollbackInstall",
+            "runExtension",
+            "updateInstall"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        },
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "createDevelopmentRequest",
+        "createExtension",
+        "createExtensionVersion",
+        "getDevelopmentRequest",
+        "installExtension",
+        "listExtensionVersions",
+        "listExtensions",
+        "listInstalls",
+        "previewExtension",
+        "rollbackInstall",
+        "runExtension",
+        "updateInstall"
+      ],
+      "contract_symbols": [
+        "CreateDevelopmentRequestRequest",
+        "CreateDevelopmentRequestResponse",
+        "CreateExtensionRequest",
+        "CreateExtensionResponse",
+        "CreateExtensionVersionRequest",
+        "CreateExtensionVersionResponse",
+        "GetDevelopmentRequestResponse",
+        "InstallExtensionRequest",
+        "InstallExtensionResponse",
+        "ListExtensionVersionsResponse",
+        "ListExtensionsResponse",
+        "ListInstallsResponse",
+        "PreviewExtensionRequest",
+        "PreviewExtensionResponse",
+        "RollbackInstallRequest",
+        "RollbackInstallResponse",
+        "RunExtensionRequest",
+        "RunExtensionResponse",
+        "UpdateInstallRequest",
+        "UpdateInstallResponse",
+        "createDevelopmentRequest",
+        "createExtension",
+        "createExtensionVersion",
+        "getDevelopmentRequest",
+        "installExtension",
+        "listExtensionVersions",
+        "listExtensions",
+        "listInstalls",
+        "previewExtension",
+        "rollbackInstall",
+        "runExtension",
+        "updateInstall"
+      ],
+      "requirement_ids": [
+        "DATA-004",
+        "DATA-012",
+        "EVAL-006",
+        "EXT-001",
+        "EXT-002",
+        "EXT-003",
+        "EXT-004",
+        "EXT-005",
+        "EXT-006",
+        "EXT-007",
+        "EXT-008",
+        "EXT-009",
+        "EXT-010",
+        "EXT-011",
+        "EXT-014",
+        "EXT-015",
+        "EXT-019",
+        "NEW-006",
+        "NEW-009",
+        "OPS-005",
+        "OPS-009"
+      ],
+      "outcome": "機能を生成・試用・修正して導入し、三つのテーマを実際に使える",
+      "journey": "ストアまたは生成から機能を選ぶ → 入力を変えて試す → 差分を確認して修正・導入する → host画面で防災・バイク・聖地巡礼を使う → 再入場で版と設定を確認する。",
+      "specific_acceptance": [
+        "同じ定義で入力を変えると計算が変わる。コード文字列をevalしない。",
+        "未検証版は導入不可。rollbackで定義を戻しても本人状態を失わない。",
+        "ボタンがあるだけでなく、入力変更→preview差分→導入まで確認。",
+        "他機能のカードを壊さず無効化できる。",
+        "サンプル規制変更で通行候補が変わる。安全保証として実演しない。",
+        "車種条件変更で候補か可否が変わる。実規制未取得はunknown。",
+        "滞在増で到着時刻/可否が変わる。許諾なし素材を混ぜない。",
+        "要求から新定義を生成。入力変更で結果が変わり、再読込後の導入版と状態が保持され、無効化と旧版復帰ができる。",
+        "サンプルであることを表示し、入力→計算→DB保存→再表示→無効化が通る。AI生成は実行した場合だけ表示。",
+        "固定結果を返すだけの実装を検出できる。",
+        "出力契約に秘密値なし。ブラウザだけで本体改造済みと称さない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "EXT-001",
+          "outcome": "有限opのデータflow実行。definition/入力を検証しoutputsを返す。",
+          "acceptance": [
+            "同じ定義で入力を変えると計算が変わる。コード文字列をevalしない。"
+          ]
+        },
+        {
+          "source_task_id": "EXT-002",
+          "outcome": "定義、artifactHash、インストール、privateStateを別保存。preview→validated→install。",
+          "acceptance": [
+            "未検証版は導入不可。rollbackで定義を戻しても本人状態を失わない。"
+          ]
+        },
+        {
+          "source_task_id": "EXT-003",
+          "outcome": "要求文、preview入力、結果、版、導入を1導線にする。",
+          "acceptance": [
+            "ボタンがあるだけでなく、入力変更→preview差分→導入まで確認。"
+          ]
+        },
+        {
+          "source_task_id": "EXT-004",
+          "outcome": "map/self/route slotへ導入版を表示。disable/rollback/失敗を局所処理。",
+          "acceptance": [
+            "他機能のカードを壊さず無効化できる。"
+          ]
+        },
+        {
+          "source_task_id": "EXT-005",
+          "outcome": "covered/障害/情報鮮度/unknownを入力に経路の確認・保留を計算。",
+          "acceptance": [
+            "サンプル規制変更で通行候補が変わる。安全保証として実演しない。"
+          ]
+        },
+        {
+          "source_task_id": "EXT-006",
+          "outcome": "vehicleClass・通行規制・立寄条件をDSLへ入力。",
+          "acceptance": [
+            "車種条件変更で候補か可否が変わる。実規制未取得はunknown。"
+          ]
+        },
+        {
+          "source_task_id": "EXT-007",
+          "outcome": "順序、滞在、締切、出典を入力して全行程を計算。",
+          "acceptance": [
+            "滞在増で到着時刻/可否が変わる。許諾なし素材を混ぜない。"
+          ]
+        },
+        {
+          "source_task_id": "INT-008",
+          "outcome": "汎用DSLを実Codexで生成し、計算・保存・導入・無効化・rollbackまで接続する。三つのテーマ完成を待たない。",
+          "acceptance": [
+            "要求から新定義を生成。入力変更で結果が変わり、再読込後の導入版と状態が保持され、無効化と旧版復帰ができる。"
+          ]
+        },
+        {
+          "source_task_id": "INT-013",
+          "outcome": "防災の定義を試用・導入して入力による計算差を実行する。他テーマやAI生成の完成を待たず、登録テンプレートとして使える。",
+          "acceptance": [
+            "サンプルであることを表示し、入力→計算→DB保存→再表示→無効化が通る。AI生成は実行した場合だけ表示。"
+          ]
+        },
+        {
+          "source_task_id": "INT-014",
+          "outcome": "バイクの定義を試用・導入して入力による計算差を実行する。他テーマやAI生成の完成を待たず、登録テンプレートとして使える。",
+          "acceptance": [
+            "サンプルであることを表示し、入力→計算→DB保存→再表示→無効化が通る。AI生成は実行した場合だけ表示。"
+          ]
+        },
+        {
+          "source_task_id": "INT-015",
+          "outcome": "聖地巡礼の定義を試用・導入して入力による計算差を実行する。他テーマやAI生成の完成を待たず、登録テンプレートとして使える。",
+          "acceptance": [
+            "サンプルであることを表示し、入力→計算→DB保存→再表示→無効化が通る。AI生成は実行した場合だけ表示。"
+          ]
+        },
+        {
+          "source_task_id": "POOL-005",
+          "outcome": "規制・排気量区分・滞在/締切を動かす入出力期待値を作る。",
+          "acceptance": [
+            "固定結果を返すだけの実装を検出できる。"
+          ]
+        },
+        {
+          "source_task_id": "DEV-001",
+          "outcome": "requirement、許可paths、baseCommit、data clone-only、受入を出力。コード生成と区別。",
+          "acceptance": [
+            "出力契約に秘密値なし。ブラウザだけで本体改造済みと称さない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-EXTENSIONS.md",
+      "recurrence_ids": [
+        "R17",
+        "R27"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": true,
+      "required_providers": []
+    },
+    {
+      "id": "P-REPAIR",
+      "title": "地域情報を取り込み、出典と差分を見て修復し、再計算を確認できる",
+      "kind": "journey",
+      "source_task_ids": [
+        "DATA-001",
+        "DATA-002",
+        "DATA-003",
+        "INT-009"
+      ],
+      "inventory_task_ids": [
+        "DATA-001",
+        "DATA-002",
+        "DATA-003",
+        "INT-009"
+      ],
+      "hard_dependencies": [
+        "P-ROUTE"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "docs/evidence/INT-009/",
+        "server/features/sources/",
+        "server/integrations/int-009/",
+        "shared/logic/source-normalize/",
+        "src/features/sources/",
+        "src/integrations/int-009/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "ApproveRepairRequest",
+            "ApproveRepairResponse",
+            "CreateRepairRequest",
+            "CreateRepairResponse",
+            "CreateSnapshotRequest",
+            "CreateSnapshotResponse",
+            "CreateSourceRequest",
+            "CreateSourceResponse",
+            "GetRepairResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "approveRepair",
+            "createRepair",
+            "createSnapshot",
+            "createSource",
+            "getRepair"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "approveRepair",
+        "createRepair",
+        "createSnapshot",
+        "createSource",
+        "getRepair"
+      ],
+      "contract_symbols": [
+        "ApproveRepairRequest",
+        "ApproveRepairResponse",
+        "CreateRepairRequest",
+        "CreateRepairResponse",
+        "CreateSnapshotRequest",
+        "CreateSnapshotResponse",
+        "CreateSourceRequest",
+        "CreateSourceResponse",
+        "GetRepairResponse",
+        "approveRepair",
+        "createRepair",
+        "createSnapshot",
+        "createSource",
+        "getRepair"
+      ],
+      "requirement_ids": [
+        "DATA-004",
+        "EXT-013",
+        "EXT-016",
+        "EXT-017",
+        "EXT-018"
+      ],
+      "outcome": "地域情報を取り込み、出典と差分を見て修復し、再計算を確認できる",
+      "journey": "地域情報を取り込む → 出典・snapshot・差分を読む → 修復を承認または却下する → 保存する → 再計算した場所・候補と元の根拠を確認する。",
+      "specific_acceptance": [
+        "数値単位が変わったファイルを黙って旧parserで受理しない。",
+        "新snapshot到着後の古い提案は409。承認失敗で旧factsが残る。",
+        "列の対応だけの変更と意味変化の変更を区別できる。",
+        "列名変更と単位変更の3行差分、適用失敗時旧版維持。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "DATA-001",
+          "outcome": "列名/座標/単位を検査しtyped PlaceFactsへ写像。変換不能はunknown。",
+          "acceptance": [
+            "数値単位が変わったファイルを黙って旧parserで受理しない。"
+          ]
+        },
+        {
+          "source_task_id": "DATA-002",
+          "outcome": "raw hashとparser版を保持。proposal承認時にだけ更新を公開。",
+          "acceptance": [
+            "新snapshot到着後の古い提案は409。承認失敗で旧factsが残る。"
+          ]
+        },
+        {
+          "source_task_id": "DATA-003",
+          "outcome": "旧新列3行と変換/単位を比較して承認する。",
+          "acceptance": [
+            "列の対応だけの変更と意味変化の変更を区別できる。"
+          ]
+        },
+        {
+          "source_task_id": "INT-009",
+          "outcome": "修復版を承認し現在facts更新→候補/経路再確認まで通知。",
+          "acceptance": [
+            "列名変更と単位変更の3行差分、適用失敗時旧版維持。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-REPAIR.md",
+      "recurrence_ids": [
+        "R18"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-DIARY",
+      "title": "写真と日記を保存・編集し、再起動後に同じ内容を読める",
+      "kind": "journey",
+      "source_task_ids": [
+        "INT-010",
+        "MEDIA-002",
+        "MEDIA-003"
+      ],
+      "inventory_task_ids": [
+        "MEDIA-002",
+        "MEDIA-003",
+        "INT-010"
+      ],
+      "hard_dependencies": [
+        "P-RECORD",
+        "P-WORKSPACE"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "docs/evidence/INT-010/",
+        "server/features/diaries/",
+        "server/integrations/int-010/",
+        "src/features/diary/",
+        "src/integrations/int-010/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CreateDiaryRequest",
+            "CreateDiaryResponse",
+            "ListDiariesResponse",
+            "UpdateDiaryRequest",
+            "UpdateDiaryResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "createDiary",
+            "listDiaries",
+            "updateDiary"
+          ]
+        },
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "createDiary",
+        "listDiaries",
+        "updateDiary"
+      ],
+      "contract_symbols": [
+        "CreateDiaryRequest",
+        "CreateDiaryResponse",
+        "ListDiariesResponse",
+        "UpdateDiaryRequest",
+        "UpdateDiaryResponse",
+        "createDiary",
+        "listDiaries",
+        "updateDiary"
+      ],
+      "requirement_ids": [
+        "DATA-008",
+        "DATA-011",
+        "DISC-007",
+        "EVAL-004",
+        "NAV-009",
+        "OPS-007",
+        "REC-009",
+        "SELF-012"
+      ],
+      "outcome": "写真と日記を保存・編集し、再起動後に同じ内容を読める",
+      "journey": "記録に写真と日記を添える → 保存して編集する → アプリを再起動する → 認可された画像bytesと原文を読む。",
+      "specific_acceptance": [
+        "AI下書きが未承認のまま本人の確定文にならない。",
+        "写真アップロード失敗時も本文の草稿を保持。",
+        "再起動後に本文と写真参照が戻る。出力の確認を重複させない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "MEDIA-002",
+          "outcome": "原記録への参照と承認版の日記・asset参照を保存。",
+          "acceptance": [
+            "AI下書きが未承認のまま本人の確定文にならない。"
+          ]
+        },
+        {
+          "source_task_id": "MEDIA-003",
+          "outcome": "日記編集、写真選択、圧縮しすぎないpreview、保存済み表示。",
+          "acceptance": [
+            "写真アップロード失敗時も本文の草稿を保持。"
+          ]
+        },
+        {
+          "source_task_id": "INT-010",
+          "outcome": "日記本文と写真参照を実API/DBで保存して再表示する。設定・出力の受入はPREF-001/PREF-002へ集約する。",
+          "acceptance": [
+            "再起動後に本文と写真参照が戻る。出力の確認を重複させない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-DIARY.md",
+      "recurrence_ids": [
+        "R19"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-COMPANION",
+      "title": "相棒を取り込み・生成して採否と選択を決め、一緒に地図を歩ける",
+      "kind": "journey",
+      "source_task_ids": [
+        "INT-017",
+        "INT-018",
+        "INT-018-CATALOG",
+        "PET-001",
+        "PET-002",
+        "PET-003",
+        "PET-004",
+        "PET-005",
+        "PET-006",
+        "PET-007"
+      ],
+      "inventory_task_ids": [
+        "PET-001",
+        "PET-003",
+        "PET-006",
+        "INT-017",
+        "INT-018"
+      ],
+      "hard_dependencies": [
+        "P-MAP"
+      ],
+      "connect_after": [],
+      "required_capabilities": [
+        "api:cancelPetGeneration",
+        "api:createPetGeneration",
+        "api:deletePet",
+        "api:exportPet",
+        "api:getAsset",
+        "api:getAssetContent",
+        "api:getCompanionProfile",
+        "api:getPet",
+        "api:getPetGeneration",
+        "api:importPet",
+        "api:listPetGenerationProviders",
+        "api:listPets",
+        "api:putCompanionProfile",
+        "api:reviewPetGeneration",
+        "api:uploadAsset"
+      ],
+      "write_paths": [
+        "docs/evidence/INT-017/",
+        "docs/evidence/INT-018/",
+        "docs/evidence/PET-001/",
+        "docs/evidence/PET-003/",
+        "docs/evidence/PET-006/",
+        "docs/spec/ENTRY_CONTRACT.md",
+        "server/adapters/pet-image-generation/",
+        "server/features/pet-generation/",
+        "server/features/pets/",
+        "server/index.ts",
+        "server/integrations/int-017/",
+        "server/integrations/int-018/",
+        "server/pet-image-generation-catalog.test.ts",
+        "shared/logic/pet-package/",
+        "src/client/services/companion-events/",
+        "src/companion/",
+        "src/features/companion/",
+        "src/features/pet-studio/",
+        "src/features/pets/",
+        "src/integrations/int-017/",
+        "src/integrations/int-018/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/ai-task-entry.ts",
+          "symbols": []
+        },
+        {
+          "path": "contracts/companion-health.ts",
+          "symbols": [
+            "CompanionEventsPort",
+            "PetImageGenerationPort",
+            "PetPackagePort",
+            "PetRendererPort"
+          ]
+        },
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CancelPetGenerationRequest",
+            "CancelPetGenerationResponse",
+            "CreatePetGenerationRequest",
+            "CreatePetGenerationResponse",
+            "DeletePetRequest",
+            "DeletePetResponse",
+            "ExportPetResponse",
+            "GetAssetResponse",
+            "GetCompanionProfileResponse",
+            "GetPetGenerationResponse",
+            "GetPetResponse",
+            "ImportPetRequest",
+            "ImportPetResponse",
+            "ListPetGenerationProvidersResponse",
+            "ListPetsResponse",
+            "PutCompanionProfileRequest",
+            "PutCompanionProfileResponse",
+            "ReviewPetGenerationRequest",
+            "ReviewPetGenerationResponse",
+            "UploadAssetResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "cancelPetGeneration",
+            "createPetGeneration",
+            "deletePet",
+            "exportPet",
+            "getAsset",
+            "getAssetContent",
+            "getCompanionProfile",
+            "getPet",
+            "getPetGeneration",
+            "importPet",
+            "listPetGenerationProviders",
+            "listPets",
+            "putCompanionProfile",
+            "reviewPetGeneration",
+            "uploadAsset"
+          ]
+        },
+        {
+          "path": "docs/spec/PET_COMPANION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "cancelPetGeneration",
+        "createPetGeneration",
+        "deletePet",
+        "exportPet",
+        "getCompanionProfile",
+        "getPet",
+        "getPetGeneration",
+        "importPet",
+        "listPetGenerationProviders",
+        "listPets",
+        "putCompanionProfile",
+        "reviewPetGeneration"
+      ],
+      "contract_symbols": [
+        "CancelPetGenerationRequest",
+        "CancelPetGenerationResponse",
+        "CompanionEventsPort",
+        "CreatePetGenerationRequest",
+        "CreatePetGenerationResponse",
+        "DeletePetRequest",
+        "DeletePetResponse",
+        "ExportPetResponse",
+        "GetAssetResponse",
+        "GetCompanionProfileResponse",
+        "GetPetGenerationResponse",
+        "GetPetResponse",
+        "ImportPetRequest",
+        "ImportPetResponse",
+        "ListPetGenerationProvidersResponse",
+        "ListPetsResponse",
+        "PetImageGenerationPort",
+        "PetPackagePort",
+        "PetRendererPort",
+        "PutCompanionProfileRequest",
+        "PutCompanionProfileResponse",
+        "ReviewPetGenerationRequest",
+        "ReviewPetGenerationResponse",
+        "UploadAssetResponse"
+      ],
+      "requirement_ids": [
+        "PET-REQ-001",
+        "PET-REQ-002",
+        "PET-REQ-003",
+        "PET-REQ-004",
+        "PET-REQ-005",
+        "PET-REQ-006",
+        "PET-REQ-007"
+      ],
+      "outcome": "相棒を取り込み・生成して採否と選択を決め、一緒に地図を歩ける",
+      "journey": "相棒を取り込む、または実画像providerで生成する → previewを見て採用・却下する → profileで相棒を選ぶ → 地図を歩く → 再入場で選択と動きを確認する。",
+      "specific_acceptance": [
+        "全標準行・未使用セルを検査する。外部コードを実行しない。UIや保存APIを含めない。",
+        "renderer/event serviceを取込と生成で再利用する。profile保存はINT-017へ委譲する。",
+        "未設定と失敗を区別し、別providerへ無断切替しない。credential/費用/実生成は独立した接続前提として残す。",
+        "生成provider不要で実API/DBを通す。保存IDだけで成功とせずassetとprofileを再読込する。",
+        "別scopeの相棒は見せず、壊れたZIPを表示や設定へ適用しない。",
+        "Node/SQLite通し操作と固定Bunの標準atlas decoderを別々に検証して同じasset/hashへ結び付ける。",
+        "requiredProviders=image-generationの実証拠を同じbuildへ結び付ける。fixture結果でlive能力を解放しない。",
+        "catalog登録を同じIssue内で終え、生成後に別配線Issueを作らない。取消・却下した結果をprofileへ残さない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "PET-001",
+          "outcome": "取込と生成で同じ安全なv2形式検査を使える",
+          "acceptance": [
+            "全標準行・未使用セルを検査する。外部コードを実行しない。UIや保存APIを含めない。"
+          ]
+        },
+        {
+          "source_task_id": "PET-003",
+          "outcome": "選択した相棒が共通イベントで一貫して動く",
+          "acceptance": [
+            "renderer/event serviceを取込と生成で再利用する。profile保存はINT-017へ委譲する。"
+          ]
+        },
+        {
+          "source_task_id": "PET-006",
+          "outcome": "画像providerを明示設定して共通Portから実行できる",
+          "acceptance": [
+            "未設定と失敗を区別し、別providerへ無断切替しない。credential/費用/実生成は独立した接続前提として残す。"
+          ]
+        },
+        {
+          "source_task_id": "INT-017",
+          "outcome": "持ち込んだ相棒を保存・選択し、再入場しても表示できる",
+          "acceptance": [
+            "生成provider不要で実API/DBを通す。保存IDだけで成功とせずassetとprofileを再読込する。",
+            "別scopeの相棒は見せず、壊れたZIPを表示や設定へ適用しない。",
+            "Node/SQLite通し操作と固定Bunの標準atlas decoderを別々に検証して同じasset/hashへ結び付ける。"
+          ]
+        },
+        {
+          "source_task_id": "INT-018",
+          "outcome": "相棒を生成し、previewで採用・却下を選んで保存できる",
+          "acceptance": [
+            "requiredProviders=image-generationの実証拠を同じbuildへ結び付ける。fixture結果でlive能力を解放しない。",
+            "catalog登録を同じIssue内で終え、生成後に別配線Issueを作らない。取消・却下した結果をprofileへ残さない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-COMPANION.md",
+      "recurrence_ids": [
+        "R19",
+        "R22",
+        "R23"
+      ],
+      "consumes_operation_ids": [
+        "getAsset",
+        "getAssetContent",
+        "uploadAsset"
+      ],
+      "requires_live_ai": false,
+      "required_providers": [
+        "image-generation"
+      ]
+    },
+    {
+      "id": "P-HEALTH-CORE",
+      "title": "本人確認・健康の許可と集計をXML・HealthKit・AIから共通に使える",
+      "kind": "foundation",
+      "source_task_ids": [
+        "HLT-002",
+        "HLT-003",
+        "HLT-005",
+        "HLT-009"
+      ],
+      "inventory_task_ids": [
+        "HLT-002",
+        "HLT-003",
+        "HLT-005",
+        "HLT-009"
+      ],
+      "hard_dependencies": [
+        "P-RUNTIME"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "server/auth/private-data/",
+        "server/features/health-data/",
+        "server/features/health-summaries/",
+        "shared/logic/health-aggregation/",
+        "src/features/health/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/ai-task-entry.ts",
+          "symbols": []
+        },
+        {
+          "path": "contracts/companion-health.ts",
+          "symbols": [
+            "PrivateDataSessionPort"
+          ]
+        },
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "BuildHealthSummaryRequest",
+            "BuildHealthSummaryResponse",
+            "CreateHealthConnectionRequest",
+            "CreateHealthConnectionResponse",
+            "GetHealthDataStateResponse",
+            "ImportHealthBatchRequest",
+            "ImportHealthBatchResponse",
+            "ListHealthSummariesResponse",
+            "PurgeHealthDataRequest",
+            "PurgeHealthDataResponse",
+            "PutHealthConsentRequest",
+            "PutHealthConsentResponse",
+            "RevokeHealthConsentRequest",
+            "RevokeHealthConsentResponse",
+            "UpdateHealthConnectionRequest",
+            "UpdateHealthConnectionResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "buildHealthSummary",
+            "createHealthConnection",
+            "getHealthDataState",
+            "importHealthBatch",
+            "listHealthSummaries",
+            "purgeHealthData",
+            "putHealthConsent",
+            "revokeHealthConsent",
+            "updateHealthConnection"
+          ]
+        }
+      ],
+      "operation_ids": [
+        "buildHealthSummary",
+        "createHealthConnection",
+        "getHealthDataState",
+        "importHealthBatch",
+        "listHealthSummaries",
+        "purgeHealthData",
+        "putHealthConsent",
+        "revokeHealthConsent",
+        "updateHealthConnection"
+      ],
+      "contract_symbols": [
+        "BuildHealthSummaryRequest",
+        "BuildHealthSummaryResponse",
+        "CreateHealthConnectionRequest",
+        "CreateHealthConnectionResponse",
+        "GetHealthDataStateResponse",
+        "ImportHealthBatchRequest",
+        "ImportHealthBatchResponse",
+        "ListHealthSummariesResponse",
+        "PrivateDataSessionPort",
+        "PurgeHealthDataRequest",
+        "PurgeHealthDataResponse",
+        "PutHealthConsentRequest",
+        "PutHealthConsentResponse",
+        "RevokeHealthConsentRequest",
+        "RevokeHealthConsentResponse",
+        "UpdateHealthConnectionRequest",
+        "UpdateHealthConnectionResponse",
+        "buildHealthSummary",
+        "createHealthConnection",
+        "getHealthDataState",
+        "importHealthBatch",
+        "listHealthSummaries",
+        "purgeHealthData",
+        "putHealthConsent",
+        "revokeHealthConsent",
+        "updateHealthConnection"
+      ],
+      "requirement_ids": [
+        "HLT-REQ-001",
+        "HLT-REQ-002",
+        "HLT-REQ-003",
+        "HLT-REQ-004",
+        "HLT-REQ-005",
+        "HLT-REQ-006",
+        "HLT-REQ-008",
+        "HLT-REQ-009",
+        "HLT-REQ-010"
+      ],
+      "outcome": "本人確認・健康の許可と集計をXML・HealthKit・AIから共通に使える",
+      "journey": "同じ本人領域のsession・端末bindingを解決する → 許可と保存を操作する → 日境界・欠測・出典を保って統計を読む → 別本人の利用と古いbindingを拒否する。XML入力、HealthKit plugin、AIの完成を待たない。",
+      "specific_acceptance": [
+        "本人sessionと許可版を検査し、再送/更新/削除と派生失効を同じtransactionで処理。",
+        "single-source-per-day-v1、DST、区間按分、睡眠和集合、欠測と0を反例で確認。",
+        "S-HLT-01/02/03/05、情報源・未取得・同期日時・取消/削除を表示する。",
+        "PrivateDataSessionPortで本人を解決し、demo header/他人scope/失効tokenの実データ操作を拒否。認証方式と接続設定をdocsへ残す。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "HLT-002",
+          "outcome": "健康データの許可・batch保存・失効・削除API。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "本人sessionと許可版を検査し、再送/更新/削除と派生失効を同じtransactionで処理。"
+          ]
+        },
+        {
+          "source_task_id": "HLT-003",
+          "outcome": "情報源・日境界・欠測を扱う健康集計とAPI。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "single-source-per-day-v1、DST、区間按分、睡眠和集合、欠測と0を反例で確認。"
+          ]
+        },
+        {
+          "source_task_id": "HLT-005",
+          "outcome": "ヘルスケアの取込設定・同意・統計UI。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "S-HLT-01/02/03/05、情報源・未取得・同期日時・取消/削除を表示する。"
+          ]
+        },
+        {
+          "source_task_id": "HLT-009",
+          "outcome": "実健康データの本人session・端末binding adapter。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "PrivateDataSessionPortで本人を解決し、demo header/他人scope/失効tokenの実データ操作を拒否。認証方式と接続設定をdocsへ残す。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-HEALTH-CORE.md",
+      "recurrence_ids": [
+        "R24",
+        "R25"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-HEALTH",
+      "title": "健康情報を許可して取り込み、統計とAI提案を確認・採用・失効できる",
+      "kind": "journey",
+      "source_task_ids": [
+        "HLT-001",
+        "HLT-006",
+        "HLT-007",
+        "HLT-008",
+        "INT-019",
+        "INT-020"
+      ],
+      "inventory_task_ids": [
+        "HLT-001",
+        "HLT-006",
+        "HLT-007",
+        "HLT-008",
+        "INT-019",
+        "INT-020"
+      ],
+      "hard_dependencies": [
+        "P-AI",
+        "P-HEALTH-CORE"
+      ],
+      "connect_after": [
+        "P-NATIVE"
+      ],
+      "required_capabilities": [],
+      "write_paths": [
+        "docs/evidence/INT-019/",
+        "docs/evidence/INT-020/",
+        "docs/spec/HEALTH_INTEGRATION.md",
+        "server/ai-tasks/wellbeing/",
+        "server/ai/health-guards/",
+        "server/features/health-contexts/",
+        "server/integrations/int-019/",
+        "server/integrations/int-020/",
+        "server/services/health-context/",
+        "src/client/services/health-file-import/",
+        "src/features/health-suggestions/",
+        "src/integrations/int-019/",
+        "src/integrations/int-020/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/ai-task-entry.ts",
+          "symbols": []
+        },
+        {
+          "path": "contracts/companion-health.ts",
+          "symbols": [
+            "HealthFileImportPort"
+          ]
+        },
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CreateHealthAiContextRequest",
+            "CreateHealthAiContextResponse",
+            "GetHealthAiContextResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "createHealthAiContext",
+            "getHealthAiContext"
+          ]
+        }
+      ],
+      "operation_ids": [
+        "createHealthAiContext",
+        "getHealthAiContext"
+      ],
+      "contract_symbols": [
+        "CreateHealthAiContextRequest",
+        "CreateHealthAiContextResponse",
+        "GetHealthAiContextResponse",
+        "HealthFileImportPort",
+        "createHealthAiContext",
+        "getHealthAiContext"
+      ],
+      "requirement_ids": [
+        "HLT-REQ-001",
+        "HLT-REQ-002",
+        "HLT-REQ-003",
+        "HLT-REQ-004",
+        "HLT-REQ-005",
+        "HLT-REQ-006",
+        "HLT-REQ-007",
+        "HLT-REQ-008",
+        "HLT-REQ-009"
+      ],
+      "outcome": "健康情報を許可して取り込み、統計とAI提案を確認・採用・失効できる",
+      "journey": "本人領域で許可を設定する → XMLをpreviewして取り込む → 欠測と日境界を含む統計を読む → 実AI提案を確認して距離案を明示採用する → 許可を失効・削除して再読込を確認する。",
+      "specific_acceptance": [
+        "選択前にuploadせず、項目/期間で絞り、最大batch/取消/不正XML/単位変換を確認。",
+        "ZIP stream展開adapter・圧縮/展開上限と実Apple exportのDTD方針を初期実装範囲に含める。進捗は既存batch件数を基本とし、bytes進捗の新ABIを必須にしない。",
+        "本人/許可版/provider/期間/TTL/source版を確認し、最小値だけ固定。撤回で失効。",
+        "実AIへの入力/出力を型で制限し、撤回後の送信・適用・保存結果の再表示を拒否。既存AI taskを壊さない。",
+        "S-HLT-04で根拠集計を確認し、本人の選択後だけ経路入力を変更。相棒非表示でも利用可能。",
+        "許可→選択XML→実DB保存→集計→再表示→停止/削除を確認。fixtureでも実保存と明示し、HealthKit取得とはしない。",
+        "許可最小集計→実Codex→本人採用→実経路APIを確認。既存AI/経路/exportへ認証と失効guardを注入。requiresLiveAI=true。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "HLT-001",
+          "outcome": "Apple Health XMLの端末内previewと正規化。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "選択前にuploadせず、項目/期間で絞り、最大batch/取消/不正XML/単位変換を確認。",
+            "ZIP stream展開adapter・圧縮/展開上限と実Apple exportのDTD方針を初期実装範囲に含める。進捗は既存batch件数を基本とし、bytes進捗の新ABIを必須にしない。"
+          ]
+        },
+        {
+          "source_task_id": "HLT-006",
+          "outcome": "健康集計のAI文脈・送信監査serviceとAPI。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "本人/許可版/provider/期間/TTL/source版を確認し、最小値だけ固定。撤回で失効。"
+          ]
+        },
+        {
+          "source_task_id": "HLT-007",
+          "outcome": "wellbeing AI task adapterと取得・適用の健康許可guard。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "実AIへの入力/出力を型で制限し、撤回後の送信・適用・保存結果の再表示を拒否。既存AI taskを壊さない。"
+          ]
+        },
+        {
+          "source_task_id": "HLT-008",
+          "outcome": "健康提案の確認と距離案の明示採用UI。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "S-HLT-04で根拠集計を確認し、本人の選択後だけ経路入力を変更。相棒非表示でも利用可能。"
+          ]
+        },
+        {
+          "source_task_id": "INT-019",
+          "outcome": "XML取込みと健康統計を実保存へ接続。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "許可→選択XML→実DB保存→集計→再表示→停止/削除を確認。fixtureでも実保存と明示し、HealthKit取得とはしない。"
+          ]
+        },
+        {
+          "source_task_id": "INT-020",
+          "outcome": "健康文脈を実AI提案と経路へ接続。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "許可最小集計→実Codex→本人採用→実経路APIを確認。既存AI/経路/exportへ認証と失効guardを注入。requiresLiveAI=true。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-HEALTH.md",
+      "recurrence_ids": [
+        "R24"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": true,
+      "required_providers": [
+        "private-data-session"
+      ]
+    },
+    {
+      "id": "P-NATIVE",
+      "title": "iPhoneで本人のHealthKit情報を読み、同じアプリの統計へ反映できる",
+      "kind": "journey",
+      "source_task_ids": [
+        "HLT-004",
+        "INT-021",
+        "NAT-001"
+      ],
+      "inventory_task_ids": [
+        "HLT-004",
+        "NAT-001",
+        "INT-021"
+      ],
+      "hard_dependencies": [
+        "P-HEALTH-CORE"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        ".env.example",
+        "capacitor.config.ts",
+        "docs/evidence/INT-021/",
+        "docs/setup/healthkit.md",
+        "native/ios/health/",
+        "native/ios/shell/",
+        "server/index.ts",
+        "server/integrations/int-021/",
+        "src/api/client.ts",
+        "src/app/App.tsx",
+        "src/client/platform/",
+        "src/client/services/health-bridge/",
+        "src/integrations/int-021/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/ai-task-entry.ts",
+          "symbols": []
+        },
+        {
+          "path": "contracts/companion-health.ts",
+          "symbols": [
+            "HealthBridgePort"
+          ]
+        }
+      ],
+      "operation_ids": [],
+      "contract_symbols": [
+        "HealthBridgePort"
+      ],
+      "requirement_ids": [
+        "HLT-REQ-001",
+        "HLT-REQ-002",
+        "HLT-REQ-004",
+        "HLT-REQ-009",
+        "HLT-REQ-010"
+      ],
+      "outcome": "iPhoneで本人のHealthKit情報を読み、同じアプリの統計へ反映できる",
+      "journey": "iPhoneアプリを起動する → 本人sessionと端末を結び付ける → HealthKit読取りを許可する → 差分を取り込む → 再入場で統計とscope付きanchorを確認する。",
+      "specific_acceptance": [
+        "許可結果を過信せず、追加/削除とanchor再送を扱い、Webはunsupportedを返す。",
+        "HealthKitを接続できるnative shellを作り、Web既存起動を維持。背景GPS全体を待たない。",
+        "native/ios/healthのSwift 2ファイルをshell targetへ追加しSodateruHealthBridge plugin instanceを登録。capacitor://localhostからrelative /apiへ誤送信せず、固定の未確認hostを埋め込まずに明示base URL/TLS・本人認証・限定CORSまたは採用native transportを設定/再現し、実APIへ到達する。demo headerを本人認証と扱わず、無制限CORSを許可しない。実機で読取り→commit→anchor→再起動→追加/削除同期を確認。connectionIdがactor+namespace+paired deviceに一意で、別actor/namespace/deviceのanchor再利用を拒否し、再接続/削除後のanchor初期化を確認。本人session/端末bindingはHLT-009を使用する。requiredProviders=healthkit,private-data-session。XMLもAIも完成待ちにしない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "HLT-004",
+          "outcome": "iOS HealthKitの読取りadapter。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "許可結果を過信せず、追加/削除とanchor再送を扱い、Webはunsupportedを返す。"
+          ]
+        },
+        {
+          "source_task_id": "NAT-001",
+          "outcome": "Web UIを載せるiOS shellとnative service登録。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "HealthKitを接続できるnative shellを作り、Web既存起動を維持。背景GPS全体を待たない。"
+          ]
+        },
+        {
+          "source_task_id": "INT-021",
+          "outcome": "iPhone HealthKitを取込み・統計へ接続。該当する機能仕様とentry登録形式に従う。",
+          "acceptance": [
+            "native/ios/healthのSwift 2ファイルをshell targetへ追加しSodateruHealthBridge plugin instanceを登録。capacitor://localhostからrelative /apiへ誤送信せず、固定の未確認hostを埋め込まずに明示base URL/TLS・本人認証・限定CORSまたは採用native transportを設定/再現し、実APIへ到達する。demo headerを本人認証と扱わず、無制限CORSを許可しない。実機で読取り→commit→anchor→再起動→追加/削除同期を確認。connectionIdがactor+namespace+paired deviceに一意で、別actor/namespace/deviceのanchor再利用を拒否し、再接続/削除後のanchor初期化を確認。本人session/端末bindingはHLT-009を使用する。requiredProviders=healthkit,private-data-session。XMLもAIも完成待ちにしない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-NATIVE.md",
+      "recurrence_ids": [
+        "R25"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": [
+        "healthkit",
+        "private-data-session"
+      ]
+    },
+    {
+      "id": "P-WORKSPACE",
+      "title": "デモと本人設定を保存・再開・resetし、本人データを出力できる",
+      "kind": "journey",
+      "source_task_ids": [
+        "DEMO-001",
+        "DEMO-002",
+        "PREF-001",
+        "PREF-002"
+      ],
+      "inventory_task_ids": [
+        "DEMO-001",
+        "PREF-001",
+        "PREF-002"
+      ],
+      "hard_dependencies": [
+        "P-RUNTIME"
+      ],
+      "connect_after": [],
+      "required_capabilities": [
+        "api:cloneDemo",
+        "api:exportOwnData",
+        "api:getBootstrap",
+        "api:resetDemo"
+      ],
+      "write_paths": [
+        "DB_COLUMNS.csv",
+        "contracts/companion-health.ts",
+        "contracts/domain.ts",
+        "contracts/entries.ts",
+        "contracts/openapi.json",
+        "contracts/openapi.yaml",
+        "contracts/operations.json",
+        "contracts/operations.ts",
+        "contracts/ports.ts",
+        "contracts/schemas.json",
+        "db/dto-map.json",
+        "db/migrations/005_health-export-provenance.sql",
+        "db/schema.sql",
+        "docs/evidence/DEMO-001/",
+        "docs/evidence/PREF-001/",
+        "docs/evidence/PREF-002/",
+        "docs/spec/API_CONTRACT.md",
+        "docs/spec/ENTRY_CONTRACT.md",
+        "docs/spec/HEALTH_INTEGRATION.md",
+        "examples/http/exportOwnData.json",
+        "server/ai/health-guards/",
+        "server/features/demo/",
+        "server/features/export/",
+        "server/features/settings/",
+        "server/index.ts",
+        "src/app/",
+        "src/features/demo/",
+        "src/features/settings/",
+        "tools/build_contracts.py"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/companion-health.ts",
+          "symbols": [
+            "ExportHealthGuardPort"
+          ]
+        },
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "CloneDemoRequest",
+            "CloneDemoResponse",
+            "ExportOwnDataResponse",
+            "GetBootstrapResponse",
+            "GetSettingsResponse",
+            "ResetDemoRequest",
+            "ResetDemoResponse",
+            "UpdateSettingsRequest",
+            "UpdateSettingsResponse"
+          ]
+        },
+        {
+          "path": "contracts/entries.ts",
+          "symbols": []
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "cloneDemo",
+            "exportOwnData",
+            "getBootstrap",
+            "getSettings",
+            "resetDemo",
+            "updateSettings"
+          ]
+        },
+        {
+          "path": "contracts/ports.ts",
+          "symbols": [
+            "ApiPort",
+            "DbPort"
+          ]
+        },
+        {
+          "path": "db/schema.sql",
+          "symbols": []
+        },
+        {
+          "path": "docs/spec/HEALTH_INTEGRATION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "cloneDemo",
+        "exportOwnData",
+        "getSettings",
+        "resetDemo",
+        "updateSettings"
+      ],
+      "contract_symbols": [
+        "ApiPort",
+        "CloneDemoRequest",
+        "CloneDemoResponse",
+        "DbPort",
+        "ExportHealthGuardPort",
+        "ExportOwnDataResponse",
+        "GetBootstrapResponse",
+        "GetSettingsResponse",
+        "ResetDemoRequest",
+        "ResetDemoResponse",
+        "UpdateSettingsRequest",
+        "UpdateSettingsResponse",
+        "getSettings",
+        "updateSettings"
+      ],
+      "requirement_ids": [
+        "DATA-004",
+        "DATA-008",
+        "DATA-011",
+        "DISC-007",
+        "EVAL-008",
+        "HLT-REQ-007",
+        "HLT-REQ-008",
+        "NAV-009",
+        "OPS-008",
+        "REC-009",
+        "SELF-012"
+      ],
+      "outcome": "デモと本人設定を保存・再開・resetし、本人データを出力できる",
+      "journey": "デモを複製する → 停止・探索設定を保存する → 再開して同じ状態を読む → 本人JSONと除外理由を出力する → resetして旧行の消去とseedを確認する。",
+      "specific_acceptance": [
+        "actor、settings context、seedが揃って再mountできる。reset後は同一scopeでも再読込する。",
+        "schemaのnamespace対象行をresetしseedだけ復元する。別namespaceは不変、変更通知は保持する。",
+        "409でも入力を失わず、停止後に遅れて返るAI結果を適用しない。",
+        "一般exportはPREF-002へ移管。設定APIを二重実装しない。",
+        "健康由来と判定不明は除外し、既知非健康を出力する。件数・機械可読理由・partialを表示する。",
+        "namespace対象テーブルの出力/除外宣言に漏れがない。他者データを出さない。",
+        "HLT guardの実接続なしでは完了不可。新namespaceへのimportはFUT02の独立操作として扱い、exportの完了条件に実装を追加しない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "DEMO-001",
+          "outcome": "デモを複製・再開・リセットし、同じ領域で初期状態へ戻れる",
+          "acceptance": [
+            "actor、settings context、seedが揃って再mountできる。reset後は同一scopeでも再読込する。",
+            "schemaのnamespace対象行をresetしseedだけ復元する。別namespaceは不変、変更通知は保持する。"
+          ]
+        },
+        {
+          "source_task_id": "PREF-001",
+          "outcome": "本人の停止・探索設定が保存され、次の操作にも効く",
+          "acceptance": [
+            "409でも入力を失わず、停止後に遅れて返るAI結果を適用しない。",
+            "一般exportはPREF-002へ移管。設定APIを二重実装しない。"
+          ]
+        },
+        {
+          "source_task_id": "PREF-002",
+          "outcome": "本人JSONを出力し、除外と不完全な範囲を画面で確認できる",
+          "acceptance": [
+            "健康由来と判定不明は除外し、既知非健康を出力する。件数・機械可読理由・partialを表示する。",
+            "namespace対象テーブルの出力/除外宣言に漏れがない。他者データを出さない。",
+            "HLT guardの実接続なしでは完了不可。新namespaceへのimportはFUT02の独立操作として扱い、exportの完了条件に実装を追加しない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-WORKSPACE.md",
+      "recurrence_ids": [
+        "R04",
+        "R20",
+        "R21"
+      ],
+      "consumes_operation_ids": [
+        "getBootstrap"
+      ],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-RELEASE",
+      "title": "全対象操作を通して確認し、再現可能な動作版を渡せる",
+      "kind": "gate",
+      "source_task_ids": [
+        "GATE-001",
+        "POOL-002",
+        "POOL-006",
+        "POOL-008"
+      ],
+      "inventory_task_ids": [
+        "GATE-001",
+        "POOL-002",
+        "POOL-006",
+        "POOL-008"
+      ],
+      "hard_dependencies": [
+        "P-COMPANION",
+        "P-DIARY",
+        "P-DISCOVER",
+        "P-EXPLORE",
+        "P-EXTENSIONS",
+        "P-NATIVE",
+        "P-REPAIR",
+        "P-TOGETHER",
+        "P-TRANSFER",
+        "P-HEALTH"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "docs/demo-cards/",
+        "docs/evidence/release/",
+        "docs/evidence/responsive/",
+        "src/content/states/"
+      ],
+      "read_set": [
+        {
+          "path": "docs/spec/ENTRY_CONTRACT.md",
+          "symbols": []
+        },
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [],
+      "contract_symbols": [],
+      "requirement_ids": [
+        "DATA-004",
+        "DATA-012",
+        "EVAL-004",
+        "EVAL-005",
+        "EVAL-007",
+        "EVAL-008",
+        "EXT-007",
+        "NAV-002",
+        "NAV-008",
+        "NEW-009",
+        "NEW-012",
+        "OPS-002",
+        "OPS-007",
+        "OPS-008",
+        "OPS-009",
+        "SOC-008"
+      ],
+      "outcome": "全対象操作を通して確認し、再現可能な動作版を渡せる",
+      "journey": "新しいcloneから動作版を起動する → 上記全対象操作を連続して使う → 訂正・取消・失敗・復帰を確認する → 同じbuildの証拠とタグを渡す。",
+      "specific_acceptance": [
+        "未接続UIはcapabilitiesから外す。本人データを残してdemoを再開始。",
+        "失敗文に次の操作が1つ明記される。",
+        "修正前後画像と問題のない操作を記録。",
+        "実演が止まっても前状態から短く戻る。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "GATE-001",
+          "outcome": "記録/訂正/AI/復帰のP0を確認してtag。P1は完成した枝だけ選択し、全P1待ちを禁止。",
+          "acceptance": [
+            "未接続UIはcapabilitiesから外す。本人データを残してdemoを再開始。"
+          ]
+        },
+        {
+          "source_task_id": "POOL-002",
+          "outcome": "各空/失敗状態の短文とボタンlabelをtyped辞書にする。",
+          "acceptance": [
+            "失敗文に次の操作が1つ明記される。"
+          ]
+        },
+        {
+          "source_task_id": "POOL-006",
+          "outcome": "既に動く画面のはみ出し・操作不能を記録。元ファイル修正は追加lock取得後。",
+          "acceptance": [
+            "修正前後画像と問題のない操作を記録。"
+          ]
+        },
+        {
+          "source_task_id": "POOL-008",
+          "outcome": "時計でなく場面遷移で通し実演を作る。live/sample/replayの区別を記載。",
+          "acceptance": [
+            "実演が止まっても前状態から短く戻る。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-RELEASE.md",
+      "recurrence_ids": [],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-DEPLOY",
+      "title": "本人認証・共同利用・永続化を備えた非公開環境を運用できる",
+      "kind": "future",
+      "source_task_ids": [
+        "FUT01",
+        "FUT02",
+        "FUT18",
+        "FUT19"
+      ],
+      "inventory_task_ids": [
+        "FUT01",
+        "FUT02",
+        "FUT18",
+        "FUT19"
+      ],
+      "hard_dependencies": [
+        "P-AI",
+        "P-TOGETHER",
+        "P-WORKSPACE"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "future/fut01/",
+        "future/fut02/",
+        "future/fut18/",
+        "future/fut19/"
+      ],
+      "read_set": [
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [],
+      "contract_symbols": [],
+      "requirement_ids": [
+        "CORE-001",
+        "DATA-001",
+        "DATA-003",
+        "DATA-004",
+        "DATA-005",
+        "DATA-006",
+        "DATA-007",
+        "DATA-008",
+        "DATA-009",
+        "DATA-010",
+        "DATA-011",
+        "EVAL-004",
+        "MAP-012",
+        "MAP-013",
+        "NEW-011",
+        "OPS-001",
+        "OPS-003",
+        "OPS-008",
+        "REC-011",
+        "SOC-001",
+        "SOC-002",
+        "SOC-003",
+        "SOC-004",
+        "SOC-005",
+        "SOC-011",
+        "SOC-013",
+        "SOC-014"
+      ],
+      "outcome": "本人認証・共同利用・永続化を備えた非公開環境を運用できる",
+      "journey": "本人認証で非公開環境へ入る → データを移行して共同利用する → 権限を変更・取消する → 再起動・監視・復旧で保存と非公開性を確認する。",
+      "specific_acceptance": [
+        "2端末間で用途だけ公開し、原文がAPI/画像からも出ない。取消後も相手自身の実体験は残る。",
+        "移行前後のID/訂正/写真/拡張stateが一致し、再起動後も残る。",
+        "一般exportに読込operationが存在するとは仮定しない。移行API/Portを定義してからID・訂正・写真・拡張state・再起動後の永続性を確認する。",
+        "公開/任意code導入前の要件を満たす。本日の薄い隔離を本番セキュリティ保証と言わない。",
+        "同時編集を黙って上書きせず、community OFFでも個人の主要機能が成立する。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "FUT01",
+          "outcome": "OIDCまたはprovider認証→actorをsessionへ→recipient別投影→grant revision→検索/会話/画像URL/生成中結果まで依存失効→2アカウントで取消を確認。",
+          "acceptance": [
+            "2端末間で用途だけ公開し、原文がAPI/画像からも出ない。取消後も相手自身の実体験は残る。"
+          ]
+        },
+        {
+          "source_task_id": "FUT02",
+          "outcome": "ローカルSQLiteは既に正本。本人export→検証→配備先へのmigration→秘密値/AI workerをserverへ分離→非公開preview→backup/restoreを実証。コード移行とデータ移行を別承認。",
+          "acceptance": [
+            "移行前後のID/訂正/写真/拡張stateが一致し、再起動後も残る。",
+            "一般exportに読込operationが存在するとは仮定しない。移行API/Portを定義してからID・訂正・写真・拡張state・再起動後の永続性を確認する。"
+          ]
+        },
+        {
+          "source_task_id": "FUT18",
+          "outcome": "境界ごとの脅威モデル→認可/秘密/remote code sandbox→負荷/timeout/resource budget→監視/backup→位置収集/描画の消費電力を計測→最適化。",
+          "acceptance": [
+            "公開/任意code導入前の要件を満たす。本日の薄い隔離を本番セキュリティ保証と言わない。"
+          ]
+        },
+        {
+          "source_task_id": "FUT19",
+          "outcome": "共同案の版/提案/承認→本人希望を別保持→実友人の共有リンク→地域tipの鮮度/投票/訂正→取消時のmanaged cache更新→適用中断を明示。",
+          "acceptance": [
+            "同時編集を黙って上書きせず、community OFFでも個人の主要機能が成立する。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-DEPLOY.md",
+      "recurrence_ids": [],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-MOBILE",
+      "title": "実機の背景位置・立体地図・実交通情報から移動を続けられる",
+      "kind": "future",
+      "source_task_ids": [
+        "FUT03",
+        "FUT04",
+        "FUT05"
+      ],
+      "inventory_task_ids": [
+        "FUT03",
+        "FUT04",
+        "FUT05"
+      ],
+      "hard_dependencies": [
+        "P-RECORD",
+        "P-ROUTE"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "future/fut03/",
+        "future/fut04/",
+        "future/fut05/"
+      ],
+      "read_set": [
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [],
+      "contract_symbols": [],
+      "requirement_ids": [
+        "EVAL-005",
+        "EXT-018",
+        "MAP-001",
+        "MAP-003",
+        "MAP-006",
+        "MAP-007",
+        "MAP-010",
+        "MAP-011",
+        "MAP-014",
+        "NAV-008",
+        "NAV-009",
+        "OPS-002",
+        "OPS-010",
+        "REC-009",
+        "REC-010",
+        "ROUTE-001",
+        "ROUTE-003",
+        "ROUTE-004",
+        "ROUTE-005",
+        "ROUTE-006",
+        "ROUTE-007",
+        "ROUTE-010"
+      ],
+      "outcome": "実機の背景位置・立体地図・実交通情報から移動を続けられる",
+      "journey": "実機で背景位置と許可された地図を使う → フロア・ランドマークを確認する → 実交通情報と定期控除で寄り道を選ぶ → 復帰後も記録と根拠を読む。",
+      "specific_acceptance": [
+        "画面off区間と実観測を区別し、圏外で保存した1記録だけ同期する。",
+        "地下と上層の同一平面座標を異なるPlaceLevelで扱い、unknownを埋めない。",
+        "鉄道定期の適用/期限切れ/経由違いを実provider応答で比較し、非対応を0円にしない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "FUT03",
+          "outcome": "前景GPSを実機HTTPSで確認→Capacitor等native bridgeまたはMapLibre Native選定→OS権限と背景life cycle→オンデバイス記録queue→許可済みtile bundle→復帰同期。",
+          "acceptance": [
+            "画面off区間と実観測を区別し、圏外で保存した1記録だけ同期する。"
+          ]
+        },
+        {
+          "source_task_id": "FUT04",
+          "outcome": "PLATEAU等の権利/座標/LOD確認→建物外殻/入口/階接続を別データ→手動階確認→GLBは少数→混合用途の実体形状→記録/物理モデル分離を維持。",
+          "acceptance": [
+            "地下と上層の同一平面座標を異なるPlaceLevelで扱い、unknownを埋めない。"
+          ]
+        },
+        {
+          "source_task_id": "FUT05",
+          "outcome": "駅すぱあと等の契約/料金/対応交通を確認→provider courseを保持→鉄道定期区間控除→バス等は別対応確認→最終到着時刻/運休/再検索→fixtureと区別。",
+          "acceptance": [
+            "鉄道定期の適用/期限切れ/経由違いを実provider応答で比較し、非対応を0円にしない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-MOBILE.md",
+      "recurrence_ids": [
+        "R26"
+      ],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-SOURCES",
+      "title": "OpenUASと追加形式の情報を取り込み、意味の変化を修復できる",
+      "kind": "future",
+      "source_task_ids": [
+        "FUT06",
+        "FUT13"
+      ],
+      "inventory_task_ids": [
+        "FUT06",
+        "FUT13"
+      ],
+      "hard_dependencies": [
+        "P-REPAIR",
+        "P-TRANSFER"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "future/fut06/",
+        "future/fut13/"
+      ],
+      "read_set": [
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [],
+      "contract_symbols": [],
+      "requirement_ids": [
+        "EXT-016",
+        "EXT-017",
+        "TRF-007",
+        "TRF-008",
+        "TRF-009",
+        "TRF-010"
+      ],
+      "outcome": "OpenUASと追加形式の情報を取り込み、意味の変化を修復できる",
+      "journey": "OpenUASまたはHTML/PDF等の入力を選ぶ → 正規化した候補と出典を確認する → 意味の変化を承認・修復する → 移植と再計算結果を読む。",
+      "specific_acceptance": [
+        "実vector使用を記録し、is_complemented表示が残る。都市外へ無理に外挿しない。",
+        "5形式全てを取り込め、単位/対象範囲変化は列名修復だけで自動適用しない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "FUT06",
+          "outcome": "東京/名古屋の必要meshだけ読込→anchor/model/time/versionを照合→compatible空間のみcosine top-k→広域候補→POI検索→feasibility検証→属性のみbaselineと候補差比較。",
+          "acceptance": [
+            "実vector使用を記録し、is_complemented表示が残る。都市外へ無理に外挿しない。"
+          ]
+        },
+        {
+          "source_task_id": "FUT13",
+          "outcome": "API/CSV/GeoJSONにHTMLとPDFを追加→許可URL/単位/時刻/source version→schema drift/semantic driftを分離→parser提案と3行diff→回帰fixture→承認適用→previous parser復帰。",
+          "acceptance": [
+            "5形式全てを取り込め、単位/対象範囲変化は列名修復だけで自動適用しない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-SOURCES.md",
+      "recurrence_ids": [],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-LEARNING",
+      "title": "写真と利用履歴からの提案を評価し、継続価値と費用を確かめられる",
+      "kind": "future",
+      "source_task_ids": [
+        "FUT07",
+        "FUT08",
+        "FUT20"
+      ],
+      "inventory_task_ids": [
+        "FUT07",
+        "FUT08",
+        "FUT20"
+      ],
+      "hard_dependencies": [
+        "P-AI",
+        "P-DISCOVER",
+        "P-TRANSFER"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "future/fut07/",
+        "future/fut08/",
+        "future/fut20/"
+      ],
+      "read_set": [
+        {
+          "path": "contracts/domain.ts",
+          "symbols": [
+            "ApplyCorrectionsRequest",
+            "ApplyCorrectionsResponse",
+            "PreviewCorrectionsRequest",
+            "PreviewCorrectionsResponse"
+          ]
+        },
+        {
+          "path": "contracts/operations.ts",
+          "symbols": [
+            "applyCorrections",
+            "previewCorrections"
+          ]
+        },
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [
+        "applyCorrections",
+        "previewCorrections"
+      ],
+      "contract_symbols": [
+        "ApplyCorrectionsRequest",
+        "ApplyCorrectionsResponse",
+        "PreviewCorrectionsRequest",
+        "PreviewCorrectionsResponse",
+        "applyCorrections",
+        "previewCorrections"
+      ],
+      "requirement_ids": [
+        "DATA-012",
+        "DISC-001",
+        "DISC-002",
+        "DISC-003",
+        "DISC-004",
+        "DISC-005",
+        "DISC-006",
+        "DISC-007",
+        "DISC-008",
+        "EVAL-001",
+        "EVAL-002",
+        "EVAL-003",
+        "EVAL-007",
+        "EVAL-008",
+        "OPS-006",
+        "SELF-004",
+        "SELF-005",
+        "SELF-006",
+        "SELF-007",
+        "SELF-008",
+        "SELF-009",
+        "SELF-010",
+        "TRF-011"
+      ],
+      "outcome": "写真と利用履歴からの提案を評価し、継続価値と費用を確かめられる",
+      "journey": "写真・利用履歴から提案を受ける → 本人の選択と反例を保存する → 比較実験で学習と将来予測を評価する → 継続価値と費用の測定結果を確認する。",
+      "specific_acceptance": [
+        "訂正による画面変化を精度改善と呼ばず、未使用将来ログでcalibrationと適合を測る。",
+        "写真の建物名が不明でも対象の構造から発見でき、禁止分野は能動探索でも出ない。",
+        "少数デモを科学的効果と主張せず、保持率/未知概念/意図と結果の差/費用を実測する。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "FUT07",
+          "outcome": "候補提示/選択/制約/結果をログ→階層Bayesまたは正則化pairwise model→contextを少数に→time splitの将来選択予測→単純頻度/申告のみ/理由なしと比較。",
+          "acceptance": [
+            "訂正による画面変化を精度改善と呼ばず、未使用将来ログでcalibrationと適合を測る。"
+          ]
+        },
+        {
+          "source_task_id": "FUT08",
+          "outcome": "画像特徴を本人確認→一般知識の出典検索→anchor bridgeを検証→known graph更新→receptive&&available&&optinの時だけ一枚→週後の自主学習/関心を評価。",
+          "acceptance": [
+            "写真の建物名が不明でも対象の構造から発見でき、禁止分野は能動探索でも出ない。"
+          ]
+        },
+        {
+          "source_task_id": "FUT20",
+          "outcome": "cold start到達時間→任意同意の継続観測→自己理解/移植/発見の別評価→heldout/ablation→アプリAI/地図/交通/compute/storageの実請求から1人当りcost算出。",
+          "acceptance": [
+            "少数デモを科学的効果と主張せず、保持率/未知概念/意図と結果の差/費用を実測する。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-LEARNING.md",
+      "recurrence_ids": [],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-PLUGIN-STUDIO",
+      "title": "隔離した追加機能を作成・公開し、画面と処理を組み替えられる",
+      "kind": "future",
+      "source_task_ids": [
+        "FUT09",
+        "FUT10",
+        "FUT17"
+      ],
+      "inventory_task_ids": [
+        "FUT09",
+        "FUT10",
+        "FUT17"
+      ],
+      "hard_dependencies": [
+        "P-EXTENSIONS"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "future/fut09/",
+        "future/fut10/",
+        "future/fut17/"
+      ],
+      "read_set": [
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [],
+      "contract_symbols": [],
+      "requirement_ids": [
+        "EVAL-006",
+        "EXT-001",
+        "EXT-002",
+        "EXT-007",
+        "EXT-008",
+        "EXT-009",
+        "EXT-010",
+        "EXT-011",
+        "EXT-012",
+        "EXT-013",
+        "EXT-014",
+        "EXT-015",
+        "EXT-019",
+        "NEW-005",
+        "NEW-009"
+      ],
+      "outcome": "隔離した追加機能を作成・公開し、画面と処理を組み替えられる",
+      "journey": "隔離環境で追加機能を作る → データ・画面・処理を組み替えて試す → 公開API/テンプレートとして渡す → 第三者の導入と境界の拒否を確認する。",
+      "specific_acceptance": [
+        "未実装の新計算が動き、無限loopは停止、検証後改変artifactは導入されない。workerだけで安全とはしない。",
+        "人物別タイムライン＋雨の日の条件filterを利用者が組み、既存記録を維持して戻せる。",
+        "当初4人以外が新入力/計算/表示を導入し再現できる。既存3テンプレ再設定と区別する。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "FUT09",
+          "outcome": "DSLで不可能な新関数をDevelopmentRequest→Codexが専用worktreeでTS生成→別に保持したtestで検証→artifact build/hash→networkなしの隔離process/container等で実行→JSON入出力のみhost反映。",
+          "acceptance": [
+            "未実装の新計算が動き、無限loopは停止、検証後改変artifactは導入されない。workerだけで安全とはしない。"
+          ]
+        },
+        {
+          "source_task_id": "FUT10",
+          "outcome": "screen schema/typed field binding/action DAG→既存機能を再配置→入力型と循環を検査→sample preview→definition版を保存→slotだけ差替→旧版戻し。",
+          "acceptance": [
+            "人物別タイムライン＋雨の日の条件filterを利用者が組み、既存記録を維持して戻せる。"
+          ]
+        },
+        {
+          "source_task_id": "FUT17",
+          "outcome": "schema/SDK/examplesを別packageへ→GitHub Issueテンプレ/サンプル→第三者が未打合せで1拡張を作る→install→互換版/権利/manifest審査。",
+          "acceptance": [
+            "当初4人以外が新入力/計算/表示を導入し再現できる。既存3テンプレ再設定と区別する。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-PLUGIN-STUDIO.md",
+      "recurrence_ids": [],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-APP-STUDIO",
+      "title": "本人のAIへ改造依頼を渡し、previewからデータを保って戻せる",
+      "kind": "future",
+      "source_task_ids": [
+        "FUT11",
+        "FUT12"
+      ],
+      "inventory_task_ids": [
+        "FUT11",
+        "FUT12"
+      ],
+      "hard_dependencies": [
+        "P-EXTENSIONS"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "future/fut11/",
+        "future/fut12/"
+      ],
+      "read_set": [
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [],
+      "contract_symbols": [],
+      "requirement_ids": [
+        "NEW-006",
+        "NEW-007",
+        "NEW-008",
+        "OPS-005"
+      ],
+      "outcome": "本人のAIへ改造依頼を渡し、previewからデータを保って戻せる",
+      "journey": "本人のAIへ開発契約を渡す → 本体のUI・機能改造をpreviewする → 採用する → データを保持してrollbackする。",
+      "specific_acceptance": [
+        "通常ブラウザはCLIを勝手に起動せず、許可したPCのrepoだけを利用者契約で変更する。",
+        "自分タブに新画面と集計を追加し、既存訪問を残したまま旧buildへ戻す。既存データ破壊を許可なしでしない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "FUT11",
+          "outcome": "DevelopmentRequestをexport→PC上のloopback bridgeでhuman approval→repo allowlist/worktree作成→自身のCodex認証でtask実行→progress/preview URLを返す→承認後artifact取得。",
+          "acceptance": [
+            "通常ブラウザはCLIを勝手に起動せず、許可したPCのrepoだけを利用者契約で変更する。"
+          ]
+        },
+        {
+          "source_task_id": "FUT12",
+          "outcome": "許可pathsを限定した別worktreeでUI/処理を生成→schema変更計画→SQLite複製でpreview→旧データ互換を確認→本人承認→artifact切替。code rollbackとdata restoreを分離。deployや汎用plugin完成を待たずローカルで実証。",
+          "acceptance": [
+            "自分タブに新画面と集計を追加し、既存訪問を残したまま旧buildへ戻す。既存データ破壊を許可なしでしない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-APP-STUDIO.md",
+      "recurrence_ids": [],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    },
+    {
+      "id": "P-THEMES",
+      "title": "防災・バイク・聖地巡礼を実データの出典と制約に従って使える",
+      "kind": "future",
+      "source_task_ids": [
+        "FUT14",
+        "FUT15",
+        "FUT16"
+      ],
+      "inventory_task_ids": [
+        "FUT14",
+        "FUT15",
+        "FUT16"
+      ],
+      "hard_dependencies": [
+        "P-EXTENSIONS",
+        "P-REPAIR"
+      ],
+      "connect_after": [],
+      "required_capabilities": [],
+      "write_paths": [
+        "future/fut14/",
+        "future/fut15/",
+        "future/fut16/"
+      ],
+      "read_set": [
+        {
+          "path": "docs/spec/TASK_EXECUTION.md",
+          "symbols": []
+        }
+      ],
+      "operation_ids": [],
+      "contract_symbols": [],
+      "requirement_ids": [
+        "EXT-004",
+        "EXT-005",
+        "EXT-006"
+      ],
+      "outcome": "防災・バイク・聖地巡礼を実データの出典と制約に従って使える",
+      "journey": "防災・バイク・聖地巡礼の実データを選ぶ → 出典・許諾・規制・不確実性を確認する → 条件付きで案内または保留する → 保存後に根拠を読み直す。",
+      "specific_acceptance": [
+        "公式情報の失効/矛盾で案内を保留し、過去の人流を今の安全根拠に使わない。",
+        "同じ起終点でもclass/timeで実経路可否が変わり、自動車経路にバイク色を付けただけでない。",
+        "非公式対応を公式と表示せず、無許諾の作品画像を配布しない。"
+      ],
+      "internal_checklist": [
+        {
+          "source_task_id": "FUT14",
+          "outcome": "自治体/JMA等の許可データadapter→地震/浸水/通行止めの用途別時刻→安全制約→GPS不確実時はランドマーク確認→Recommend/Warn/Abstain→人命判断を自動断定しない。",
+          "acceptance": [
+            "公式情報の失効/矛盾で案内を保留し、過去の人流を今の安全根拠に使わない。"
+          ]
+        },
+        {
+          "source_task_id": "FUT15",
+          "outcome": "対応providerと道路規制source確認→車種/排気量/時間/二人乗り等の制約モデル→通行可否unknownを区別→禁止edge回避→規制変更の再検索。",
+          "acceptance": [
+            "同じ起終点でもclass/timeで実経路可否が変わり、自動車経路にバイク色を付けただけでない。"
+          ]
+        },
+        {
+          "source_task_id": "FUT16",
+          "outcome": "official/fan/communityの出典を分離→作品/scene/場所の対応証拠→公開可素材だけ→私有地/混雑配慮→順序/営業時間/移動時間検証→本人の写真/感想。",
+          "acceptance": [
+            "非公式対応を公式と表示せず、無許諾の作品画像を配布しない。"
+          ]
+        }
+      ],
+      "body_file": "issues/P-THEMES.md",
+      "recurrence_ids": [],
+      "consumes_operation_ids": [],
+      "requires_live_ai": false,
+      "required_providers": []
+    }
+  ],
+  "shared_path_locks": [
+    {
+      "tasks": [
+        "P-START",
+        "P-RUNTIME"
+      ],
+      "paths": [
+        "bun.lock",
+        "db/",
+        "docs/",
+        "mise.toml",
+        "package.json"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-RECORD"
+      ],
+      "paths": [
+        "contracts/",
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-REFLECT"
+      ],
+      "paths": [
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-EXPLORE"
+      ],
+      "paths": [
+        "API_ENDPOINTS.csv",
+        "DB_COLUMNS.csv",
+        "contracts/",
+        "db/",
+        "docs/",
+        "examples/",
+        "tools/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-DISCOVER"
+      ],
+      "paths": [
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-SHARE"
+      ],
+      "paths": [
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-TOGETHER"
+      ],
+      "paths": [
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-TRANSFER"
+      ],
+      "paths": [
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-AI"
+      ],
+      "paths": [
+        "contracts/",
+        "docs/",
+        "examples/",
+        "tools/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-EXTENSIONS"
+      ],
+      "paths": [
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-REPAIR"
+      ],
+      "paths": [
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-DIARY"
+      ],
+      "paths": [
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-COMPANION"
+      ],
+      "paths": [
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-HEALTH"
+      ],
+      "paths": [
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-NATIVE"
+      ],
+      "paths": [
+        ".env.example",
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-WORKSPACE"
+      ],
+      "paths": [
+        "DB_COLUMNS.csv",
+        "contracts/",
+        "db/",
+        "docs/",
+        "examples/",
+        "tools/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-START",
+        "P-RELEASE"
+      ],
+      "paths": [
+        "docs/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-RUNTIME",
+        "P-RECORD"
+      ],
+      "paths": [
+        "src/api/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-RUNTIME",
+        "P-AI"
+      ],
+      "paths": [
+        "server/index.ts",
+        "src/app/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-RUNTIME",
+        "P-REPAIR"
+      ],
+      "paths": [
+        "server/integrations/int-009/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-RUNTIME",
+        "P-COMPANION"
+      ],
+      "paths": [
+        "server/index.ts"
+      ]
+    },
+    {
+      "tasks": [
+        "P-RUNTIME",
+        "P-NATIVE"
+      ],
+      "paths": [
+        "server/index.ts",
+        "src/api/",
+        "src/app/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-RUNTIME",
+        "P-WORKSPACE"
+      ],
+      "paths": [
+        "server/index.ts",
+        "src/app/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-MAP",
+        "P-EXPLORE"
+      ],
+      "paths": [
+        "server/features/places/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-RECORD",
+        "P-EXPLORE"
+      ],
+      "paths": [
+        "server/features/experiences/",
+        "server/features/visits/",
+        "src/integrations/int-001/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-RECORD",
+        "P-AI"
+      ],
+      "paths": [
+        "contracts/ports.ts",
+        "docs/spec/ENTRY_CONTRACT.md",
+        "server/features/meaning/",
+        "shared/logic/meaning/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-RECORD",
+        "P-COMPANION"
+      ],
+      "paths": [
+        "docs/spec/ENTRY_CONTRACT.md"
+      ]
+    },
+    {
+      "tasks": [
+        "P-RECORD",
+        "P-WORKSPACE"
+      ],
+      "paths": [
+        "contracts/ports.ts",
+        "docs/spec/ENTRY_CONTRACT.md"
+      ]
+    },
+    {
+      "tasks": [
+        "P-ROUTE",
+        "P-AI"
+      ],
+      "paths": [
+        "shared/logic/graph/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-REFLECT",
+        "P-EXPLORE"
+      ],
+      "paths": [
+        "server/features/corrections/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-EXPLORE",
+        "P-WORKSPACE"
+      ],
+      "paths": [
+        "DB_COLUMNS.csv",
+        "contracts/domain.ts",
+        "contracts/openapi.json",
+        "contracts/openapi.yaml",
+        "contracts/operations.json",
+        "contracts/operations.ts",
+        "contracts/schemas.json",
+        "db/dto-map.json",
+        "db/schema.sql",
+        "examples/http/",
+        "tools/build_contracts.py"
+      ]
+    },
+    {
+      "tasks": [
+        "P-AI",
+        "P-COMPANION"
+      ],
+      "paths": [
+        "docs/spec/ENTRY_CONTRACT.md",
+        "server/index.ts"
+      ]
+    },
+    {
+      "tasks": [
+        "P-AI",
+        "P-NATIVE"
+      ],
+      "paths": [
+        "server/index.ts",
+        "src/app/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-AI",
+        "P-WORKSPACE"
+      ],
+      "paths": [
+        "contracts/entries.ts",
+        "contracts/ports.ts",
+        "docs/spec/ENTRY_CONTRACT.md",
+        "server/index.ts",
+        "src/app/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-COMPANION",
+        "P-NATIVE"
+      ],
+      "paths": [
+        "server/index.ts"
+      ]
+    },
+    {
+      "tasks": [
+        "P-COMPANION",
+        "P-WORKSPACE"
+      ],
+      "paths": [
+        "docs/spec/ENTRY_CONTRACT.md",
+        "server/index.ts"
+      ]
+    },
+    {
+      "tasks": [
+        "P-HEALTH",
+        "P-WORKSPACE"
+      ],
+      "paths": [
+        "docs/spec/HEALTH_INTEGRATION.md",
+        "server/ai/health-guards/"
+      ]
+    },
+    {
+      "tasks": [
+        "P-NATIVE",
+        "P-WORKSPACE"
+      ],
+      "paths": [
+        "server/index.ts",
+        "src/app/"
+      ]
+    }
+  ],
+  "recurrence_rules": [
+    {
+      "id": "R01",
+      "targets": [
+        "P-AI",
+        "P-RUNTIME"
+      ],
+      "finding": "descriptorの存在と現在の実行可否が混同された。",
+      "rule": "health/bootstrapは実catalogの能力を使用する。AIのprobe-ready、実task実行、INT receiptを区別し、未登録AIでも本体を起動する。 HTTPの既知errorは契約statusへ写し、JSON bodyはparameterの型変換と分離して非破壊で検査する。対向catalogのmanifest・wire IDも照合する。",
+      "negative_acceptance": "fixture handler・古いbuild receipt・未設定AIをavailableへ上げない。 数値originalTextを文字列へ変換して受理せず、REVISION_CONFLICTを一律500へ変えない。"
+    },
+    {
+      "id": "R02",
+      "targets": [
+        "P-AI"
+      ],
+      "finding": "IDだけのpromptと二重dispatcherでは原文・許可・版を保証できなかった。",
+      "rule": "resolverで認可済み投影を解決し、共通adapterを一度実行する。task別builderは許可fieldとIDだけを使い、応答後のfreshness検査を通す。",
+      "negative_acceptance": "別actor・余分Evidence・失効grant・根拠のないrepair列をmodel入力やapplyへ通さない。"
+    },
+    {
+      "id": "R03",
+      "targets": [
+        "P-AI"
+      ],
+      "finding": "schemaやSDKの型互換を局所fixtureだけでは保証できない。",
+      "rule": "採用SDKで非対応のuniqueItems等を登録時に明示拒否し、制約を黙って削らない。$refと隣接keywordを併用し、文字列長はUnicode code pointで検査する。",
+      "negative_acceptance": "非対応schemaではSDK実行0回。$ref+maxLengthと補助平面文字を反例にし、型castや固定結果で不整合を隠さない。"
+    },
+    {
+      "id": "R04",
+      "targets": [
+        "P-AI",
+        "P-MAP",
+        "P-RUNTIME",
+        "P-WORKSPACE"
+      ],
+      "finding": "同じscopeへ戻ると旧request結果を再採用でき、renderに旧本人dataが残った。",
+      "rule": "C2の共通ケースを基盤で検証し、各UIは現在scope・request identity・abortを既存境界で照合する。 草稿保存を持つUIは、保存開始時のtext snapshotと成功時の最新draftが一致する場合だけclearし、待機中の追記は未送信のまま再入場後も選択・コピーできる。",
+      "negative_acceptance": "A→B→A、reset、unmount後の旧応答を表示・保存しない。 保存待ち中に追記して成功させても新しい原文を消さない。遅着テストは旧Promiseが実際にresolveして処理を完了したことまで確認する。"
+    },
+    {
+      "id": "R05",
+      "targets": [
+        "P-MAP",
+        "P-REFLECT"
+      ],
+      "finding": "Primitive軸変換・pose・位置選択と旧IssueのThree Group記述が食い違った。",
+      "rule": "geometryごとY-up基底を変換する。造形はPrimitiveで返し、hostはlive/replay位置と実注入poseを所有する。",
+      "negative_acceptance": "非等方box・cylinder・非zero回転で高さを照合し、unknown headingを測定値にしない。"
+    },
+    {
+      "id": "R06",
+      "targets": [
+        "P-AI",
+        "P-RECORD"
+      ],
+      "finding": "型注釈とApiPort fakeが操作IDのHTTP形式違反を見逃した。",
+      "rule": "原文保存と再送IDを実OpenAPI decoder・SQLiteで確認し、既送信草稿の再送identityを保つ。 注入なしの既定ID生成・cryptoなしfallback・復元草稿から作るrequestを製品のHTTP decoderへ通す。未送信の旧草稿移行と送信済み再試行を分ける。",
+      "negative_acceptance": "失敗後再送の重複、別actor削除、原文欠落を拒否する。 型がstringであることや有効なIDを注入したfixtureだけをHTTP適合の証拠にしない。送信済みopIdを再入場時に振り直さない。"
+    },
+    {
+      "id": "R07",
+      "targets": [
+        "P-RECORD",
+        "P-REFLECT"
+      ],
+      "finding": "作成時刻・理由訂正時刻を用途確認時刻と扱うと最新用途を誤る。",
+      "rule": "用途確認時刻を明示してMeaningへ渡す。訂正は原文・本人状態を保ち、同一transactionでAI staleと通知を確定する。",
+      "negative_acceptance": "理由だけの変更で古い用途を最新にせず、Meaning失敗なら正本更新もrollbackする。"
+    },
+    {
+      "id": "R08",
+      "targets": [
+        "P-RECORD",
+        "P-REFLECT"
+      ],
+      "finding": "候補区間が共有Portに出ず、実在Placeとの対応もなかった。",
+      "rule": "ObservationsPortの候補区間と精度・source identityを使い、一意の実在Placeだけへcandidate Visitを保存する。",
+      "negative_acceptance": "曖昧な最近傍やplaceholder Placeを作らず、候補だけでconfirmedや成長にしない。"
+    },
+    {
+      "id": "R09",
+      "targets": [
+        "P-REFLECT"
+      ],
+      "finding": "履歴のdate-timeと地域の日境界・本人review由来が曖昧だった。",
+      "rule": "UIは使用IANA zoneを表示してUTCへ変換し、APIは半開区間でVisit開始/Observation観測/Experience作成時刻を使う。本人reviewは再計算で保持する。",
+      "negative_acceptance": "UTC文字列の日付slice、Preference変更による原Evidence改変、自動confirmedを拒否する。"
+    },
+    {
+      "id": "R10",
+      "targets": [
+        "P-REFLECT"
+      ],
+      "finding": "現在希望と過去根拠・計算候補と本人確定を混同できた。",
+      "rule": "仮説は支持/反例/観測alternativeを局所文脈で扱い、rulesはproposed/needs_more_dataまでとする。",
+      "negative_acceptance": "現在希望やunknown weatherを過去の確定傾向へ混入しない。"
+    },
+    {
+      "id": "R11",
+      "targets": [
+        "P-ROUTE"
+      ],
+      "finding": "経路edge・network供給・比較元時間が別境界で不足した。",
+      "rule": "同じversioned networkからedgeIdsのgeometryと基準全行程を解決する。寄道差分は提案移動−基準移動＋滞在で計算し、欠落はunknownにする。",
+      "negative_acceptance": "基準10分/提案15分/滞在20分は25分。基準不在を直線や全行程で補わない。"
+    },
+    {
+      "id": "R12",
+      "targets": [
+        "P-ROUTE",
+        "P-TOGETHER"
+      ],
+      "finding": "保存時passや券の一覧だけでは採用時の有効性を保証できない。",
+      "rule": "採用時にPlace/Pass/Source版と期限を照合する。券管理一覧とprovider営業日での適用判定を分け、health指定時だけ本人許可を検査する。",
+      "negative_acceptance": "別actor VisitをQuest達成根拠にせず、期限外の券や未知courseを運賃適用済みにしない。"
+    },
+    {
+      "id": "R13",
+      "targets": [
+        "P-EXPLORE",
+        "P-ROUTE"
+      ],
+      "finding": "探索から歩く/記録へ渡すID、住所・入口・出典投影が不足した。",
+      "rule": "routes.planの安定entryとplaceIdを使い、解決済みSource・住所・入口を表示し記録後にrefreshする。",
+      "negative_acceptance": "raw Source IDを説明にせず、失効/別scope Sourceや候補IDをPlaceとして渡さない。"
+    },
+    {
+      "id": "R14",
+      "targets": [
+        "P-EXPLORE"
+      ],
+      "finding": "探索候補は本人との関係未確定であり成長の正本ではない。",
+      "rule": "候補の関心・非表示・次の探索は本人scopeのrulesで保存し、確認した体験だけをMeaningへ反映する。",
+      "negative_acceptance": "閲覧・近接・経路選択で訪問を確定せず、physical/peerへ本人候補を混入しない。"
+    },
+    {
+      "id": "R15",
+      "targets": [
+        "P-RUNTIME",
+        "P-SHARE"
+      ],
+      "finding": "過去投影やgrant IDだけでは現在の共有許可を保証できない。",
+      "rule": "現在grantと最新Evidenceから読み直して投影し、非許可fieldはnull/空配列にする。同じinput/grant版の拒否mappingは保存層で除外する。",
+      "negative_acceptance": "許可取消後の原文・写真流出、保存した拒否の再提示を拒否する。"
+    },
+    {
+      "id": "R16",
+      "targets": [
+        "P-RUNTIME",
+        "P-TRANSFER"
+      ],
+      "finding": "2軸rules得点や同じ候補数は実評価・同じ候補集合ではない。",
+      "rule": "本人ごとに所有する同一順序placeIdsを使い、忠実さ/本人適合/実行可能性を別々に記録する。",
+      "negative_acceptance": "rules scoreを成功確率や実利用者評価とせず、unknown道路・運賃をゼロにしない。"
+    },
+    {
+      "id": "R17",
+      "targets": [
+        "P-EXTENSIONS"
+      ],
+      "finding": "有限DSLだけでは可変行程配列や車種詳細を表せない。",
+      "rule": "hostのtyped bindingから既存RouteInputへ写す。出典・素材利用・立入り許可を分離し、入力差に応じて結果が変わる既存fixtureを使う。",
+      "negative_acceptance": "未知車種・期限外規制を走行可にせず、任意property/SQL/evalや未知opで拡張しない。"
+    },
+    {
+      "id": "R18",
+      "targets": [
+        "P-AI",
+        "P-DISCOVER",
+        "P-REPAIR"
+      ],
+      "finding": "修復提案の見本では承認後の取込・旧版維持を証明できない。",
+      "rule": "現在snapshotの列/単位previewを確認してから明示承認・実取込・再読込へ進む。",
+      "negative_acceptance": "承認前のfacts更新、単位推測、失敗時の旧版破壊を拒否する。"
+    },
+    {
+      "id": "R19",
+      "targets": [
+        "P-COMPANION",
+        "P-DIARY",
+        "P-RUNTIME"
+      ],
+      "finding": "Uint8ArrayをJSONへ渡すと画像が添字objectになった。",
+      "rule": "HTTP hostで同じ認可文脈の保存metadataとbytesからraw response/MIMEを返す。",
+      "negative_acceptance": "PNG byteとContent-TypeをHTTPで一致させ、他actorはbytes読取り前に拒否する。"
+    },
+    {
+      "id": "R20",
+      "targets": [
+        "P-RUNTIME",
+        "P-WORKSPACE"
+      ],
+      "finding": "namespace IDだけでは再bootstrapできず、追加tableがresetから漏れた。",
+      "rule": "実在actorと設定contextをseedし、C3の表宣言・除外理由・同scope resetを操作として確認する。",
+      "negative_acceptance": "原文/provenance表のreset漏れ、空actor、unknown health-derivedのexport混入を拒否する。"
+    },
+    {
+      "id": "R21",
+      "targets": [
+        "P-AI",
+        "P-WORKSPACE"
+      ],
+      "finding": "設定保存だけでは停止後の遅着AI applyを防げない。",
+      "rule": "apply直前に本人namespaceのsettings revision/ai_enabledを再読込する。停止は保存データ削除とは分ける。",
+      "negative_acceptance": "全停止保存後に届いたAI結果をapplyしない。"
+    },
+    {
+      "id": "R22",
+      "targets": [
+        "P-COMPANION"
+      ],
+      "finding": "browser事前検査・private bytes・server decoder・profile選択が分離していた。",
+      "rule": "browserへNode依存を持ち込まず、serverで所有metadata/保存hash/bytes hash/atlasを再検査する。取込後の相棒選択は本人の別操作を残す。",
+      "negative_acceptance": "取込失敗で現在profileを変えず、非表示設定でもAI相談入口を失わない。"
+    },
+    {
+      "id": "R23",
+      "targets": [
+        "P-COMPANION"
+      ],
+      "finding": "生成job IDだけでは動作previewできず、catalogにadapter/rendererがなかった。",
+      "rule": "同scopeのpackageとassetをrendererへ注入し、catalog組立てをこの操作内で完成する。採用とprofile選択を分け、却下状態を保持する。",
+      "negative_acceptance": "取消後のpoll/bytesを捨て、DB確定失敗時のbytesを回収する。未設定providerを成功にしない。"
+    },
+    {
+      "id": "R24",
+      "targets": [
+        "P-HEALTH",
+        "P-HEALTH-CORE"
+      ],
+      "finding": "raw XML fixtureの合格はZIP/進捗・実Apple export対応を含まなかった。",
+      "rule": "本番のZIP内export.xmlはstream展開adapterと圧縮/展開上限を同じ操作の実装範囲に含める。batch進捗をUIへ渡す。",
+      "negative_acceptance": "raw XML限定を本番ZIP受入の完了にせず、DTD方針を実Apple exportの構造で確認する。"
+    },
+    {
+      "id": "R25",
+      "targets": [
+        "P-HEALTH-CORE",
+        "P-NATIVE"
+      ],
+      "finding": "connectionIdだけでは本人/端末bindingを検査できず、native shellの実API接続が欠けた。",
+      "rule": "connectionIdをactor/namespace/paired deviceに一意に結び、INT-021でplugin target登録・API URL/TLS・本人認証・限定CORSまたはnative transportを接続する。",
+      "negative_acceptance": "別scope/deviceのanchor再利用を拒否し、DB commit前にackしない。Xcode/署名/実機なしを完了にしない。"
+    },
+    {
+      "id": "R26",
+      "targets": [
+        "P-MOBILE"
+      ],
+      "finding": "PlaceLevelの理想受入に対応する共有DTO/保存契約がなかった。",
+      "rule": "隔離PoCと製品接続を分け、製品化前に外殻・入口・垂直接続・用途volumeの共有契約と保存を決める。",
+      "negative_acceptance": "unknown高さを実測にせず、PoCだけでMAP/INT接続完了としない。"
+    },
+    {
+      "id": "R27",
+      "targets": [
+        "P-AI",
+        "P-EXTENSIONS",
+        "P-RUNTIME"
+      ],
+      "finding": "focused testが通っても標準runnerのloadや共有DBで失敗した。",
+      "rule": "標準runnerの収集とNode/Bunを明示分離し、テストworkerへ一時DBを注入する。file再open受入は残す。 提出するtestの命名・配置・環境指定が標準runnerの収集対象であることを確認し、独自configだけの成功を提出しない。",
+      "negative_acceptance": "型cast、suite除外、常時直列化、既定DB事前削除で失敗を隠さない。"
+    },
+    {
+      "id": "R28",
+      "targets": [
+        "P-START"
+      ],
+      "finding": "hook世代・OS・trust・親directory・receipt所在の差が開始や終了を繰り返し止めた。",
+      "rule": "TASK_EXECUTIONとtoolingの一経路を使い、worktree-local hooks、pretrust、UTF-8 bytes、保存receipt、単一processの結果確認、最新helperによるfinishを継承する。親directory作成をCodexが実施する。 担当・Task ID・Issue・worktree・head・必要pathを一度で引き継ぎ、開始時に既知pathを全取得する。失敗した開始の復旧は保存receiptと単一processの最終結果を照合する。",
+      "negative_acceptance": "失敗claim・CAS競合・他token・未merge・別cloneを成功にせず、時刻だけでlockやbranchを消さない。通常commit/push/finishの遠隔照合を残す。"
+    },
+    {
+      "id": "R29",
+      "targets": [
+        "P-START"
+      ],
+      "finding": "任意機能の未接続が要件や準備から抜け、UI画像が実接続と混同され得た。",
+      "rule": "受領UIと採用規則、素材/native/健康同意/実接続の前提を該当Issueへ置き、後続に口頭説明を残さない。",
+      "negative_acceptance": "画像や契約だけで実装/利用者承認済みにせず、外部入力待ちを暗黙の機能削除へ変えない。"
+    },
+    {
+      "id": "R30",
+      "targets": [
+        "P-RUNTIME"
+      ],
+      "finding": "静的HTML見本は実React部品の動作を検証していなかった。",
+      "rule": "fixtureは実部品をmountし、狭幅寸法と閉じる・再試行操作によるstate変化を確認する。 StrictModeのeffect cleanupは取消として処理し、利用者向け失敗表示にしない。通常mountと再mountの操作結果を確認する。",
+      "negative_acceptance": "静的スクリーンショットだけを実部品の受入証拠にしない。"
+    }
+  ],
+  "dependency_changes": [
+    {
+      "consumer": "P-COMPANION",
+      "provider": "P-RUNTIME",
+      "relation": "hard",
+      "reason": "private atlas取得にはJSON化しない実HTTP boundaryが必要。",
+      "recurrence_id": "R19",
+      "inventory_consumer": "INT-017",
+      "inventory_provider": "MEDIA-HTTP-001"
+    },
+    {
+      "consumer": "P-DIARY",
+      "provider": "P-RUNTIME",
+      "relation": "hard",
+      "reason": "写真の再表示は同じ所有文脈のbytes/MIME取得が必要。",
+      "recurrence_id": "R19",
+      "inventory_consumer": "INT-010",
+      "inventory_provider": "MEDIA-HTTP-001"
+    },
+    {
+      "consumer": "P-COMPANION",
+      "provider": "P-RUNTIME",
+      "relation": "hard",
+      "reason": "生成previewも実asset内容が必要。INT-017経由の推移依存で足りる。",
+      "recurrence_id": "R23",
+      "inventory_consumer": "INT-018",
+      "inventory_provider": "MEDIA-HTTP-001"
+    },
+    {
+      "consumer": "P-AI",
+      "provider": "P-AI",
+      "relation": "within_issue",
+      "reason": "descriptorだけでなく実行準備状態を確定してからlive操作を完了する。",
+      "recurrence_id": "R01",
+      "inventory_consumer": "INT-016",
+      "inventory_provider": "AI-010"
+    },
+    {
+      "consumer": "P-AI",
+      "provider": "P-RUNTIME",
+      "relation": "hard",
+      "reason": "settingsRevisionは既存bootstrapで取得する。PREF-001の追加待ちにしない。",
+      "recurrence_id": "R04",
+      "inventory_consumer": "INT-016",
+      "inventory_provider": "UI-002"
+    },
+    {
+      "consumer": "P-AI",
+      "provider": "P-AI",
+      "relation": "within_issue",
+      "reason": "job取消・apply制御は再利用し、質問側で二重実装しない。",
+      "recurrence_id": "R02",
+      "inventory_consumer": "INT-016",
+      "inventory_provider": "AI-002"
+    },
+    {
+      "consumer": "P-AI",
+      "provider": "P-AI",
+      "relation": "within_issue",
+      "reason": "質問保存Portのmodule fixtureで先に着手し、実接続は質問journeyで結ぶ。hard化すると循環する。",
+      "recurrence_id": "R02",
+      "inventory_consumer": "AI-002",
+      "inventory_provider": "INT-016"
+    },
+    {
+      "consumer": "P-ROUTE",
+      "provider": "P-RUNTIME",
+      "relation": "connect_after",
+      "reason": "sample networkの供給元を明示する。GraphPortの純計算だけではnetwork取得を代替できない。",
+      "recurrence_id": "R11",
+      "inventory_consumer": "RTE-003",
+      "inventory_provider": "FND-004"
+    },
+    {
+      "consumer": "P-WORKSPACE",
+      "provider": "P-RUNTIME",
+      "relation": "hard",
+      "reason": "clone後の実在actor・設定・seedがbootstrapまで揃う必要がある。",
+      "recurrence_id": "R20",
+      "inventory_consumer": "DEMO-001",
+      "inventory_provider": "FND-004"
+    },
+    {
+      "consumer": "P-WORKSPACE",
+      "provider": "P-WORKSPACE",
+      "relation": "within_issue",
+      "reason": "export専用provenance guardとcatalog登録を同じIssueで完成する。HLT-006/007全体の完了待ちは不要。",
+      "recurrence_id": "R20",
+      "inventory_consumer": "PREF-002",
+      "inventory_provider": "PREF-002"
+    },
+    {
+      "consumer": "P-RECORD",
+      "provider": "P-RECORD",
+      "relation": "within_issue",
+      "reason": "optional候補区間を正式Portで受け取り、実在Placeと対応する。fixture着手は待たない。",
+      "recurrence_id": "R08",
+      "inventory_consumer": "REC-007",
+      "inventory_provider": "REC-006"
+    },
+    {
+      "consumer": "P-NATIVE",
+      "provider": "P-NATIVE",
+      "relation": "within_issue",
+      "reason": "Swift pluginのApp target登録・API transportをnative shellへ組み立てる。",
+      "recurrence_id": "R25",
+      "inventory_consumer": "INT-021",
+      "inventory_provider": "NAT-001"
+    },
+    {
+      "consumer": "P-NATIVE",
+      "provider": "P-HEALTH-CORE",
+      "relation": "hard",
+      "reason": "本人sessionと端末bindingでanchorのscopeを保証する。",
+      "recurrence_id": "R25",
+      "inventory_consumer": "INT-021",
+      "inventory_provider": "HLT-009"
+    },
+    {
+      "consumer": "P-DEPLOY",
+      "provider": "P-WORKSPACE",
+      "relation": "hard",
+      "reason": "一般exportとimportを区別し、移行前の正本出力を入力として使う。",
+      "recurrence_id": "R20",
+      "inventory_consumer": "FUT02",
+      "inventory_provider": "PREF-002"
+    }
+  ],
+  "canonical_repository": "OpenAICompetition",
+  "canonical_path": "docs/production-plan/v2/TASK_GRAPH.json",
+  "unit_dependency_decisions": [
+    {
+      "consumer": "P-RUNTIME",
+      "provider": "P-START",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-MAP",
+      "provider": "P-RUNTIME",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RECORD",
+      "provider": "P-MAP",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-ROUTE",
+      "provider": "P-MAP",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-DISCOVER",
+      "provider": "P-MAP",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-SHARE",
+      "provider": "P-RECORD",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-TOGETHER",
+      "provider": "P-ROUTE",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-TOGETHER",
+      "provider": "P-SHARE",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-COMPANION",
+      "provider": "P-MAP",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-START",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-RUNTIME",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-MAP",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-RECORD",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-ROUTE",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-REFLECT",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-EXPLORE",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-DISCOVER",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-SHARE",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-TOGETHER",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-TRANSFER",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-AI",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-EXTENSIONS",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-REPAIR",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-DIARY",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-COMPANION",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-HEALTH",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-NATIVE",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-RELEASE",
+      "provider": "P-WORKSPACE",
+      "reason": "操作完了に必要な既存の実接続を明示する。RELEASEはfuture以外の全対象操作の完了を確認する。"
+    },
+    {
+      "consumer": "P-HEALTH-CORE",
+      "provider": "P-RUNTIME",
+      "reason": "健康の許可・保存・集計・本人bindingはXML・native・AIの完成待ちから切り離す。"
+    }
+  ],
+  "inventory_task_count": 145,
+  "exclusive_operation_ownership": true,
+  "implementation_model": "Astra",
+  "implementation_policy": "当日新規実装。過去のdoneを引き継がず、操作・保存・再表示の受入で完了を判定する。",
+  "source_revision": "sodateru-map-rehearsal@7338004"
+}

@@ -1,0 +1,134 @@
+[
+  {
+    "screenId": "S-START",
+    "file": "reference/start.png",
+    "originalFilename": "スタート画面_イメージ.png",
+    "sha256": "c1beab16cb131cbb0021044074e54ffc8144ab51a9189ec980ee4c925f86c40f",
+    "bytes": 1573532,
+    "width": 941,
+    "height": 1672,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  },
+  {
+    "screenId": "ASSET-START",
+    "file": "reference/start-background.png",
+    "originalFilename": "スタート画面_素材.png",
+    "sha256": "7203bed845ae03c9182217d5a8c0ffe8c3e7834040495b69f1ce338e0637d90b",
+    "bytes": 1608199,
+    "width": 941,
+    "height": 1672,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  },
+  {
+    "screenId": "S-MAP-3D",
+    "file": "reference/map-3d.png",
+    "originalFilename": "地図を育てる-散歩を記録_イメージ.png",
+    "sha256": "b7d3c15563a3fa4583466eba36b2b3f108a73666c88de22942aad84608b6132c",
+    "bytes": 1699994,
+    "width": 941,
+    "height": 1672,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  },
+  {
+    "screenId": "S-MAP-MINE",
+    "file": "reference/map-mine.png",
+    "originalFilename": "地図を育てる-散歩を記録-自分レンズ_イメージ.png",
+    "sha256": "eb6e51842cc31d09002d0041b1b67b0f1f5033f8de5ea9ef4adb009b2598a5b2",
+    "bytes": 1803301,
+    "width": 941,
+    "height": 1672,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  },
+  {
+    "screenId": "S-MAP-AI",
+    "file": "reference/map-ai.png",
+    "originalFilename": "地図を育てる-AIと街を探す_イメージ.png",
+    "sha256": "8bb41f896f69a1e87453ef9cbfd69e0b7dfbc6a9596195e9dc93904b94d87c20",
+    "bytes": 1657638,
+    "width": 941,
+    "height": 1672,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  },
+  {
+    "screenId": "S-MAP-2D",
+    "file": "reference/map-2d.png",
+    "originalFilename": "地図を育てる-散歩を記録-2D_イメージ.png",
+    "sha256": "24d229d9c7cf608d0b0472c4987643a44dde413ec42b22c31818fee87da5559d",
+    "bytes": 1414333,
+    "width": 941,
+    "height": 1672,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  },
+  {
+    "screenId": "S-SOCIAL",
+    "file": "reference/social.png",
+    "originalFilename": "みんなで育てる_イメージ.png",
+    "sha256": "eb65a80f6621aa2be8ccc5d10784b2e7dabd58aa5d2f405d9036f4aa8acd23be",
+    "bytes": 1486532,
+    "width": 853,
+    "height": 1844,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  },
+  {
+    "screenId": "S-EXTENSIONS",
+    "file": "reference/extensions.png",
+    "originalFilename": "アプリを育てる.png",
+    "sha256": "f880ca3295a24a3ca6e711f768b35632ad613f1c863b1883c7fa8d9e1d154ece",
+    "bytes": 1295439,
+    "width": 853,
+    "height": 1844,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  },
+  {
+    "screenId": "S-SELF-HISTORY",
+    "file": "reference/self-history.png",
+    "originalFilename": "自分を知る-振り返り-ホーム_イメージ.png",
+    "sha256": "efd9c20499b10cc9941972511e2194c6e7a614db2048557f6eed4e0aecbd30f3",
+    "bytes": 1441357,
+    "width": 851,
+    "height": 1848,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  },
+  {
+    "screenId": "S-SELF-REFLECT",
+    "file": "reference/self-reflect.png",
+    "originalFilename": "自分を知る-振り返り-今日を振り返る_イメージ.png",
+    "sha256": "052428191198d9d26ba17d9e065eee20e145a1ca88cd36f9449c3296b98af027",
+    "bytes": 1306541,
+    "width": 851,
+    "height": 1849,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  },
+  {
+    "screenId": "S-SELF-TRENDS",
+    "file": "reference/self-trends.png",
+    "originalFilename": "自分を知る-振り返り-傾向_イメージ.png",
+    "sha256": "1ac1d7b8f4591f82d9dd6f92010b44193627a27be3441ea71332f253e85fb0dc",
+    "bytes": 1455989,
+    "width": 851,
+    "height": 1848,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  },
+  {
+    "screenId": "S-SELF-STATS",
+    "file": "reference/self-stats.png",
+    "originalFilename": "自分を知る-振り返り-統計_イメージ.png",
+    "sha256": "ac107432ed3bb92c97bf88933b51527ef7d588da1dd0eebd238fbf3b7aa2bf19",
+    "bytes": 1412101,
+    "width": 851,
+    "height": 1848,
+    "receivedFrom": "user Downloads, 2026-09-09",
+    "status": "visual-reference-only"
+  }
+]

@@ -1,20 +1,9 @@
-<!-- BEGIN:nextjs-agent-rules -->
+# 実装ルール
 
-# This is NOT the Next.js you know
-
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
-
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
-
-## Project boundaries
-
-- Start with docs/README.md to select the current requirements and implementation context. Read docs/spec/implementation-status.md for the existing app only; historical reproduction roles do not define new task ownership.
-- Keep one working copy of each current document. Use Git history for superseded documents and delivery snapshots; do not add archive or backup copies to the working tree.
-- Feature modules must not import other feature modules, server code, or infrastructure.
-- Keep domain and contracts independent of UI, HTTP, database, and Codex implementations.
-- Assemble dependencies in src/server and src/app only. Coordinate contract/schema changes before parallel work.
-- Do not enable API billing, external accounts, generated-code execution, or data sharing as a substitute for unfinished integrations.
-- Run pnpm check and pnpm build; use pnpm test:e2e for UI/API integration changes.
-- Never present synthetic routes as walkable routes or unknown heights as observed building heights.
+- README.mdから担当Issueを選び、そのread_setと固有受入を読む。要件の正本はdocs/requirements.csv、作業単位はdocs/production-plan/v2/TASK_GRAPH.json。
+- UI・API・保存・再表示まで同じ担当が接続する。完了条件は担当Issueとdocs/production-plan/v2/common-acceptance.md。旧Task IDは内部の対応用であり、別の取得単位にしない。
+- 機能同士を直接importしない。domainとcontractsをUI・HTTP・DB・AI実装から独立させ、依存は組立て箇所で注入する。具体的な登録形式はdocs/spec/ENTRY_CONTRACT.mdに従う。
+- 共有DTO・Port・Schemaを変更する前に利用側と調整する。操作名と入出力の対応、原文、本人の訂正、権限、版を保持する。
+- 未設定・未接続・fakeを成功として返さない。架空経路を歩行可能経路、未知の高さを観測値として示さない。API課金や外部アカウント、データ共有、生成コード実行を未接続の代用として有効化しない。
+- 対象操作の保存・再表示と固有の反例を検証する。共有の反例は所有基盤で確認し、利用側は接続を確認する。変更・失敗・環境差がない検査を繰り返さない。
+- レビューにはTask・PR・worktree・head・差分・コマンド・終了結果・証拠・未接続を揃える。詳細はdocs/production-plan/v2/REVIEW_PREVENTION.md。

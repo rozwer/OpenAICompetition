@@ -1,30 +1,16 @@
-# 実装で読む文書
+# 文書の入口
 
-## 利用体験と要件
+| 必要な判断 | 読む資料 |
+|---|---|
+| 利用者が何を操作し、何が残るか | [画面と利用体験](spec/PRODUCT_AND_UX.md)、[181要件](requirements.csv) |
+| 画面の見た目と操作対応 | [UI見本](ui/README.md) |
+| 担当する作業と完成条件 | [28単位の計画](production-plan/v2/README.md) |
+| 当日の開始と共同作業 | [実装手順](spec/TASK_EXECUTION.md) |
+| DTO・API・保存形式 | [契約入口](spec/CONTRACTS_V2.md) |
+| 技術構成と依存方向 | [技術構成](spec/STACK_AND_ARCHITECTURE.md) |
+| 機能登録と接続 | [登録契約](spec/ENTRY_CONTRACT.md) |
+| 地図の成長・探索 | [地図仕様](spec/MAP_GROWTH_AND_DISCOVERY.md)、[探索候補](spec/MIST_EXPLORATION.md) |
+| 相棒・健康連携 | [相棒](spec/PET_COMPANION.md)、[健康](spec/HEALTH_INTEGRATION.md) |
+| デモで確認する操作 | [デモと確認](spec/DEMO_AND_MINIMUM_CHECKS.md) |
 
-[4タブの要件](requirements/README.md)で操作と保存結果を確認し、[ID付き要件・受入条件](requirements/reviewed-requirements.md)で対象を特定する。共通用語は[CONTEXT.md](../CONTEXT.md)を使う。
-
-## 次回の新規実装
-
-[ID付き要件・受入条件](requirements/reviewed-requirements.md)と[リハーサル方針](team/competition-rehearsal.md)を確認する。配布用のStage2 v2.1はGit履歴へ移し、実装の入口には使わない。
-
-**参照先の欠落**：文書に記載された `docs/production-plan/v2/` の28単位計画・共通受入・再発防止条件は、この作業ツリーに存在しない。28単位計画に基づく作業は資料を復元してから開始する。古い担当分担で代用しない。
-
-## 既存アプリの変更
-
-[起動手順](setup.md)、[実装状況](spec/implementation-status.md)と変更対象のコードを確認する。実装状況は既存アプリの経緯であり、次回の製品要件を上書きしない。
-
-詳細設計は[実装仕様](spec/implementation.md)、[データとAPI](spec/data-and-api.md)、[受入条件](spec/acceptance-criteria.md)を参照する。これらには新しい要件の未反映部分があるため、対象要件との対応を確認する。
-
-## 必要なときだけ読む資料
-
-- [デモシナリオ](demo/reviewed-scenarios.md)：レビュー後の実演案。
-- [大会ルール](competition/rules-2026-09-05.md)：確認日時点の条件と未確認事項。
-- `research/`：調査時点の根拠や検討案。採用決定・現在の実測値とは区別する。
-- [地図・人物の試作](../prototypes/mapbox-character/README.md)：試作の起動と表示確認。
-
-## 文書の管理
-
-現行文書は固定パスで更新し、旧版・レビュー原本・配布ZIP・プロジェクトのコピーはGit履歴で管理する。作業ツリーにアーカイブやバックアップを作らない。配布用コピーを実装仕様の別正本にしない。
-
-削除前の資料はコミット `5abdf93` に保存済み。必要な場合は `git show 5abdf93:<リポジトリ相対パス>` で確認できる。
+詳細のread_setは各Issueから指定する。全資料を毎回読み込まない。過去のレビュー原本・実装記録・ZIPはGit履歴だけに残す。
