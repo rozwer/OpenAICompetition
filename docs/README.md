@@ -6,9 +6,9 @@
 
 ## 次回の新規実装
 
-現在存在する開始資料は[Stage2 v2.1](../deliverables/sodateru-map-stage2-v2.1-20260909/START_HERE.md)。[リハーサル方針](team/competition-rehearsal.md)と併せて読む。
+[ID付き要件・受入条件](requirements/reviewed-requirements.md)と[リハーサル方針](team/competition-rehearsal.md)を確認する。配布用のStage2 v2.1はGit履歴へ移し、実装の入口には使わない。
 
-**参照先の欠落**：文書に記載された `docs/production-plan/v2/` の28単位計画・共通受入・再発防止条件は、この作業ツリーに存在しない。Stage2 v2.1にはそれらを反映済みとは扱わず、28単位計画に基づく作業は資料を復元してから開始する。古い担当分担で代用しない。
+**参照先の欠落**：文書に記載された `docs/production-plan/v2/` の28単位計画・共通受入・再発防止条件は、この作業ツリーに存在しない。28単位計画に基づく作業は資料を復元してから開始する。古い担当分担で代用しない。
 
 ## 既存アプリの変更
 

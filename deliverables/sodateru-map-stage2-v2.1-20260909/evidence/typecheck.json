@@ -1,7 +1,0 @@
-{
-  "typescript": "Version 5.9.3",
-  "node": "v22.22.1",
-  "success": true,
-  "evidence": "typescript-tests.json",
-  "scope": "Revised DTOs, operation-specific client, entry ABI and reference cases"
-}

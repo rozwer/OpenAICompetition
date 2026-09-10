@@ -4,7 +4,7 @@
 
 原本は Stage2 v2、配布ZIPは 受領ZIP。原本を変更せず保存した。本書はレビューであり、現行アプリへの仕様採用・実装・Issue登録は行っていない。
 
-2026-09-09追記：ユーザーの修正指示に基づき、R1〜R6を[改訂版v2.1](../../deliverables/sodateru-map-stage2-v2.1-20260909/REVISION_NOTES.md)へ反映した。以下は修正前v2に対する指摘として残す。修正後の型・参考処理・依存関係の結果は[改訂版の検証レポート](../../deliverables/sodateru-map-stage2-v2.1-20260909/VALIDATION_REPORT.md)を参照。アプリ本体は未適用。
+2026-09-09追記：ユーザーの修正指示に基づき、R1〜R6を改訂版v2.1へ反映した。以下は修正前v2に対する指摘として残す。修正後の型・参考処理・依存関係の結果はGit保存コミット `5abdf93` の `deliverables/sodateru-map-stage2-v2.1-20260909/VALIDATION_REPORT.md`を参照。アプリ本体は未適用。
 
 ## 受領と検査で確認できたこと
 
